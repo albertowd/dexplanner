@@ -1,12 +1,16 @@
 // Pure transformation from PokeAPI species + curated data/ files to the app's pokedex.json shape.
 // No I/O here so it can be unit tested; scripts/build-data.mjs does the reading and writing.
 
+const ENGLISH = 9;
+
 /** Maps PokeAPI GraphQL species rows to the internal shape. */
 export function normalizeSpecies(raw) {
   return raw.map((s) => ({
     id: s.id,
     slug: s.name,
-    name: s.pokemonspeciesnames[0]?.name ?? s.name,
+    // Rows without language_id come from older snapshots that only fetched English.
+    name: s.pokemonspeciesnames.find((n) => (n.language_id ?? ENGLISH) === ENGLISH)?.name ?? s.name,
+    names: Object.fromEntries(s.pokemonspeciesnames.filter((n) => n.language_id).map((n) => [n.language_id, n.name])),
     gen: s.generation_id,
     legendary: s.is_legendary,
     mythical: s.is_mythical,
@@ -166,6 +170,16 @@ function addGo(special, species, index, avail) {
   }
 }
 
+/** Curated translations (without translator comments) plus localized Pokémon names from PokeAPI. */
+function bundleTranslations(translations, species, pokemonNameLanguages) {
+  const out = Object.fromEntries(Object.entries(translations).map(([locale, { $comment: _comment, ...t }]) => [locale, t]));
+  for (const [locale, languageId] of Object.entries(pokemonNameLanguages)) {
+    const names = Object.fromEntries(species.filter((s) => s.names[languageId]).map((s) => [s.id, s.names[languageId]]));
+    if (Object.keys(names).length) out[locale] = { ...out[locale], pokemon: names };
+  }
+  return out;
+}
+
 const clean = (o) => Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined && v !== false));
 
 /**
@@ -183,6 +197,7 @@ export function buildPokedex({
   special,
   curated = { exclusives: {}, extra: {} },
   translations = {},
+  pokemonNameLanguages = {},
   now = new Date(),
 }) {
   const species = normalizeSpecies(raw);
@@ -214,9 +229,7 @@ export function buildPokedex({
       ...(curated.sources ?? []),
     ],
     games: games.map(({ source: _source, ...g }) => g),
-    translations: Object.fromEntries(
-      Object.entries(translations).map(([locale, { $comment: _comment, ...t }]) => [locale, t]),
-    ),
+    translations: bundleTranslations(translations, species, pokemonNameLanguages),
     pokemon: species.map((s) =>
       clean({
         id: s.id,
@@ -244,15 +257,19 @@ export function nowhereCurrent(pokedex) {
  * Per locale: games without a translated HOME text, notes without a translation, and translated notes
  * that no longer appear in the data (printed by the build so nothing goes out half translated).
  */
+/** A game needs its HOME text (and caveat) translated; version names are optional but, if given, complete. */
+function gameTranslated(game, t) {
+  if (!t?.how || (game.home.note && !t.note)) return false;
+  return !t.versions || (game.versions ?? []).every((v) => t.versions[v.id]);
+}
+
 export function translationReport(pokedex) {
   const notes = new Set(pokedex.pokemon.flatMap((p) => p.avail.flatMap((a) => (a.note ? a.note.split(' · ') : []))));
   return Object.fromEntries(
     Object.entries(pokedex.translations ?? {}).map(([locale, t]) => [
       locale,
       {
-        games: pokedex.games
-          .filter((g) => !t.games?.[g.id]?.how || (g.home.note && !t.games[g.id].note))
-          .map((g) => g.id),
+        games: pokedex.games.filter((g) => !gameTranslated(g, t.games?.[g.id])).map((g) => g.id),
         notes: [...notes].filter((n) => !t.notes?.[n]),
         unused: Object.keys(t.notes ?? {}).filter((n) => !notes.has(n)),
       },

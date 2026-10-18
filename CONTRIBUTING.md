@@ -158,17 +158,19 @@ Re-record them after visible UI changes, and keep each file under about 3 MB.
 
 ## Translations
 
-PokePlan is available in English and Brazilian Portuguese.
+PokePlan is available in English, Brazilian Portuguese (pt-BR), Spanish (es), Italian (it) and Japanese (ja).
 
-- **Interface text:** `web/src/i18n/en.ts` (the reference) and `web/src/i18n/pt-BR.ts`. TypeScript checks that every language has every key; text that depends on a number is a small function.
-- **Data text:** `data/i18n/pt-BR.json`. It holds translated game names, HOME instructions and caveats per game id, and source notes keyed by their English text. `npm run data` bundles it into `pokedex.json` and lists any game or note still untranslated, plus translations that no longer match anything.
-- **Language choice:** detected from the browser (any Portuguese → pt-BR) and changeable with the flag menu in the header (`web/src/header/LanguageMenu.tsx`; flags are inline SVG because Windows doesn't render flag emoji). It's stored per device under `pokeplan:locale` and isn't synced.
+- **Interface text:** `web/src/i18n/en.ts` (the reference) and one file per language (`pt-BR.ts`, `es.ts`, `it.ts`, `ja.ts`). TypeScript checks that every language has every key; text that depends on a number is a small function.
+- **Data text:** `data/i18n/<locale>.json`. Per game id it holds the name, short name, HOME instructions, caveat and (optionally) version names, using official localized titles. Source notes are keyed by their English text. `npm run data` bundles these files into `pokedex.json` and lists any game or note still untranslated, partial version lists, and translations that no longer match anything.
+- **Pokémon names:** for languages whose names differ from English (Japanese), the data build fetches them from PokeAPI (`POKEMON_NAME_LANGUAGES` in `scripts/build-data.mjs`). Search and "Paste a list" accept both the localized and the English name.
+- **Language choice:** the first supported language in the browser's preference order (any Portuguese → pt-BR) and changeable with the flag menu in the header (`web/src/header/LanguageMenu.tsx`; flags are inline SVG because Windows doesn't render flag emoji). It's stored per device under `pokeplan:locale` and isn't synced.
 
-When you add or change English text, update `pt-BR.ts` or `data/i18n/pt-BR.json` in the same pull request; `npm run data` should report `Translations pt-BR: complete.`
+When you add or change English text, update every language in the same pull request; `npm run data` should report every language as complete.
 
 **Adding a language:**
-1. Add `web/src/i18n/<locale>.ts` typed as `Messages`, and register it in `locales` in `web/src/i18n/index.tsx` (also extend `detectLocale`).
-2. Add `data/i18n/<locale>.json` and run `npm run data`.
+1. Add `web/src/i18n/<locale>.ts` typed as `Messages`, register it in `locales` and `byLanguage` in `web/src/i18n/index.tsx`, and add a flag in `web/src/i18n/flags.tsx`.
+2. Add `data/i18n/<locale>.json` (official game and version titles; keep the English title when unsure) and run `npm run data`.
+3. If Pokémon names differ from English in that language, add its PokeAPI language id to `POKEMON_NAME_LANGUAGES` and run `npm run data:refresh`.
 
 ## Cloud sync (Firebase)
 

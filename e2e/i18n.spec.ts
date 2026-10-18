@@ -34,3 +34,40 @@ test.describe('Brazilian Portuguese', () => {
     });
   }
 });
+
+const others = [
+  { locale: 'es-ES', settings: 'Ajustes', game: 'Escarlata' },
+  { locale: 'it-IT', settings: 'Impostazioni', game: 'Scarlatto' },
+  { locale: 'ja-JP', settings: '設定', game: 'スカーレット' },
+];
+
+for (const { locale, settings, game } of others) {
+  test.describe(`${locale}`, () => {
+    test.use({ locale });
+
+    test('detects the language and translates the data', async ({ page }) => {
+      await openDex(page, '/#/p/1007');
+      await expect(page.getByRole('navigation').getByRole('link', { name: settings })).toBeVisible();
+      await expect(page.getByRole('dialog').getByText(game).first()).toBeVisible();
+    });
+
+    for (const path of ['/', '/#/plan', '/#/settings', '/#/p/248']) {
+      test(`has no horizontal scrolling on ${path}`, async ({ page }) => {
+        await openDex(page, path);
+        const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+        expect(overflow).toBeLessThanOrEqual(0);
+      });
+    }
+  });
+}
+
+test.describe('Japanese Pokémon names', () => {
+  test.use({ locale: 'ja-JP' });
+
+  test('shows Japanese names and still finds Pokémon by their English name', async ({ page }) => {
+    await openDex(page);
+    await expect(page.locator('.card .name').first()).toHaveText('フシギダネ');
+    await page.getByRole('searchbox').fill('pikachu');
+    await expect(page.locator('.card .name')).toHaveText(['ピカチュウ']);
+  });
+});

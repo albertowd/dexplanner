@@ -1,0 +1,196 @@
+{
+  "$comment": "Italian for the game catalogue (data/games.json) and source notes (data/special.json, data/curated-availability.json). Notes are keyed by their English text; `npm run data` lists anything missing. Game, version and place names follow the official Italian releases.",
+  "games": {
+    "sv": {
+      "name": "Pokémon Scarlatto / Violetto",
+      "how": "Apri Pokémon HOME su Switch, scegli Scarlatto/Violetto e sposta il Pokémon in un box di HOME. Viene registrato quando lo depositi e poi può tornare nel gioco.",
+      "versions": { "scarlet": "Scarlatto", "violet": "Violetto" }
+    },
+    "sv-tm": {
+      "name": "La maschera turchese (DLC di SV, parte 1)",
+      "short": "SV: Maschera turchese",
+      "how": "Come per Scarlatto/Violetto: depositalo in HOME dal gioco; poi può tornare indietro.",
+      "versions": { "scarlet": "Scarlatto", "violet": "Violetto" }
+    },
+    "sv-id": {
+      "name": "Il disco indaco (DLC di SV, parte 2)",
+      "short": "SV: Disco indaco",
+      "how": "Come per Scarlatto/Violetto: depositalo in HOME dal gioco; poi può tornare indietro.",
+      "versions": { "scarlet": "Scarlatto", "violet": "Violetto" }
+    },
+    "za": {
+      "name": "Leggende Pokémon: Z-A",
+      "how": "Depositalo in HOME da Leggende Pokémon: Z-A (HOME 4.0.0 o successivo). Poi può tornare in Z-A.",
+      "note": "Z-A è un gruppo di compatibilità a sé: un Pokémon catturato in Z-A, o che sia mai stato spostato in Z-A, non potrà mai andare in Scarlatto/Violetto o in giochi precedenti. Conta comunque per il tuo Pokédex di HOME."
+    },
+    "za-md": {
+      "name": "Megadimensione (DLC di Z-A)",
+      "short": "Z-A: Megadimensione",
+      "how": "Come per Leggende Pokémon: Z-A: depositalo in HOME dal gioco.",
+      "note": "Vale il blocco di compatibilità di Z-A: non potrà mai andare in Scarlatto/Violetto o in giochi precedenti."
+    },
+    "pla": {
+      "name": "Leggende Pokémon: Arceus",
+      "short": "Leggende: Arceus",
+      "how": "Depositalo in HOME da Leggende Pokémon: Arceus. Poi può tornare indietro e arriva in una Strange Ball in DLPS, SV e Z-A."
+    },
+    "bdsp": {
+      "name": "Pokémon Diamante Lucente / Perla Splendente",
+      "short": "DLPS",
+      "how": "Depositalo in HOME da Diamante Lucente/Perla Splendente. Poi può tornare indietro.",
+      "versions": { "brilliant-diamond": "Diamante Lucente", "shining-pearl": "Perla Splendente" }
+    },
+    "swsh": {
+      "name": "Pokémon Spada / Scudo",
+      "how": "Depositalo in HOME da Spada/Scudo. Poi può tornare indietro.",
+      "versions": { "sword": "Spada", "shield": "Scudo" }
+    },
+    "swsh-ioa": {
+      "name": "L'isola solitaria dell'armatura (DLC di SwSh, parte 1)",
+      "short": "SwSh: Isola dell'armatura",
+      "how": "Come per Spada/Scudo: depositalo in HOME dal gioco.",
+      "versions": { "sword": "Spada", "shield": "Scudo" }
+    },
+    "swsh-ct": {
+      "name": "Le terre innevate della corona (DLC di SwSh, parte 2)",
+      "short": "SwSh: Terre innevate",
+      "how": "Come per Spada/Scudo: depositalo in HOME dal gioco.",
+      "versions": { "sword": "Spada", "shield": "Scudo" }
+    },
+    "lgpe": {
+      "name": "Pokémon: Let's Go, Pikachu! / Let's Go, Eevee!",
+      "how": "Spostalo in HOME da Let's Go. Viene registrato quando lo depositi.",
+      "note": "Potrà tornare solo in Let's Go, e solo se non è mai stato spostato in un altro gioco. Consideralo di sola andata.",
+      "versions": { "lets-go-pikachu": "Let's Go, Pikachu!", "lets-go-eevee": "Let's Go, Eevee!" }
+    },
+    "frlg-switch": {
+      "name": "Pokémon Rosso Fuoco / Verde Foglia (Switch)",
+      "short": "RFVF (Switch)",
+      "how": "Invialo a HOME da Rosso Fuoco/Verde Foglia (HOME 4.1.0 o successivo, un box intero alla volta). Non si può rimandare nulla in Rosso Fuoco/Verde Foglia.",
+      "note": "Ogni trasferimento sincronizza anche il tuo Pokédex di Rosso Fuoco/Verde Foglia con HOME, quindi le specie registrate lì contano per il Pokédex di Kanto di Rosso Fuoco/Verde Foglia in HOME (premio: Celebi) senza doverle spostare una per una. Non è confermato che questo riempia anche il Pokédex Nazionale di HOME; depositane uno per sicurezza.",
+      "versions": { "firered": "Rosso Fuoco", "leafgreen": "Verde Foglia" }
+    },
+    "go": {
+      "how": "In GO, apri Impostazioni → Pokémon HOME e invialo con il Trasferitore GO. Viene registrato quando arriva in HOME.",
+      "note": "Solo andata. I Pokémon leggendari e misteriosi provenienti da GO possono uscire da HOME solo verso un gioco nel cui Pokédex sono già registrati. La disponibilità in GO cambia con gli eventi."
+    },
+    "home": {
+      "name": "Premi di Pokémon HOME",
+      "short": "Regalo di HOME",
+      "how": "Si riscatta in HOME per dispositivi mobili → Dono Segreto. Arriva direttamente nei tuoi box di HOME e viene registrato."
+    },
+    "usum": {
+      "name": "Pokémon Ultrasole / Ultraluna",
+      "how": "Depositalo nella Banca Pokémon, poi spostalo dalla Banca → HOME (serve il servizio premium di HOME). Solo andata.",
+      "note": "La Banca non si può più scaricare e chiuderà il 25/02/2027.",
+      "versions": { "ultra-sun": "Ultrasole", "ultra-moon": "Ultraluna" }
+    },
+    "sm": {
+      "name": "Pokémon Sole / Luna",
+      "how": "Depositalo nella Banca Pokémon, poi spostalo dalla Banca → HOME (serve il servizio premium di HOME). Solo andata.",
+      "note": "La Banca non si può più scaricare e chiuderà il 25/02/2027.",
+      "versions": { "sun": "Sole", "moon": "Luna" }
+    },
+    "oras": {
+      "name": "Pokémon Rubino Omega / Zaffiro Alpha",
+      "short": "ROZA",
+      "how": "Depositalo nella Banca Pokémon, poi spostalo dalla Banca → HOME (serve il servizio premium di HOME). Solo andata.",
+      "note": "La Banca non si può più scaricare e chiuderà il 25/02/2027.",
+      "versions": { "omega-ruby": "Rubino Omega", "alpha-sapphire": "Zaffiro Alpha" }
+    },
+    "xy": {
+      "name": "Pokémon X / Y",
+      "how": "Depositalo nella Banca Pokémon, poi spostalo dalla Banca → HOME (serve il servizio premium di HOME). Solo andata.",
+      "note": "La Banca non si può più scaricare e chiuderà il 25/02/2027.",
+      "versions": { "x": "X", "y": "Y" }
+    },
+    "b2w2": {
+      "name": "Pokémon Nero 2 / Bianco 2",
+      "short": "N2B2",
+      "how": "Pokétrasferitore (3DS) → Banca Pokémon → HOME. Solo andata.",
+      "note": "Serve un 3DS con il Pokétrasferitore e la Banca già scaricati; la Banca chiuderà il 25/02/2027.",
+      "versions": { "black-2": "Nero 2", "white-2": "Bianco 2" }
+    },
+    "bw": {
+      "name": "Pokémon Nero / Bianco",
+      "short": "NB",
+      "how": "Pokétrasferitore (3DS) → Banca Pokémon → HOME. Solo andata.",
+      "note": "Serve un 3DS con il Pokétrasferitore e la Banca già scaricati; la Banca chiuderà il 25/02/2027.",
+      "versions": { "black": "Nero", "white": "Bianco" }
+    },
+    "hgss": {
+      "name": "Pokémon Oro HeartGold / Argento SoulSilver",
+      "how": "Pokétrasporto verso un gioco di 5ª generazione, poi Pokétrasferitore → Banca → HOME. Solo andata.",
+      "note": "Servono due console DS (o un DS e un 3DS), oltre al Pokétrasferitore e alla Banca; la Banca chiuderà il 25/02/2027.",
+      "versions": { "heartgold": "Oro HeartGold", "soulsilver": "Argento SoulSilver" }
+    },
+    "dppt": {
+      "name": "Pokémon Diamante / Perla / Platino",
+      "how": "Pokétrasporto verso un gioco di 5ª generazione, poi Pokétrasferitore → Banca → HOME. Solo andata.",
+      "note": "La Banca chiuderà il 25/02/2027.",
+      "versions": { "diamond": "Diamante", "pearl": "Perla", "platinum": "Platino" }
+    },
+    "gen3": {
+      "name": "Pokémon Rubino / Zaffiro / Smeraldo / Rosso Fuoco / Verde Foglia (GBA)",
+      "short": "3ª gen. (GBA)",
+      "how": "Parco Amici (DS) → Pokétrasporto (5ª gen.) → Pokétrasferitore → Banca → HOME. Solo andata.",
+      "note": "Serve un DS con lo slot per le schede GBA. La Banca chiuderà il 25/02/2027.",
+      "versions": { "ruby": "Rubino", "sapphire": "Zaffiro", "emerald": "Smeraldo", "firered": "Rosso Fuoco", "leafgreen": "Verde Foglia" }
+    },
+    "vc-gen2": {
+      "name": "Pokémon Oro / Argento / Cristallo (Virtual Console 3DS)",
+      "short": "OAC (VC)",
+      "how": "Pokétrasferitore → Banca Pokémon → HOME. Solo andata.",
+      "note": "Solo le versioni per Virtual Console del 3DS. La Banca chiuderà il 25/02/2027.",
+      "versions": { "gold": "Oro", "silver": "Argento", "crystal": "Cristallo" }
+    },
+    "vc-gen1": {
+      "name": "Pokémon Rosso / Blu / Giallo (Virtual Console 3DS)",
+      "short": "RBG (VC)",
+      "how": "Pokétrasferitore → Banca Pokémon → HOME. Solo andata.",
+      "note": "Solo le versioni per Virtual Console del 3DS. La Banca chiuderà il 25/02/2027.",
+      "versions": { "red": "Rosso", "blue": "Blu", "yellow": "Giallo" }
+    }
+  },
+  "notes": {
+    "Grand Underground (post-game, after National Dex)": "Grandi Sotterranei (post-partita, dopo il Pokédex Nazionale)",
+    "Evolve or breed from Grand Underground species (post-game, after National Dex)": "Evolvi o alleva le specie dei Grandi Sotterranei (post-partita, dopo il Pokédex Nazionale)",
+    "Grand Underground (post-game, after National Dex), Brilliant Diamond only": "Grandi Sotterranei (post-partita, dopo il Pokédex Nazionale), solo Diamante Lucente",
+    "Evolve or breed from Grand Underground species (post-game), Brilliant Diamond only": "Evolvi o alleva le specie dei Grandi Sotterranei (post-partita), solo Diamante Lucente",
+    "Grand Underground (post-game, after National Dex), Shining Pearl only": "Grandi Sotterranei (post-partita, dopo il Pokédex Nazionale), solo Perla Splendente",
+    "Evolve or breed from Grand Underground species (post-game), Shining Pearl only": "Evolvi o alleva le specie dei Grandi Sotterranei (post-partita), solo Perla Splendente",
+    "Indigo Disk post-game: Snacksworth legendary treats from Blueberry Quests (Rayquaza, Kyurem and Necrozma only through group quests)": "Post-partita di Il disco indaco: spuntini leggendari di Mr. Merenda tramite le Ricreattività Mirtillo (Rayquaza, Kyurem e Necrozma solo con le Ricreattività di cerchia)",
+    "Ramanas Park (post-game)": "Parco Rosa Rugosa (post-partita)",
+    "Ramanas Park (post-game), Brilliant Diamond only": "Parco Rosa Rugosa (post-partita), solo Diamante Lucente",
+    "Ramanas Park (post-game), Shining Pearl only": "Parco Rosa Rugosa (post-partita), solo Perla Splendente",
+    "7-star Tera Raid event only (Mightiest Mark Mewtwo, limited-time and rerun); not in any SV regional dex": "Solo con l'evento raid Teracristal da 7★ (Mewtwo con l'Emblema della Forza Assoluta, a tempo limitato e riproposto); non è in nessun Pokédex regionale di SV",
+    "Mystery Gift unlocked by connecting a Poké Ball Plus (accessory required); not in any SV regional dex": "Dono Segreto sbloccato collegando una Poké Ball Plus (serve l'accessorio); non è in nessun Pokédex regionale di SV",
+    "Special Research \"A Mythical Discovery\" (permanent).": "Ricerca speciale \"A Mythical Discovery\" (permanente).",
+    "Indigo Disk post-game: Snacksworth solo quests in Scarlet (Violet players need group quests)": "Post-partita di Il disco indaco: Ricreattività in solitaria di Mr. Merenda in Scarlatto (chi gioca a Violetto deve usare le Ricreattività di cerchia)",
+    "Indigo Disk post-game: Snacksworth solo quests in Violet (Scarlet players need group quests)": "Post-partita di Il disco indaco: Ricreattività in solitaria di Mr. Merenda in Violetto (chi gioca a Scarlatto deve usare le Ricreattività di cerchia)",
+    "Special Research \"A Ripple in Time\" (follows Mew's research).": "Ricerca speciale \"A Ripple in Time\" (segue la ricerca di Mew).",
+    "Celebi for completing HOME's FireRed/LeafGreen Kanto dex (Mew is not required).": "Celebi completando il Pokédex di Kanto di Rosso Fuoco/Verde Foglia in HOME (Mew non è richiesto).",
+    "Special Research \"A Thousand-Year Slumber\"; availability has varied.": "Ricerca speciale \"A Thousand-Year Slumber\"; la disponibilità è cambiata nel tempo.",
+    "Five-star raids when in rotation.": "Raid a cinque stelle, quando è in rotazione.",
+    "Breed a Manaphy (e.g. the HOME reward) with Ditto.": "Alleva un Manaphy (per esempio il premio di HOME) con Ditto.",
+    "Shiny Manaphy for completing HOME's Sinnoh (BDSP) dex.": "Manaphy cromatico completando il Pokédex di Sinnoh (DLPS) in HOME.",
+    "Needs Brilliant Diamond / Shining Pearl save data on the same Switch.": "Serve un salvataggio di Diamante Lucente / Perla Splendente sulla stessa Switch.",
+    "Five-star raids, usually around Halloween.": "Raid a cinque stelle, di solito intorno ad Halloween.",
+    "Needs Sword / Shield save data on the same Switch.": "Serve un salvataggio di Spada / Scudo sulla stessa Switch.",
+    "Past Special Research only.": "Solo con Ricerche speciali passate.",
+    "Shiny Keldeo for completing HOME's Galar, Isle of Armor and Crown Tundra dexes.": "Keldeo cromatico completando i Pokédex di Galar, dell'Isola dell'armatura e delle Terre innevate in HOME.",
+    "Shiny Meloetta for completing HOME's Paldea, Kitakami and Blueberry dexes.": "Meloetta cromatico completando il Pokédex di Paldea, il Pokédex di Nordivia e il Pokédex Mirtillo in HOME.",
+    "Raids when in rotation.": "Raid, quando è in rotazione.",
+    "Shiny Volcanion for completing HOME's Lumiose, Hyperspace and Mega Evolution dexes.": "Volcanion cromatico completando il Pokédex di Luminopoli, il Pokédex dimensionale e il Megadex in HOME.",
+    "Original Color Magearna for completing the National Pokédex (Bulbasaur → Eternatus) in HOME.": "Magearna Colore Antico completando il Pokédex Nazionale (Bulbasaur → Eternatus) in HOME.",
+    "Past ticketed research (GO Fest 2026).": "Ricerca a pagamento già conclusa (GO Fest 2026).",
+    "Mystery Box (ongoing). Your first GO → HOME transfer also gives a Melmetal.": "Scatola misteriosa (sempre disponibile). Il tuo primo trasferimento GO → HOME ti dà anche un Melmetal.",
+    "Shiny Meltan for completing HOME's Let's Go Kanto dex.": "Meltan cromatico completando il Pokédex di Kanto di Let's Go in HOME.",
+    "Evolve Meltan with 400 candy. Your first GO → HOME transfer also gives a Melmetal.": "Fai evolvere Meltan con 400 caramelle. Il tuo primo trasferimento GO → HOME ti dà anche un Melmetal.",
+    "Given the first time you move a Pokémon from GO to HOME.": "Ricevuto la prima volta che sposti un Pokémon da GO a HOME.",
+    "Past Special Research; sometimes rerun.": "Ricerca speciale già conclusa; a volte viene riproposta.",
+    "Shiny Enamorus for completing HOME's Hisui dex.": "Enamorus cromatico completando il Pokédex di Hisui in HOME.",
+    "Listed in the Blueberry dex, but so far only obtainable from limited-time Tera Raid events.": "È nel Pokédex Mirtillo, ma finora si è potuto ottenere solo con eventi raid Teracristal a tempo limitato.",
+    "\"Mochi Mayhem\" epilogue; needs both SV DLC parts.": "Epilogo \"Panico a Verdegiada\"; servono entrambe le parti del DLC di SV."
+  }
+}

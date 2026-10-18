@@ -1,0 +1,257 @@
+{
+  "$comment": "Neutral Spanish (Spain and Latin America) for the game catalogue (data/games.json) and source notes (data/special.json, data/curated-availability.json). Notes are keyed by their English text; `npm run data` lists anything missing. Game, version and DLC titles use the official Spanish names.",
+  "games": {
+    "sv": {
+      "name": "Pokémon Escarlata / Púrpura",
+      "how": "Abre Pokémon HOME en Switch, elige Escarlata/Púrpura y mueve el Pokémon a una caja de HOME. Se registra al depositarlo y puede volver al juego más tarde.",
+      "versions": {
+        "scarlet": "Escarlata",
+        "violet": "Púrpura"
+      }
+    },
+    "sv-tm": {
+      "name": "La máscara turquesa (DLC de Escarlata/Púrpura, parte 1)",
+      "short": "SV: La máscara turquesa",
+      "how": "Igual que en Escarlata/Púrpura: deposítalo en HOME desde el juego; puede volver más tarde.",
+      "versions": {
+        "scarlet": "Escarlata",
+        "violet": "Púrpura"
+      }
+    },
+    "sv-id": {
+      "name": "El disco índigo (DLC de Escarlata/Púrpura, parte 2)",
+      "short": "SV: El disco índigo",
+      "how": "Igual que en Escarlata/Púrpura: deposítalo en HOME desde el juego; puede volver más tarde.",
+      "versions": {
+        "scarlet": "Escarlata",
+        "violet": "Púrpura"
+      }
+    },
+    "za": {
+      "name": "Leyendas Pokémon: Z-A",
+      "how": "Deposítalo en HOME desde Leyendas Pokémon: Z-A (HOME 4.0.0 o posterior). Puede volver a Z-A más tarde.",
+      "note": "Z-A es un grupo de compatibilidad aparte: un Pokémon capturado en Z-A, o que haya pasado alguna vez por Z-A, nunca podrá ir a Escarlata/Púrpura ni a juegos anteriores. Aun así, cuenta para tu Pokédex de HOME."
+    },
+    "za-md": {
+      "name": "Megadimensión (DLC de Leyendas Pokémon: Z-A)",
+      "short": "Z-A: Megadimensión",
+      "how": "Igual que en Leyendas Pokémon: Z-A: deposítalo en HOME desde el juego.",
+      "note": "Se aplica el bloqueo de compatibilidad de Z-A: nunca podrá ir a Escarlata/Púrpura ni a juegos anteriores."
+    },
+    "pla": {
+      "name": "Leyendas Pokémon: Arceus",
+      "short": "Leyendas: Arceus",
+      "how": "Deposítalo en HOME desde Leyendas Pokémon: Arceus. Puede volver más tarde y llega en una Extraña Ball a DBPR, Escarlata/Púrpura y Z-A."
+    },
+    "bdsp": {
+      "name": "Pokémon Diamante Brillante / Perla Reluciente",
+      "short": "DBPR",
+      "how": "Deposítalo en HOME desde Diamante Brillante/Perla Reluciente. Puede volver más tarde.",
+      "versions": {
+        "brilliant-diamond": "Diamante Brillante",
+        "shining-pearl": "Perla Reluciente"
+      }
+    },
+    "swsh": {
+      "name": "Pokémon Espada / Escudo",
+      "how": "Deposítalo en HOME desde Espada/Escudo. Puede volver más tarde.",
+      "versions": {
+        "sword": "Espada",
+        "shield": "Escudo"
+      }
+    },
+    "swsh-ioa": {
+      "name": "La isla de la armadura (DLC de Espada/Escudo, parte 1)",
+      "short": "SwSh: La isla de la armadura",
+      "how": "Igual que en Espada/Escudo: deposítalo en HOME desde el juego.",
+      "versions": {
+        "sword": "Espada",
+        "shield": "Escudo"
+      }
+    },
+    "swsh-ct": {
+      "name": "Las nieves de la corona (DLC de Espada/Escudo, parte 2)",
+      "short": "SwSh: Las nieves de la corona",
+      "how": "Igual que en Espada/Escudo: deposítalo en HOME desde el juego.",
+      "versions": {
+        "sword": "Espada",
+        "shield": "Escudo"
+      }
+    },
+    "lgpe": {
+      "name": "Pokémon: Let's Go, Pikachu! / Let's Go, Eevee!",
+      "how": "Muévelo a HOME desde Let's Go. Se registra al depositarlo.",
+      "note": "Solo puede volver a Let's Go, y únicamente si nunca ha pasado a otro juego. Considéralo de solo ida.",
+      "versions": {
+        "lets-go-pikachu": "Let's Go, Pikachu!",
+        "lets-go-eevee": "Let's Go, Eevee!"
+      }
+    },
+    "frlg-switch": {
+      "name": "Pokémon Rojo Fuego / Verde Hoja (Switch)",
+      "how": "Envíalo a HOME desde Rojo Fuego/Verde Hoja (HOME 4.1.0 o posterior, una caja entera cada vez). No se puede enviar nada de vuelta a Rojo Fuego/Verde Hoja.",
+      "note": "Cada transferencia también sincroniza tu Pokédex de Rojo Fuego/Verde Hoja con HOME, así que las especies registradas en el juego cuentan para la Pokédex de Kanto de Rojo Fuego/Verde Hoja en HOME (recompensa: Celebi) sin tener que moverlas una a una. No está confirmado que esto también complete la Pokédex Nacional de HOME; deposita uno para asegurarte.",
+      "versions": {
+        "firered": "Rojo Fuego",
+        "leafgreen": "Verde Hoja"
+      }
+    },
+    "go": {
+      "name": "Pokémon GO",
+      "how": "En GO, abre Ajustes → Pokémon HOME y envíalo con el GO Transporter. Se registra cuando llega a HOME.",
+      "note": "Solo de ida. Los Pokémon legendarios y singulares procedentes de GO solo pueden pasar de HOME a un juego en cuya Pokédex ya estén registrados. La disponibilidad en GO cambia con los eventos."
+    },
+    "home": {
+      "name": "Recompensas de Pokémon HOME",
+      "short": "Regalo de HOME",
+      "how": "Se recibe en HOME para dispositivos móviles → Regalo Misterioso. Llega directamente a tus cajas de HOME y queda registrado."
+    },
+    "usum": {
+      "name": "Pokémon Ultrasol / Ultraluna",
+      "how": "Deposítalo en Pokémon Bank y luego muévelo de Bank → HOME (requiere el plan prémium de HOME). Solo de ida.",
+      "note": "Pokémon Bank ya no se puede descargar y dejará de funcionar el 25/02/2027.",
+      "versions": {
+        "ultra-sun": "Ultrasol",
+        "ultra-moon": "Ultraluna"
+      }
+    },
+    "sm": {
+      "name": "Pokémon Sol / Luna",
+      "how": "Deposítalo en Pokémon Bank y luego muévelo de Bank → HOME (requiere el plan prémium de HOME). Solo de ida.",
+      "note": "Pokémon Bank ya no se puede descargar y dejará de funcionar el 25/02/2027.",
+      "versions": {
+        "sun": "Sol",
+        "moon": "Luna"
+      }
+    },
+    "oras": {
+      "name": "Pokémon Rubí Omega / Zafiro Alfa",
+      "how": "Deposítalo en Pokémon Bank y luego muévelo de Bank → HOME (requiere el plan prémium de HOME). Solo de ida.",
+      "note": "Pokémon Bank ya no se puede descargar y dejará de funcionar el 25/02/2027.",
+      "versions": {
+        "omega-ruby": "Rubí Omega",
+        "alpha-sapphire": "Zafiro Alfa"
+      }
+    },
+    "xy": {
+      "name": "Pokémon X / Y",
+      "how": "Deposítalo en Pokémon Bank y luego muévelo de Bank → HOME (requiere el plan prémium de HOME). Solo de ida.",
+      "note": "Pokémon Bank ya no se puede descargar y dejará de funcionar el 25/02/2027.",
+      "versions": {
+        "x": "X",
+        "y": "Y"
+      }
+    },
+    "b2w2": {
+      "name": "Pokémon Edición Negra 2 / Edición Blanca 2",
+      "how": "Poké Transporter (3DS) → Pokémon Bank → HOME. Solo de ida.",
+      "note": "Requiere una 3DS con Poké Transporter y Pokémon Bank ya descargados; Bank dejará de funcionar el 25/02/2027.",
+      "versions": {
+        "black-2": "Negra 2",
+        "white-2": "Blanca 2"
+      }
+    },
+    "bw": {
+      "name": "Pokémon Edición Negra / Edición Blanca",
+      "how": "Poké Transporter (3DS) → Pokémon Bank → HOME. Solo de ida.",
+      "note": "Requiere una 3DS con Poké Transporter y Pokémon Bank ya descargados; Bank dejará de funcionar el 25/02/2027.",
+      "versions": {
+        "black": "Negra",
+        "white": "Blanca"
+      }
+    },
+    "hgss": {
+      "name": "Pokémon Edición Oro HeartGold / Edición Plata SoulSilver",
+      "how": "Pokétransfer a un juego de la 5.ª generación y luego Poké Transporter → Bank → HOME. Solo de ida.",
+      "note": "Requiere dos consolas DS (o una DS y una 3DS), además de Poké Transporter y Pokémon Bank; Bank dejará de funcionar el 25/02/2027.",
+      "versions": {
+        "heartgold": "Oro HeartGold",
+        "soulsilver": "Plata SoulSilver"
+      }
+    },
+    "dppt": {
+      "name": "Pokémon Edición Diamante / Edición Perla / Edición Platino",
+      "how": "Pokétransfer a un juego de la 5.ª generación y luego Poké Transporter → Bank → HOME. Solo de ida.",
+      "note": "Bank dejará de funcionar el 25/02/2027.",
+      "versions": {
+        "diamond": "Diamante",
+        "pearl": "Perla",
+        "platinum": "Platino"
+      }
+    },
+    "gen3": {
+      "name": "Pokémon Rubí / Zafiro / Esmeralda / Rojo Fuego / Verde Hoja (GBA)",
+      "short": "Gen. 3 (GBA)",
+      "how": "Parque Compi (DS) → Pokétransfer (5.ª generación) → Poké Transporter → Bank → HOME. Solo de ida.",
+      "note": "Requiere una DS con ranura para cartuchos de GBA. Bank dejará de funcionar el 25/02/2027.",
+      "versions": {
+        "ruby": "Rubí",
+        "sapphire": "Zafiro",
+        "emerald": "Esmeralda",
+        "firered": "Rojo Fuego",
+        "leafgreen": "Verde Hoja"
+      }
+    },
+    "vc-gen2": {
+      "name": "Pokémon Oro / Plata / Cristal (Consola Virtual de 3DS)",
+      "how": "Poké Transporter → Pokémon Bank → HOME. Solo de ida.",
+      "note": "Solo las versiones de la Consola Virtual de Nintendo 3DS. Bank dejará de funcionar el 25/02/2027.",
+      "versions": {
+        "gold": "Oro",
+        "silver": "Plata",
+        "crystal": "Cristal"
+      }
+    },
+    "vc-gen1": {
+      "name": "Pokémon Rojo / Azul / Amarillo (Consola Virtual de 3DS)",
+      "how": "Poké Transporter → Pokémon Bank → HOME. Solo de ida.",
+      "note": "Solo las versiones de la Consola Virtual de Nintendo 3DS. Bank dejará de funcionar el 25/02/2027.",
+      "versions": {
+        "red": "Rojo",
+        "blue": "Azul",
+        "yellow": "Amarillo"
+      }
+    }
+  },
+  "notes": {
+    "Grand Underground (post-game, after National Dex)": "Grutas del Subsuelo (posjuego, tras obtener la Pokédex Nacional)",
+    "Evolve or breed from Grand Underground species (post-game, after National Dex)": "Evoluciona o cría a partir de especies de las Grutas del Subsuelo (posjuego, tras obtener la Pokédex Nacional)",
+    "Grand Underground (post-game, after National Dex), Brilliant Diamond only": "Grutas del Subsuelo (posjuego, tras obtener la Pokédex Nacional), solo en Diamante Brillante",
+    "Evolve or breed from Grand Underground species (post-game), Brilliant Diamond only": "Evoluciona o cría a partir de especies de las Grutas del Subsuelo (posjuego), solo en Diamante Brillante",
+    "Grand Underground (post-game, after National Dex), Shining Pearl only": "Grutas del Subsuelo (posjuego, tras obtener la Pokédex Nacional), solo en Perla Reluciente",
+    "Evolve or breed from Grand Underground species (post-game), Shining Pearl only": "Evoluciona o cría a partir de especies de las Grutas del Subsuelo (posjuego), solo en Perla Reluciente",
+    "Indigo Disk post-game: Snacksworth legendary treats from Blueberry Quests (Rayquaza, Kyurem and Necrozma only through group quests)": "Posjuego de El disco índigo: galletas legendarias de Galletano por las Tareas Extraescolares Arándano (TEA) (Rayquaza, Kyurem y Necrozma solo mediante TEA grupales)",
+    "Ramanas Park (post-game)": "Parque Hansa (posjuego)",
+    "Ramanas Park (post-game), Brilliant Diamond only": "Parque Hansa (posjuego), solo en Diamante Brillante",
+    "Ramanas Park (post-game), Shining Pearl only": "Parque Hansa (posjuego), solo en Perla Reluciente",
+    "7-star Tera Raid event only (Mightiest Mark Mewtwo, limited-time and rerun); not in any SV regional dex": "Solo en el evento de teraincursiones de 7 estrellas (Mewtwo con el Emblema Imbatibilidad, por tiempo limitado y con reediciones); no está en ninguna Pokédex regional de Escarlata/Púrpura",
+    "Mystery Gift unlocked by connecting a Poké Ball Plus (accessory required); not in any SV regional dex": "Regalo Misterioso desbloqueado al conectar una Poké Ball Plus (requiere el accesorio); no está en ninguna Pokédex regional de Escarlata/Púrpura",
+    "Special Research \"A Mythical Discovery\" (permanent).": "Investigación especial \"Un descubrimiento singular\" (permanente).",
+    "Indigo Disk post-game: Snacksworth solo quests in Scarlet (Violet players need group quests)": "Posjuego de El disco índigo: TEA individuales de Galletano en Escarlata (en Púrpura hacen falta las TEA grupales)",
+    "Indigo Disk post-game: Snacksworth solo quests in Violet (Scarlet players need group quests)": "Posjuego de El disco índigo: TEA individuales de Galletano en Púrpura (en Escarlata hacen falta las TEA grupales)",
+    "Special Research \"A Ripple in Time\" (follows Mew's research).": "Investigación especial \"Una ondulación en el tiempo\" (sigue a la investigación de Mew).",
+    "Celebi for completing HOME's FireRed/LeafGreen Kanto dex (Mew is not required).": "Celebi por completar la Pokédex de Kanto de Rojo Fuego/Verde Hoja en HOME (no hace falta Mew).",
+    "Special Research \"A Thousand-Year Slumber\"; availability has varied.": "Investigación especial \"Un letargo milenario\"; su disponibilidad ha variado.",
+    "Five-star raids when in rotation.": "Incursiones de cinco estrellas, cuando está en rotación.",
+    "Breed a Manaphy (e.g. the HOME reward) with Ditto.": "Cría un Manaphy (por ejemplo, el de la recompensa de HOME) con Ditto.",
+    "Shiny Manaphy for completing HOME's Sinnoh (BDSP) dex.": "Manaphy variocolor por completar la Pokédex de Sinnoh (DBPR) en HOME.",
+    "Needs Brilliant Diamond / Shining Pearl save data on the same Switch.": "Requiere datos de guardado de Diamante Brillante / Perla Reluciente en la misma Switch.",
+    "Five-star raids, usually around Halloween.": "Incursiones de cinco estrellas, normalmente en torno a Halloween.",
+    "Needs Sword / Shield save data on the same Switch.": "Requiere datos de guardado de Espada / Escudo en la misma Switch.",
+    "Past Special Research only.": "Solo en investigaciones especiales pasadas.",
+    "Shiny Keldeo for completing HOME's Galar, Isle of Armor and Crown Tundra dexes.": "Keldeo variocolor por completar las Pokédex de Galar, Armadura y Corona en HOME.",
+    "Shiny Meloetta for completing HOME's Paldea, Kitakami and Blueberry dexes.": "Meloetta variocolor por completar las Pokédex de Paldea, Noroteo y Arándano en HOME.",
+    "Raids when in rotation.": "Incursiones, cuando está en rotación.",
+    "Shiny Volcanion for completing HOME's Lumiose, Hyperspace and Mega Evolution dexes.": "Volcanion variocolor por completar la Pokédex de Luminalia, la Pokédex Dimensional y la MegaDex en HOME.",
+    "Original Color Magearna for completing the National Pokédex (Bulbasaur → Eternatus) in HOME.": "Magearna color vetusto por completar la Pokédex Nacional (Bulbasaur → Eternatus) en HOME.",
+    "Past ticketed research (GO Fest 2026).": "Investigación con entrada ya finalizada (GO Fest 2026).",
+    "Mystery Box (ongoing). Your first GO → HOME transfer also gives a Melmetal.": "Caja Misteriosa (disponible). Tu primera transferencia de GO → HOME también te da un Melmetal.",
+    "Shiny Meltan for completing HOME's Let's Go Kanto dex.": "Meltan variocolor por completar la Pokédex de Kanto de Let's Go en HOME.",
+    "Evolve Meltan with 400 candy. Your first GO → HOME transfer also gives a Melmetal.": "Evoluciona a Meltan con 400 caramelos. Tu primera transferencia de GO → HOME también te da un Melmetal.",
+    "Given the first time you move a Pokémon from GO to HOME.": "Se recibe la primera vez que mueves un Pokémon de GO a HOME.",
+    "Past Special Research; sometimes rerun.": "Investigación especial pasada; a veces vuelve.",
+    "Shiny Enamorus for completing HOME's Hisui dex.": "Enamorus variocolor por completar la Pokédex de Hisui en HOME.",
+    "Listed in the Blueberry dex, but so far only obtainable from limited-time Tera Raid events.": "Aparece en la Pokédex Arándano, pero hasta ahora solo se ha podido obtener en eventos de teraincursiones por tiempo limitado.",
+    "\"Mochi Mayhem\" epilogue; needs both SV DLC parts.": "Epílogo \"Mochisteria\"; requiere las dos partes del DLC de Escarlata/Púrpura."
+  }
+}

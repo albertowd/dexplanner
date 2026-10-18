@@ -56,9 +56,11 @@ Changes are saved about 30 seconds after your last edit, so ticking through the 
 
 PokePlan stores only your Google account id, name and email (for sign-in) and your progress. **Settings → Delete cloud data and account** removes both; your progress stays on the device.
 
-### English and Português (Brasil)
+### Five languages
 
-PokePlan follows your browser's language, and you can switch it with the flag in the header. The whole app is translated, including game names, HOME transfer instructions and notes on each source. Pokémon names and official game titles stay as sold in Brazil.
+PokePlan speaks **English, Português (Brasil), Español, Italiano and 日本語**. It follows your browser's language, and you can switch it with the flag in the header.
+
+The whole app is translated, including HOME transfer instructions and notes on each source. Game and version names use each country's official titles, e.g. *Pokémon Escarlata*, *Pokémon Scarlatto*, *ポケットモンスター スカーレット*. In Japanese, Pokémon have their Japanese names, and search still finds them by their English names.
 
 ### Install it, use it offline
 

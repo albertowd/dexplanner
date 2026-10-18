@@ -5,6 +5,7 @@ import { App } from '../src/App.tsx';
 import { detectLocale, I18nProvider, localizeData, setLocalePreference, useI18n } from '../src/i18n/index.tsx';
 import { en } from '../src/i18n/en.ts';
 import { ptBR } from '../src/i18n/pt-BR.ts';
+import { ja } from '../src/i18n/ja.ts';
 import { replaceState } from '../src/store.ts';
 import { SettingsView } from '../src/views/SettingsView.tsx';
 import { LanguageMenu } from '../src/header/LanguageMenu.tsx';
@@ -34,10 +35,14 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('detectLocale', () => {
-  it('uses Portuguese for any Portuguese browser language, English otherwise', () => {
+  it('picks the first supported language in the browser preference order', () => {
     expect(detectLocale(['pt-BR'])).toBe('pt-BR');
-    expect(detectLocale(['en-US', 'pt-PT'])).toBe('pt-BR');
-    expect(detectLocale(['es-ES', 'fr'])).toBe('en');
+    expect(detectLocale(['pt-PT'])).toBe('pt-BR');
+    expect(detectLocale(['fr-FR', 'es-MX', 'en'])).toBe('es');
+    expect(detectLocale(['en-US', 'ja'])).toBe('en');
+    expect(detectLocale(['IT-it'])).toBe('it');
+    expect(detectLocale(['ja-JP'])).toBe('ja');
+    expect(detectLocale(['fr', 'de'])).toBe('en');
     expect(detectLocale([])).toBe('en');
   });
 });
@@ -71,6 +76,19 @@ describe('localizeData', () => {
   it('translates each part of a combined note', () => {
     const combined = { ...data, pokemon: [{ ...data.pokemon[0], avail: [{ game: 'go', note: 'Research · Unknown' }] }] };
     expect(localizeData(combined, translation).pokemon[0].avail[0].note).toBe('Pesquisa · Unknown');
+  });
+
+  it('translates version names and Pokémon names, keeping the English name for search', () => {
+    const out = localizeData(data, {
+      games: { sv: { how: 'Igual.', versions: { scarlet: 'Escarlata' } } },
+      pokemon: { 25: 'ピカチュウ' },
+    });
+    expect(out.games.find((g) => g.id === 'sv')!.versions).toEqual([
+      { id: 'scarlet', name: 'Escarlata' },
+      { id: 'violet', name: 'Violet' },
+    ]);
+    expect(out.pokemon.find((p) => p.id === 25)).toMatchObject({ name: 'ピカチュウ', englishName: 'Pikachu' });
+    expect(out.pokemon.find((p) => p.id === 1)).toEqual(data.pokemon[0]);
   });
 
   it('returns the data unchanged without a translation', () => {
@@ -130,5 +148,42 @@ describe('App in Portuguese', () => {
     expect(await screen.findAllByText('Recompensas do Pokémon HOME')).not.toHaveLength(0);
     expect(screen.getAllByText('Recompensa da Pokédex Nacional')).not.toHaveLength(0);
     expect(screen.getByRole('heading', { name: 'Melhor forma de levar para o HOME' })).toBeInTheDocument();
+  });
+});
+
+describe('every language', () => {
+  it('has a name and a dictionary with the same plural helpers', async () => {
+    const { locales } = await import('../src/i18n/index.tsx');
+    expect(Object.keys(locales).sort()).toEqual(['en', 'es', 'it', 'ja', 'pt-BR']);
+    for (const { name, messages } of Object.values(locales)) {
+      expect(name).toBeTruthy();
+      expect(messages.dex.sources(0)).toBeTruthy();
+      expect(messages.dex.sources(1)).not.toBe(messages.dex.sources(2));
+      expect(messages.settings.markedPasted(1, ['x'])).toContain('x');
+      expect(messages.filters.gen(3)).toContain('3');
+    }
+  });
+});
+
+describe('Japanese names', () => {
+  const japanese: PokedexData = { ...data, translations: { ja: { pokemon: { 25: 'ピカチュウ', 1: 'フシギダネ' } } } };
+
+  it('are shown in the list, and search and paste accept both names', async () => {
+    const user = userEvent.setup();
+    vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify(japanese))));
+    act(() => setLocalePreference('ja'));
+    location.hash = '#/';
+    render(<I18nProvider><App /></I18nProvider>);
+    expect(await screen.findByText('ピカチュウ')).toBeInTheDocument();
+    const search = screen.getByRole('searchbox');
+    await user.type(search, 'pikachu');
+    expect(screen.getByText('ピカチュウ')).toBeInTheDocument();
+    expect(screen.queryByText('フシギダネ')).not.toBeInTheDocument();
+
+    location.hash = '#/settings';
+    globalThis.dispatchEvent(new HashChangeEvent('hashchange'));
+    await user.type(await screen.findByRole('textbox'), 'フシギダネ, Pikachu');
+    await user.click(screen.getByRole('button', { name: ja.settings.markPasted }));
+    expect(screen.getByRole('status')).toHaveTextContent(ja.settings.markedPasted(2, []));
   });
 });

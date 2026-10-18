@@ -12,7 +12,9 @@ const outFile = path.join(root, 'web', 'public', 'data', 'pokedex.json');
 const curatedPath = path.join(root, 'data', 'curated-availability.json');
 const i18nDir = path.join(root, 'data', 'i18n');
 const GRAPHQL = 'https://graphql.pokeapi.co/v1beta2';
+// PokeAPI language ids: English, plus languages whose Pokémon names differ from English.
 const ENGLISH = 9;
+const POKEMON_NAME_LANGUAGES = { ja: 1 }; // ja-Hrkt (kana)
 
 const readJson = (file) => JSON.parse(readFileSync(file, 'utf8'));
 
@@ -22,7 +24,7 @@ async function loadSpecies(refresh) {
   const query = `{
     pokemonspecies(order_by: {id: asc}) {
       id name generation_id is_legendary is_mythical evolves_from_species_id
-      pokemonspeciesnames(where: {language_id: {_eq: ${ENGLISH}}}) { name }
+      pokemonspeciesnames(where: {language_id: {_in: [${[ENGLISH, ...Object.values(POKEMON_NAME_LANGUAGES)].join(', ')}]}}) { name language_id }
       pokemondexnumbers { pokedex { name } }
       pokemons(where: {is_default: {_eq: true}}) { encounters(distinct_on: version_id) { version { name } } }
     }
@@ -47,6 +49,7 @@ const pokedex = buildPokedex({
   games: readJson(path.join(root, 'data', 'games.json')).games,
   special: readJson(path.join(root, 'data', 'special.json')),
   curated: hasCurated ? readJson(curatedPath) : undefined,
+  pokemonNameLanguages: POKEMON_NAME_LANGUAGES,
   translations: Object.fromEntries(
     (existsSync(i18nDir) ? readdirSync(i18nDir) : [])
       .filter((f) => f.endsWith('.json'))

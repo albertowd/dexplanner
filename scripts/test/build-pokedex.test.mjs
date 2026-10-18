@@ -228,3 +228,36 @@ describe('translations', () => {
     expect(translationReport({ ...build(), translations: undefined })).toEqual({});
   });
 });
+
+describe('localized Pokémon names', () => {
+  const withJa = raw.map((s) =>
+    s.id === 6 ? { ...s, pokemonspeciesnames: [{ name: 'Pikachu', language_id: 9 }, { name: 'ピカチュウ', language_id: 1 }] } : s,
+  );
+
+  it('uses the English name and keeps others per PokeAPI language', () => {
+    const pikachu = normalizeSpecies(withJa).find((s) => s.id === 6);
+    expect(pikachu.name).toBe('Pikachu');
+    expect(pikachu.names).toEqual({ 9: 'Pikachu', 1: 'ピカチュウ' });
+  });
+
+  it('bundles names for languages whose names differ', () => {
+    const pokedex = build({ raw: withJa, pokemonNameLanguages: { ja: 1 } });
+    expect(pokedex.translations.ja.pokemon).toEqual({ 6: 'ピカチュウ' });
+  });
+
+  it('skips a language when the snapshot has no names for it', () => {
+    expect(build({ pokemonNameLanguages: { ja: 1 } }).translations).toEqual({});
+  });
+});
+
+describe('version name translations', () => {
+  const base = Object.fromEntries(games.map((g) => [g.id, { how: 'x' }]));
+  const report = (gamesT) =>
+    translationReport(build({ translations: { es: { games: gamesT, notes: {} } } })).es.games;
+
+  it('are optional, but must cover every version when given', () => {
+    expect(report(base)).toEqual([]);
+    expect(report({ ...base, sv: { how: 'x', versions: { scarlet: 'Escarlata' } } })).toEqual(['sv']);
+    expect(report({ ...base, sv: { how: 'x', versions: { scarlet: 'Escarlata', violet: 'Púrpura' } } })).toEqual([]);
+  });
+});

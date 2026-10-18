@@ -1,19 +1,32 @@
 import { createContext, useContext, useEffect, useMemo, useSyncExternalStore, type ReactNode } from 'react';
 import type { DataTranslation, Game, PokedexData, Pokemon } from '../types.ts';
 import { en, type Messages } from './en.ts';
+import { es } from './es.ts';
+import { it } from './it.ts';
+import { ja } from './ja.ts';
 import { ptBR } from './pt-BR.ts';
 
-export type Locale = 'en' | 'pt-BR';
+export type Locale = 'en' | 'pt-BR' | 'es' | 'it' | 'ja';
 export type LocalePreference = Locale | 'auto';
 
 export const locales: Record<Locale, { name: string; messages: Messages }> = {
   en: { name: 'English', messages: en },
   'pt-BR': { name: 'Português (Brasil)', messages: ptBR },
+  es: { name: 'Español', messages: es },
+  it: { name: 'Italiano', messages: it },
+  ja: { name: '日本語', messages: ja },
 };
 
-/** Browser language → supported locale (any Portuguese → pt-BR, everything else → English). */
+/** Browser language prefix → supported locale. */
+const byLanguage: Record<string, Locale> = { en: 'en', pt: 'pt-BR', es: 'es', it: 'it', ja: 'ja' };
+
+/** First supported language in the browser's preference order (any Portuguese → pt-BR); English otherwise. */
 export function detectLocale(languages: readonly string[] = navigator.languages ?? [navigator.language]): Locale {
-  return languages.some((l) => l.toLowerCase().startsWith('pt')) ? 'pt-BR' : 'en';
+  for (const language of languages) {
+    const locale = byLanguage[language.toLowerCase().split('-')[0]];
+    if (locale) return locale;
+  }
+  return 'en';
 }
 
 // The language preference is per device, so it lives outside the synced progress.
@@ -23,7 +36,7 @@ const listeners = new Set<() => void>();
 function readPreference(): LocalePreference {
   try {
     const value = localStorage.getItem(KEY);
-    return value === 'en' || value === 'pt-BR' ? value : 'auto';
+    return value && value in locales ? (value as Locale) : 'auto';
   } catch {
     return 'auto';
   }

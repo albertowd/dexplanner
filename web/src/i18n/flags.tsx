@@ -1,4 +1,5 @@
 // Small inline flags: Windows doesn't render flag emoji, so these are drawn as SVG.
+import type { JSX } from 'react';
 import type { Locale } from './index.tsx';
 
 const size = { width: 21, height: 14, className: 'flag', 'aria-hidden': true } as const;
@@ -30,6 +31,36 @@ function BrFlag() {
   );
 }
 
+function EsFlag() {
+  return (
+    <svg viewBox="0 0 21 14" {...size}>
+      <rect width="21" height="14" fill="#aa151b" />
+      <rect y="3.5" width="21" height="7" fill="#f1bf00" />
+    </svg>
+  );
+}
+
+function ItFlag() {
+  return (
+    <svg viewBox="0 0 21 14" {...size}>
+      <rect width="7" height="14" fill="#009246" />
+      <rect x="7" width="7" height="14" fill="#fff" />
+      <rect x="14" width="7" height="14" fill="#ce2b37" />
+    </svg>
+  );
+}
+
+function JpFlag() {
+  return (
+    <svg viewBox="0 0 21 14" {...size}>
+      <rect width="21" height="14" fill="#fff" />
+      <circle cx="10.5" cy="7" r="4.2" fill="#bc002d" />
+    </svg>
+  );
+}
+
+const flags: Record<Locale, () => JSX.Element> = { en: UsFlag, 'pt-BR': BrFlag, es: EsFlag, it: ItFlag, ja: JpFlag };
+
 /** Globe for "follow the browser language". */
 export function AutoIcon() {
   return (
@@ -41,5 +72,6 @@ export function AutoIcon() {
 }
 
 export function Flag({ locale }: Readonly<{ locale: Locale }>) {
-  return locale === 'pt-BR' ? <BrFlag /> : <UsFlag />;
+  const Component = flags[locale];
+  return <Component />;
 }

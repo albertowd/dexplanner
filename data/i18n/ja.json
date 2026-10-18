@@ -1,0 +1,207 @@
+{
+  "$comment": "Japanese for the game catalogue (data/games.json) and source notes (data/special.json, data/curated-availability.json). Notes are keyed by their English text; `npm run data` lists anything missing. Game, version and place names follow the official Japanese releases.",
+  "games": {
+    "sv": {
+      "name": "ポケットモンスター スカーレット・バイオレット",
+      "short": "SV",
+      "versions": { "scarlet": "スカーレット", "violet": "バイオレット" },
+      "how": "SwitchでPokémon HOMEを開き、スカーレット・バイオレットを選んでポケモンをHOMEのボックスに移します。預けた時点で登録され、あとでソフトに戻すこともできます。"
+    },
+    "sv-tm": {
+      "name": "ゼロの秘宝 前編「碧の仮面」（SVの追加コンテンツ）",
+      "short": "SV: 碧の仮面",
+      "versions": { "scarlet": "スカーレット", "violet": "バイオレット" },
+      "how": "スカーレット・バイオレットと同じです。ソフトからHOMEに預ければ、あとで戻すこともできます。"
+    },
+    "sv-id": {
+      "name": "ゼロの秘宝 後編「藍の円盤」（SVの追加コンテンツ）",
+      "short": "SV: 藍の円盤",
+      "versions": { "scarlet": "スカーレット", "violet": "バイオレット" },
+      "how": "スカーレット・バイオレットと同じです。ソフトからHOMEに預ければ、あとで戻すこともできます。"
+    },
+    "za": {
+      "name": "Pokémon LEGENDS Z-A",
+      "short": "Z-A",
+      "how": "Pokémon LEGENDS Z-AからHOMEに預けます（HOME Ver.4.0.0以降）。あとでZ-Aに戻すこともできます。",
+      "note": "Z-Aは独立した互換グループです。Z-Aで捕まえたポケモンや、一度でもZ-Aに連れていったポケモンは、スカーレット・バイオレットやそれ以前のソフトには二度と連れていけません。HOMEの図鑑には登録されます。"
+    },
+    "za-md": {
+      "name": "M次元ラッシュ（Z-Aの追加コンテンツ）",
+      "short": "Z-A: M次元ラッシュ",
+      "how": "Pokémon LEGENDS Z-Aと同じです。ソフトからHOMEに預けます。",
+      "note": "Z-Aの互換制限がかかります。スカーレット・バイオレットやそれ以前のソフトには二度と連れていけません。"
+    },
+    "pla": {
+      "name": "Pokémon LEGENDS アルセウス",
+      "short": "LEGENDS アルセウス",
+      "how": "Pokémon LEGENDS アルセウスからHOMEに預けます。あとで戻すこともでき、BDSP・SV・Z-Aにはストレンジボールに入った状態で届きます。"
+    },
+    "bdsp": {
+      "name": "ポケットモンスター ブリリアントダイヤモンド・シャイニングパール",
+      "short": "BDSP",
+      "versions": { "brilliant-diamond": "ブリリアントダイヤモンド", "shining-pearl": "シャイニングパール" },
+      "how": "BDSPからHOMEに預けます。あとで戻すこともできます。"
+    },
+    "swsh": {
+      "name": "ポケットモンスター ソード・シールド",
+      "short": "剣盾",
+      "versions": { "sword": "ソード", "shield": "シールド" },
+      "how": "ソード・シールドからHOMEに預けます。あとで戻すこともできます。"
+    },
+    "swsh-ioa": {
+      "name": "鎧の孤島（ソード・シールドの追加コンテンツ 第1弾）",
+      "short": "剣盾: 鎧の孤島",
+      "versions": { "sword": "ソード", "shield": "シールド" },
+      "how": "ソード・シールドと同じです。ソフトからHOMEに預けます。"
+    },
+    "swsh-ct": {
+      "name": "冠の雪原（ソード・シールドの追加コンテンツ 第2弾）",
+      "short": "剣盾: 冠の雪原",
+      "versions": { "sword": "ソード", "shield": "シールド" },
+      "how": "ソード・シールドと同じです。ソフトからHOMEに預けます。"
+    },
+    "lgpe": {
+      "name": "ポケットモンスター Let's Go! ピカチュウ・Let's Go! イーブイ",
+      "short": "ピカブイ",
+      "versions": { "lets-go-pikachu": "Let's Go! ピカチュウ", "lets-go-eevee": "Let's Go! イーブイ" },
+      "how": "Let's Go! からHOMEに移します。預けた時点で登録されます。",
+      "note": "戻せるのはLet's Go! だけで、しかもほかのソフトに一度も連れていっていない場合に限られます。一方通行と考えてください。"
+    },
+    "frlg-switch": {
+      "name": "ポケットモンスター ファイアレッド・リーフグリーン（Nintendo Switch）",
+      "short": "FRLG（Switch）",
+      "versions": { "firered": "ファイアレッド", "leafgreen": "リーフグリーン" },
+      "how": "FRLGからHOMEに送ります（HOME Ver.4.1.0以降、1ボックス単位）。FRLGに送り返すことはできません。",
+      "note": "送るたびにFRLGの図鑑もHOMEと同期されるので、FRLGで登録したポケモンは1匹ずつ移さなくてもHOMEの「FRLGのカントー図鑑」（特典: セレビィ）に反映されます。HOMEの全国図鑑にも登録されるかは確認されていないので、確実にするには1匹預けてください。"
+    },
+    "go": {
+      "name": "Pokémon GO",
+      "short": "GO",
+      "how": "GOで設定 → Pokémon HOMEを開き、GOトランスポーターで送ります。HOMEに届いた時点で登録されます。",
+      "note": "一方通行です。GOから来た伝説・幻のポケモンは、そのポケモンがすでに図鑑に登録されているソフトにしかHOMEから連れていけません。GOで出会えるポケモンはイベントによって変わります。"
+    },
+    "home": {
+      "name": "Pokémon HOMEの特典",
+      "short": "HOMEの配布",
+      "how": "スマホ版HOMEの「ふしぎなおくりもの」で受け取ります。HOMEのボックスに直接届き、登録されます。"
+    },
+    "usum": {
+      "name": "ポケットモンスター ウルトラサン・ウルトラムーン",
+      "short": "USUM",
+      "versions": { "ultra-sun": "ウルトラサン", "ultra-moon": "ウルトラムーン" },
+      "how": "ポケモンバンクに預けてから、バンク → HOMEに移します（HOMEのプレミアムプランが必要）。一方通行です。",
+      "note": "バンクは新たにダウンロードできず、2027年2月25日にサービスが終了します。"
+    },
+    "sm": {
+      "name": "ポケットモンスター サン・ムーン",
+      "short": "SM",
+      "versions": { "sun": "サン", "moon": "ムーン" },
+      "how": "ポケモンバンクに預けてから、バンク → HOMEに移します（HOMEのプレミアムプランが必要）。一方通行です。",
+      "note": "バンクは新たにダウンロードできず、2027年2月25日にサービスが終了します。"
+    },
+    "oras": {
+      "name": "ポケットモンスター オメガルビー・アルファサファイア",
+      "short": "ORAS",
+      "versions": { "omega-ruby": "オメガルビー", "alpha-sapphire": "アルファサファイア" },
+      "how": "ポケモンバンクに預けてから、バンク → HOMEに移します（HOMEのプレミアムプランが必要）。一方通行です。",
+      "note": "バンクは新たにダウンロードできず、2027年2月25日にサービスが終了します。"
+    },
+    "xy": {
+      "name": "ポケットモンスター X・Y",
+      "short": "XY",
+      "versions": { "x": "X", "y": "Y" },
+      "how": "ポケモンバンクに預けてから、バンク → HOMEに移します（HOMEのプレミアムプランが必要）。一方通行です。",
+      "note": "バンクは新たにダウンロードできず、2027年2月25日にサービスが終了します。"
+    },
+    "b2w2": {
+      "name": "ポケットモンスター ブラック2・ホワイト2",
+      "short": "BW2",
+      "versions": { "black-2": "ブラック2", "white-2": "ホワイト2" },
+      "how": "ポケムーバー（3DS）→ ポケモンバンク → HOME。一方通行です。",
+      "note": "ポケムーバーとバンクをダウンロード済みの3DSが必要です。バンクは2027年2月25日にサービスが終了します。"
+    },
+    "bw": {
+      "name": "ポケットモンスター ブラック・ホワイト",
+      "short": "BW",
+      "versions": { "black": "ブラック", "white": "ホワイト" },
+      "how": "ポケムーバー（3DS）→ ポケモンバンク → HOME。一方通行です。",
+      "note": "ポケムーバーとバンクをダウンロード済みの3DSが必要です。バンクは2027年2月25日にサービスが終了します。"
+    },
+    "hgss": {
+      "name": "ポケットモンスター ハートゴールド・ソウルシルバー",
+      "short": "HGSS",
+      "versions": { "heartgold": "ハートゴールド", "soulsilver": "ソウルシルバー" },
+      "how": "ポケシフターで第5世代のソフトに送り、ポケムーバー → バンク → HOME。一方通行です。",
+      "note": "DS本体が2台（またはDSと3DS）と、ポケムーバーとバンクが必要です。バンクは2027年2月25日にサービスが終了します。"
+    },
+    "dppt": {
+      "name": "ポケットモンスター ダイヤモンド・パール・プラチナ",
+      "short": "DPt",
+      "versions": { "diamond": "ダイヤモンド", "pearl": "パール", "platinum": "プラチナ" },
+      "how": "ポケシフターで第5世代のソフトに送り、ポケムーバー → バンク → HOME。一方通行です。",
+      "note": "バンクは2027年2月25日にサービスが終了します。"
+    },
+    "gen3": {
+      "name": "ポケットモンスター ルビー・サファイア・エメラルド・ファイアレッド・リーフグリーン（GBA）",
+      "short": "第3世代（GBA）",
+      "versions": { "ruby": "ルビー", "sapphire": "サファイア", "emerald": "エメラルド", "firered": "ファイアレッド", "leafgreen": "リーフグリーン" },
+      "how": "パルパーク（DS）→ ポケシフター（第5世代）→ ポケムーバー → バンク → HOME。一方通行です。",
+      "note": "GBAカートリッジを挿せるDSが必要です。バンクは2027年2月25日にサービスが終了します。"
+    },
+    "vc-gen2": {
+      "name": "ポケットモンスター 金・銀・クリスタル（3DS バーチャルコンソール）",
+      "short": "金銀クリスタル（VC）",
+      "versions": { "gold": "金", "silver": "銀", "crystal": "クリスタル" },
+      "how": "ポケムーバー → ポケモンバンク → HOME。一方通行です。",
+      "note": "3DSのバーチャルコンソール版のみです。バンクは2027年2月25日にサービスが終了します。"
+    },
+    "vc-gen1": {
+      "name": "ポケットモンスター 赤・緑・青・ピカチュウ（3DS バーチャルコンソール）",
+      "short": "赤緑青ピカチュウ（VC）",
+      "versions": { "red": "赤", "blue": "青", "yellow": "ピカチュウ" },
+      "how": "ポケムーバー → ポケモンバンク → HOME。一方通行です。",
+      "note": "3DSのバーチャルコンソール版のみです。バンクは2027年2月25日にサービスが終了します。"
+    }
+  },
+  "notes": {
+    "Grand Underground (post-game, after National Dex)": "地下大洞窟（クリア後、全国図鑑の入手後）",
+    "Evolve or breed from Grand Underground species (post-game, after National Dex)": "地下大洞窟のポケモンから進化、またはタマゴで入手（クリア後、全国図鑑の入手後）",
+    "Grand Underground (post-game, after National Dex), Brilliant Diamond only": "地下大洞窟（クリア後、全国図鑑の入手後）、ブリリアントダイヤモンドのみ",
+    "Evolve or breed from Grand Underground species (post-game), Brilliant Diamond only": "地下大洞窟のポケモンから進化、またはタマゴで入手（クリア後）、ブリリアントダイヤモンドのみ",
+    "Grand Underground (post-game, after National Dex), Shining Pearl only": "地下大洞窟（クリア後、全国図鑑の入手後）、シャイニングパールのみ",
+    "Evolve or breed from Grand Underground species (post-game), Shining Pearl only": "地下大洞窟のポケモンから進化、またはタマゴで入手（クリア後）、シャイニングパールのみ",
+    "Indigo Disk post-game: Snacksworth legendary treats from Blueberry Quests (Rayquaza, Kyurem and Necrozma only through group quests)": "「藍の円盤」クリア後: ブルレクの達成でおやつおやじからもらえる伝説のポケモンのおやつ（レックウザ、キュレム、ネクロズマはマルチプレイのブルレクのみ）",
+    "Ramanas Park (post-game)": "ハマナスパーク（クリア後）",
+    "Ramanas Park (post-game), Brilliant Diamond only": "ハマナスパーク（クリア後）、ブリリアントダイヤモンドのみ",
+    "Ramanas Park (post-game), Shining Pearl only": "ハマナスパーク（クリア後）、シャイニングパールのみ",
+    "7-star Tera Raid event only (Mightiest Mark Mewtwo, limited-time and rerun); not in any SV regional dex": "星7のイベントテラレイドバトルのみ（「さいきょうのあかし」を持つミュウツー、期間限定・再開催あり）。SVの地方図鑑には載っていません",
+    "Mystery Gift unlocked by connecting a Poké Ball Plus (accessory required); not in any SV regional dex": "モンスターボール Plusを接続すると受け取れるふしぎなおくりもの（周辺機器が必要）。SVの地方図鑑には載っていません",
+    "Special Research \"A Mythical Discovery\" (permanent).": "スペシャルリサーチ「幻のポケモンの姿を追え！」（常設）。",
+    "Indigo Disk post-game: Snacksworth solo quests in Scarlet (Violet players need group quests)": "「藍の円盤」クリア後: スカーレットではひとりで遊ぶブルレクでおやつおやじからもらえる（バイオレットではマルチプレイのブルレクが必要）",
+    "Indigo Disk post-game: Snacksworth solo quests in Violet (Scarlet players need group quests)": "「藍の円盤」クリア後: バイオレットではひとりで遊ぶブルレクでおやつおやじからもらえる（スカーレットではマルチプレイのブルレクが必要）",
+    "Special Research \"A Ripple in Time\" (follows Mew's research).": "スペシャルリサーチ「時を越えるポケモンを追え！」（ミュウのリサーチの次）。",
+    "Celebi for completing HOME's FireRed/LeafGreen Kanto dex (Mew is not required).": "HOMEで「ファイアレッド・リーフグリーン」のカントー図鑑を完成させるともらえるセレビィ（ミュウは不要）。",
+    "Special Research \"A Thousand-Year Slumber\"; availability has varied.": "スペシャルリサーチ「眠るポケモンを呼び覚ませ！」。受けられる時期は変わってきました。",
+    "Five-star raids when in rotation.": "登場期間中の★5レイドバトル。",
+    "Breed a Manaphy (e.g. the HOME reward) with Ditto.": "マナフィ（HOMEの特典など）をメタモンと預けてタマゴを見つける。",
+    "Shiny Manaphy for completing HOME's Sinnoh (BDSP) dex.": "HOMEでシンオウ図鑑（BDSP）を完成させるともらえる色違いのマナフィ。",
+    "Needs Brilliant Diamond / Shining Pearl save data on the same Switch.": "同じSwitchにブリリアントダイヤモンド・シャイニングパールのセーブデータが必要です。",
+    "Five-star raids, usually around Halloween.": "★5レイドバトル（例年ハロウィンのころ）。",
+    "Needs Sword / Shield save data on the same Switch.": "同じSwitchにソード・シールドのセーブデータが必要です。",
+    "Past Special Research only.": "過去のスペシャルリサーチのみ。",
+    "Shiny Keldeo for completing HOME's Galar, Isle of Armor and Crown Tundra dexes.": "HOMEでガラル図鑑・ヨロイ島図鑑・カンムリ雪原図鑑を完成させるともらえる色違いのケルディオ。",
+    "Shiny Meloetta for completing HOME's Paldea, Kitakami and Blueberry dexes.": "HOMEでパルデア図鑑・キタカミ図鑑・ブルーベリー図鑑を完成させるともらえる色違いのメロエッタ。",
+    "Raids when in rotation.": "登場期間中のレイドバトル。",
+    "Shiny Volcanion for completing HOME's Lumiose, Hyperspace and Mega Evolution dexes.": "HOMEでミアレ図鑑・異次元図鑑・メガシンカ図鑑を完成させるともらえる色違いのボルケニオン。",
+    "Original Color Magearna for completing the National Pokédex (Bulbasaur → Eternatus) in HOME.": "HOMEで全国図鑑（フシギダネ → ムゲンダイナ）を完成させるともらえる「オリジナルカラー」のマギアナ。",
+    "Past ticketed research (GO Fest 2026).": "過去のチケット制リサーチ（Pokémon GO Fest 2026）。",
+    "Mystery Box (ongoing). Your first GO → HOME transfer also gives a Melmetal.": "ふしぎなはこ（常設）。GO → HOMEへの初めての転送でもメルメタルがもらえます。",
+    "Shiny Meltan for completing HOME's Let's Go Kanto dex.": "HOMEで「Let's Go! ピカチュウ・Let's Go! イーブイ」のカントー図鑑を完成させるともらえる色違いのメルタン。",
+    "Evolve Meltan with 400 candy. Your first GO → HOME transfer also gives a Melmetal.": "アメ400個でメルタンを進化させる。GO → HOMEへの初めての転送でもメルメタルがもらえます。",
+    "Given the first time you move a Pokémon from GO to HOME.": "初めてGOからHOMEにポケモンを送るともらえます。",
+    "Past Special Research; sometimes rerun.": "過去のスペシャルリサーチ。再登場することもあります。",
+    "Shiny Enamorus for completing HOME's Hisui dex.": "HOMEでヒスイ図鑑を完成させるともらえる色違いのラブトロス。",
+    "Listed in the Blueberry dex, but so far only obtainable from limited-time Tera Raid events.": "ブルーベリー図鑑に載っていますが、今のところ期間限定のイベントテラレイドバトルでしか入手できません。",
+    "\"Mochi Mayhem\" epilogue; needs both SV DLC parts.": "番外編「キビキビパニック」。SVの追加コンテンツの前編・後編の両方が必要です。"
+  }
+}

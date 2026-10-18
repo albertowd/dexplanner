@@ -34,7 +34,12 @@ export function SettingsView({ data }: Readonly<{ data: PokedexData }>) {
 
   /** Accepts dex numbers or names separated by commas, spaces or new lines. */
   const importList = () => {
-    const byName = new Map(data.pokemon.flatMap((p) => [[p.name.toLowerCase(), p.id], [p.slug, p.id]]));
+    // Names in the current language (e.g. Japanese) and in English both work.
+    const byName = new Map(
+      data.pokemon.flatMap((p) =>
+        [p.name, p.englishName, p.slug].filter(Boolean).map((n) => [n!.toLowerCase(), p.id] as const),
+      ),
+    );
     const valid = new Set(data.pokemon.map((p) => p.id));
     const ids = new Set<number>();
     const unknown: string[] = [];
