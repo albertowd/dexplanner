@@ -124,7 +124,7 @@ npm run sonar:down        # stop the server (analysis history is kept in Docker 
 
 Import the GitHub repository in Vercel. `vercel.json` already sets the build:
 
-- install with `npm ci`, build with `npm run build`, publish `web/dist`;
+- install with `npm ci`, build with `npm run build`, publish `dist`;
 - unknown paths fall back to `index.html`;
 - `assets/` (fingerprinted by Vite) is cached for a year;
 - the app shell, service worker, manifest and data are revalidated on every request, so a new deploy reaches installed PWAs;
