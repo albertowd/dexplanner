@@ -1,0 +1,29 @@
+rules_version = '2';
+
+// PokePlan cloud sync: one document per signed-in trainer at trainers/{uid}.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /trainers/{uid} {
+      allow read, delete: if isOwner(uid);
+      allow create, update: if isOwner(uid) && isValidProgress(request.resource.data);
+    }
+
+    // Everything else is closed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function isValidProgress(data) {
+      return data.keys().hasOnly(['v', 'registered', 'owned', 'showRetro', 'updatedAt'])
+        && data.v == 1
+        && data.registered is map && data.registered.size() <= 1100
+        && data.owned is map && data.owned.size() <= 100
+        && data.showRetro is bool
+        && data.updatedAt == request.time;
+    }
+  }
+}

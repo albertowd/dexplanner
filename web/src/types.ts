@@ -52,6 +52,20 @@ export interface Pokemon {
   legendary?: boolean;
   mythical?: boolean;
   avail: Availability[];
+  /** Set by the app when `name` is localized (e.g. Japanese), so search still matches the English name. */
+  englishName?: string;
+}
+
+/** Translated data text for one language (data/i18n/<locale>.json). */
+export interface DataTranslation {
+  games?: Record<
+    string,
+    { name?: string; short?: string; how?: string; note?: string; /** version id → name */ versions?: Record<string, string> }
+  >;
+  /** English note → translated note. */
+  notes?: Record<string, string>;
+  /** Species id → localized Pokémon name (only for languages whose names differ, e.g. Japanese). */
+  pokemon?: Record<string, string>;
 }
 
 export interface PokedexData {
@@ -59,4 +73,5 @@ export interface PokedexData {
   sources: string[];
   games: Game[];
   pokemon: Pokemon[];
+  translations?: Record<string, DataTranslation>;
 }

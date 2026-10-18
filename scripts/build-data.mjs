@@ -1,15 +1,16 @@
 #!/usr/bin/env node
 // Builds web/public/data/pokedex.json from PokeAPI (cached in .cache/) plus the curated files in data/.
 // Usage: node scripts/build-data.mjs [--refresh]
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildPokedex, nowhereCurrent } from './lib/build-pokedex.mjs';
+import { buildPokedex, nowhereCurrent, translationReport } from './lib/build-pokedex.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const cacheFile = path.join(root, '.cache', 'species.json');
 const outFile = path.join(root, 'web', 'public', 'data', 'pokedex.json');
 const curatedPath = path.join(root, 'data', 'curated-availability.json');
+const i18nDir = path.join(root, 'data', 'i18n');
 const GRAPHQL = 'https://graphql.pokeapi.co/v1beta2';
 const ENGLISH = 9;
 
@@ -46,6 +47,11 @@ const pokedex = buildPokedex({
   games: readJson(path.join(root, 'data', 'games.json')).games,
   special: readJson(path.join(root, 'data', 'special.json')),
   curated: hasCurated ? readJson(curatedPath) : undefined,
+  translations: Object.fromEntries(
+    (existsSync(i18nDir) ? readdirSync(i18nDir) : [])
+      .filter((f) => f.endsWith('.json'))
+      .map((f) => [path.basename(f, '.json'), readJson(path.join(i18nDir, f))]),
+  ),
 });
 
 mkdirSync(path.dirname(outFile), { recursive: true });
@@ -54,4 +60,13 @@ writeFileSync(outFile, JSON.stringify(pokedex));
 const missing = nowhereCurrent(pokedex);
 console.log(`Wrote ${path.relative(root, outFile)}: ${pokedex.pokemon.length} species, ${pokedex.games.length} games.`);
 console.log(`Not obtainable in any current game/app (${missing.length}): ${missing.map((p) => p.name).join(', ') || 'none'}`);
+const list = (items) => items.map((item) => `\n  - ${item}`).join('');
+for (const [locale, report] of Object.entries(translationReport(pokedex))) {
+  const problems = [
+    report.games.length && `games without a translation:${list(report.games)}`,
+    report.notes.length && `untranslated notes:${list(report.notes)}`,
+    report.unused.length && `unused translated notes:${list(report.unused)}`,
+  ].filter(Boolean);
+  console.log(problems.length ? `Translations ${locale}: ${problems.join('\n')}` : `Translations ${locale}: complete.`);
+}
 if (!hasCurated) console.warn(`Note: ${path.relative(root, curatedPath)} not found; curated exclusives skipped.`);

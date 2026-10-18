@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { artworkUrl, bestRoute, dexNo, isObtainable, linkLabel, methodLabel, versionNames } from '../data.ts';
+import { artworkUrl, bestRoute, dexNo, isObtainable, versionNames } from '../data.ts';
+import { useI18n } from '../i18n/index.tsx';
 import { toggleIn, useUserState } from '../store.ts';
 import type { Availability, Game, Pokemon } from '../types.ts';
 
@@ -11,6 +12,7 @@ interface Props {
 
 export function PokemonDetail({ pokemon: p, games, onClose }: Readonly<Props>) {
   const [user, update] = useUserState();
+  const { t } = useI18n();
   const dialog = useRef<HTMLDialogElement>(null);
   const owned = new Set(user.owned);
   const has = user.registered.includes(p.id);
@@ -34,7 +36,7 @@ export function PokemonDetail({ pokemon: p, games, onClose }: Readonly<Props>) {
       aria-labelledby="detail-title"
     >
       <div className="detail-body">
-        <button className="close ghost" onClick={() => dialog.current?.close()} aria-label="Close">
+        <button className="close ghost" onClick={() => dialog.current?.close()} aria-label={t.detail.close}>
           ✕
         </button>
         <div className="detail-head">
@@ -43,37 +45,34 @@ export function PokemonDetail({ pokemon: p, games, onClose }: Readonly<Props>) {
             <span className="no">{dexNo(p.id)}</span>
             <h2 id="detail-title">{p.name}</h2>
             <p className="muted">
-              Gen {p.gen}
-              {p.legendary && ' · Legendary'}
-              {p.mythical && ' · Mythical'}
+              {t.filters.gen(p.gen)}
+              {p.legendary && ` · ${t.detail.legendary}`}
+              {p.mythical && ` · ${t.detail.mythical}`}
             </p>
             <button
               className={has ? 'secondary' : ''}
               aria-pressed={has}
               onClick={() => update((s) => ({ registered: toggleIn(s.registered, p.id) }))}
             >
-              {has ? '✓ Registered in HOME' : 'Mark as registered in HOME'}
+              {has ? t.detail.isRegistered : t.detail.markRegistered}
             </button>
           </div>
         </div>
 
         {best && isObtainable(best) && games.get(best.game)!.current ? (
           <section className="best">
-            <h3>Best way to get it into HOME</h3>
+            <h3>{t.detail.best}</h3>
             <SourceRow a={best} game={games.get(best.game)!} owned={owned} highlight />
           </section>
         ) : (
           <section className="best warn">
-            <h3>No current way to obtain it</h3>
-            <p>
-              It was only available through past events or games that no longer connect easily. Trading with
-              someone in HOME (GTS, Wonder Box or Room Trade) also registers it when it lands in your boxes.
-            </p>
+            <h3>{t.detail.noCurrent}</h3>
+            <p>{t.detail.noCurrentText}</p>
           </section>
         )}
 
         <section>
-          <h3>Current games and apps</h3>
+          <h3>{t.detail.current}</h3>
           {current.length ? (
             <ul className="sources-list">
               {current.map((a) => (
@@ -83,13 +82,13 @@ export function PokemonDetail({ pokemon: p, games, onClose }: Readonly<Props>) {
               ))}
             </ul>
           ) : (
-            <p className="muted">None.</p>
+            <p className="muted">{t.detail.none}</p>
           )}
         </section>
 
         {retro.length > 0 && (
           <details>
-            <summary>Retro games ({retro.length})</summary>
+            <summary>{t.detail.retro(retro.length)}</summary>
             <ul className="sources-list">
               {retro.map((a) => (
                 <li key={a.game}>
@@ -100,25 +99,23 @@ export function PokemonDetail({ pokemon: p, games, onClose }: Readonly<Props>) {
           </details>
         )}
 
-        <p className="footnote muted">
-          HOME registers a Pokémon in its National Pokédex when it is deposited in a HOME box. Trades received in
-          HOME count too.
-        </p>
+        <p className="footnote muted">{t.detail.footnote}</p>
       </div>
     </dialog>
   );
 }
 
 function SourceRow({ a, game, owned, highlight }: Readonly<{ a: Availability; game: Game; owned: Set<string>; highlight?: boolean }>) {
+  const { t } = useI18n();
   const versions = versionNames(game, a.versions);
   return (
     <div className={`source${highlight ? ' highlight' : ''}${isObtainable(a) ? '' : ' past'}`}>
       <div className="source-title">
         <strong>{game.name}</strong>
-        {owned.has(game.id) && <span className="tag ok">Owned</span>}
-        {versions.length > 0 && <span className="tag excl">{versions.join(' / ')} only</span>}
-        {a.method && <span className="tag">{methodLabel[a.method]}</span>}
-        <span className={`tag link-${game.home.link}`}>{linkLabel[game.home.link]}</span>
+        {owned.has(game.id) && <span className="tag ok">{t.detail.owned}</span>}
+        {versions.length > 0 && <span className="tag excl">{t.detail.only(versions.join(' / '))}</span>}
+        {a.method && <span className="tag">{t.method[a.method]}</span>}
+        <span className={`tag link-${game.home.link}`}>{t.link[game.home.link]}</span>
       </div>
       {a.note && <p className="note">{a.note}</p>}
       <p className="how">{game.home.how}</p>

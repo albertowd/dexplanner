@@ -23,6 +23,13 @@ export default defineConfig({
     cwd: 'web',
     command: `npx vite build && npx vite preview --port ${port} --strictPort`,
     url: `http://localhost:${port}`,
+    // Test the build without cloud sync, whatever a local web/.env contains (process env wins over .env files).
+    env: {
+      VITE_FIREBASE_API_KEY: '',
+      VITE_FIREBASE_AUTH_DOMAIN: '',
+      VITE_FIREBASE_PROJECT_ID: '',
+      VITE_FIREBASE_APP_ID: '',
+    },
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },

@@ -39,7 +39,7 @@ export default defineConfig({
       reporter: ['text-summary', 'lcov'],
       reportsDirectory: here('./coverage'),
       include: ['web/src/**', 'scripts/lib/**'],
-      exclude: ['web/src/main.tsx', 'web/src/types.ts', '**/*.d.ts'],
+      exclude: ['web/src/main.tsx', 'web/src/types.ts', 'web/src/sync/firebase.ts', '**/*.d.ts'],
     },
   },
 });

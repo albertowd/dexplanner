@@ -174,9 +174,17 @@ const clean = (o) => Object.fromEntries(Object.entries(o).filter(([, v]) => v !=
  * @param {object[]} input.games data/games.json `games`
  * @param {object} input.special data/special.json
  * @param {object} [input.curated] data/curated-availability.json
+ * @param {Record<string, object>} [input.translations] data/i18n/<locale>.json by locale
  * @param {Date} [input.now]
  */
-export function buildPokedex({ raw, games, special, curated = { exclusives: {}, extra: {} }, now = new Date() }) {
+export function buildPokedex({
+  raw,
+  games,
+  special,
+  curated = { exclusives: {}, extra: {} },
+  translations = {},
+  now = new Date(),
+}) {
   const species = normalizeSpecies(raw);
   const index = createIndex(species);
   const avail = createAvailability(species);
@@ -206,6 +214,9 @@ export function buildPokedex({ raw, games, special, curated = { exclusives: {}, 
       ...(curated.sources ?? []),
     ],
     games: games.map(({ source: _source, ...g }) => g),
+    translations: Object.fromEntries(
+      Object.entries(translations).map(([locale, { $comment: _comment, ...t }]) => [locale, t]),
+    ),
     pokemon: species.map((s) =>
       clean({
         id: s.id,
@@ -227,4 +238,24 @@ export function buildPokedex({ raw, games, special, curated = { exclusives: {}, 
 export function nowhereCurrent(pokedex) {
   const currentIds = new Set(pokedex.games.filter((g) => g.current).map((g) => g.id));
   return pokedex.pokemon.filter((p) => !p.avail.some((a) => currentIds.has(a.game)));
+}
+
+/**
+ * Per locale: games without a translated HOME text, notes without a translation, and translated notes
+ * that no longer appear in the data (printed by the build so nothing goes out half translated).
+ */
+export function translationReport(pokedex) {
+  const notes = new Set(pokedex.pokemon.flatMap((p) => p.avail.flatMap((a) => (a.note ? a.note.split(' · ') : []))));
+  return Object.fromEntries(
+    Object.entries(pokedex.translations ?? {}).map(([locale, t]) => [
+      locale,
+      {
+        games: pokedex.games
+          .filter((g) => !t.games?.[g.id]?.how || (g.home.note && !t.games[g.id].note))
+          .map((g) => g.id),
+        notes: [...notes].filter((n) => !t.notes?.[n]),
+        unused: Object.keys(t.notes ?? {}).filter((n) => !notes.has(n)),
+      },
+    ]),
+  );
 }

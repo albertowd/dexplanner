@@ -1,7 +1,9 @@
 import { useRegisterSW } from 'virtual:pwa-register/react';
+import { useI18n } from './i18n/index.tsx';
 
 /** Lets the user pick up a new deploy (app shell + data) without losing their place. */
 export function UpdatePrompt() {
+  const { t } = useI18n();
   const {
     needRefresh: [needRefresh, setNeedRefresh],
     offlineReady: [offlineReady, setOfflineReady],
@@ -11,8 +13,8 @@ export function UpdatePrompt() {
   if (!needRefresh && !offlineReady) return null;
   return (
     <output className="toast">
-      <span>{needRefresh ? 'A new version is available.' : 'Ready to work offline.'}</span>
-      {needRefresh && <button onClick={() => updateServiceWorker(true)}>Reload</button>}
+      <span>{needRefresh ? t.update.available : t.update.offlineReady}</span>
+      {needRefresh && <button onClick={() => updateServiceWorker(true)}>{t.update.reload}</button>}
       <button
         className="ghost"
         onClick={() => {
@@ -20,7 +22,7 @@ export function UpdatePrompt() {
           setOfflineReady(false);
         }}
       >
-        Dismiss
+        {t.update.dismiss}
       </button>
     </output>
   );

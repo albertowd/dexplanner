@@ -4,11 +4,13 @@ import { toggleIn, useUserState } from '../store.ts';
 import type { Game, PokedexData } from '../types.ts';
 import { MultiSelect, type MultiSelectOption } from './MultiSelect.tsx';
 import { useIncremental } from '../useIncremental.ts';
+import { useI18n } from '../i18n/index.tsx';
 
 type Status = 'all' | 'missing' | 'registered';
 
 export function DexView({ data, games }: Readonly<{ data: PokedexData; games: Map<string, Game> }>) {
   const [user, update] = useUserState();
+  const { t } = useI18n();
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState<Status>('all');
   const [gens, setGens] = useState<string[]>([]);
@@ -27,8 +29,8 @@ export function DexView({ data, games }: Readonly<{ data: PokedexData; games: Ma
     () =>
       [...new Set(data.pokemon.map((p) => p.gen))]
         .sort((a, b) => a - b)
-        .map((g) => ({ value: String(g), label: `Gen ${g}` })),
-    [data.pokemon],
+        .map((g) => ({ value: String(g), label: t.filters.gen(g) })),
+    [data.pokemon, t],
   );
 
   const list = useMemo(
@@ -41,7 +43,11 @@ export function DexView({ data, games }: Readonly<{ data: PokedexData; games: Ma
         if (deferredQuery) {
           const num = Number(deferredQuery.replace('#', ''));
           if (Number.isInteger(num) && num > 0) return p.id === num;
-          return p.name.toLowerCase().includes(deferredQuery) || p.slug.includes(deferredQuery);
+          return (
+            p.name.toLowerCase().includes(deferredQuery) ||
+            p.slug.includes(deferredQuery) ||
+            !!p.englishName?.toLowerCase().includes(deferredQuery)
+          );
         }
         return true;
       }),
@@ -63,28 +69,28 @@ export function DexView({ data, games }: Readonly<{ data: PokedexData; games: Ma
       <div className="filters">
         <input
           type="search"
-          placeholder="Search by name or number"
+          placeholder={t.filters.searchPlaceholder}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          aria-label="Search"
+          aria-label={t.filters.search}
         />
-        <select value={status} onChange={(e) => setStatus(e.target.value as Status)} aria-label="Status">
-          <option value="all">All</option>
-          <option value="missing">Missing in HOME</option>
-          <option value="registered">Registered</option>
+        <select value={status} onChange={(e) => setStatus(e.target.value as Status)} aria-label={t.filters.status}>
+          <option value="all">{t.filters.all}</option>
+          <option value="missing">{t.filters.missing}</option>
+          <option value="registered">{t.filters.registered}</option>
         </select>
         <MultiSelect
-          label="Generation"
-          anyLabel="All generations"
-          plural="generations"
+          label={t.filters.generation}
+          anyLabel={t.filters.allGenerations}
+          manyLabel={t.filters.generations}
           options={genOptions}
           selected={gens}
           onChange={setGens}
         />
         <MultiSelect
-          label="Obtainable in"
-          anyLabel="Any game or DLC"
-          plural="games"
+          label={t.filters.obtainableIn}
+          anyLabel={t.filters.anyGame}
+          manyLabel={t.filters.games}
           options={gameOptions}
           selected={gameIds}
           onChange={setGameIds}
@@ -92,14 +98,14 @@ export function DexView({ data, games }: Readonly<{ data: PokedexData; games: Ma
       </div>
 
       <div className="list-meta">
-        <span className="muted">{list.length} Pokémon</span>
+        <span className="muted">{t.dex.count(list.length)}</span>
         {list.length > 0 && list.length < data.pokemon.length && (
           <span className="bulk">
             <button className="ghost small" onClick={() => markAllShown(true)}>
-              Mark shown as registered
+              {t.dex.markShown}
             </button>
             <button className="ghost small" onClick={() => markAllShown(false)}>
-              Unmark shown
+              {t.dex.unmarkShown}
             </button>
           </span>
         )}
@@ -115,12 +121,12 @@ export function DexView({ data, games }: Readonly<{ data: PokedexData; games: Ma
                 <img src={spriteUrl(p.id)} alt="" crossOrigin="anonymous" loading="lazy" width={96} height={96} />
                 <span className="no">{dexNo(p.id)}</span>
                 <span className="name">{p.name}</span>
-                <span className={current.length ? 'sources' : 'sources warn'}>{sourcesLabel(current.length)}</span>
+                <span className={current.length ? 'sources' : 'sources warn'}>{t.dex.sources(current.length)}</span>
               </a>
               <button
                 className="check"
                 aria-pressed={has}
-                aria-label={has ? `Unmark ${p.name}` : `Mark ${p.name} as registered`}
+                aria-label={has ? t.dex.unmark(p.name) : t.dex.mark(p.name)}
                 onClick={() => toggle(p.id)}
               >
                 {has ? '✓' : '+'}
@@ -132,9 +138,4 @@ export function DexView({ data, games }: Readonly<{ data: PokedexData; games: Ma
       {visible < list.length && <div ref={sentinel} className="sentinel" aria-hidden="true" />}
     </section>
   );
-}
-
-function sourcesLabel(count: number) {
-  if (count === 0) return 'No current source';
-  return count === 1 ? '1 current source' : `${count} current sources`;
 }

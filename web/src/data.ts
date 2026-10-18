@@ -23,24 +23,6 @@ export const dexNo = (id: number) => `#${String(id).padStart(4, '0')}`;
 /** Past events cannot be planned for. */
 export const isObtainable = (a: Availability) => a.method !== 'event';
 
-export const methodLabel: Record<string, string> = {
-  catch: 'Catch',
-  evolve: 'Evolve',
-  gift: 'Gift',
-  raid: 'Raid',
-  event: 'Past event only',
-  trade: 'Trade',
-  dex: 'In game (gift, trade or special)',
-};
-
-export const linkLabel: Record<Game['home']['link'], string> = {
-  'two-way': 'HOME two-way',
-  'one-way': 'HOME one-way',
-  bank: 'Via Pokémon Bank',
-  transporter: 'Via Transporter + Bank',
-  none: 'No HOME link',
-};
-
 /** Z-A Pokémon can never go back to older games, so prefer other two-way games when there is a choice. */
 const isZaGroup = (g: Game) => g.id === 'za' || g.parent === 'za';
 

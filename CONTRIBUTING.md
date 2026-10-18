@@ -156,6 +156,61 @@ npm run showcase -- --url=http://localhost:4173    # or any other deployment
 
 Re-record them after visible UI changes, and keep each file under about 3 MB.
 
+## Translations
+
+PokePlan is available in English and Brazilian Portuguese.
+
+- **Interface text:** `web/src/i18n/en.ts` (the reference) and `web/src/i18n/pt-BR.ts`. TypeScript checks that every language has every key; text that depends on a number is a small function.
+- **Data text:** `data/i18n/pt-BR.json`. It holds translated game names, HOME instructions and caveats per game id, and source notes keyed by their English text. `npm run data` bundles it into `pokedex.json` and lists any game or note still untranslated, plus translations that no longer match anything.
+- **Language choice:** detected from the browser (any Portuguese → pt-BR) and changeable with the flag menu in the header (`web/src/header/LanguageMenu.tsx`; flags are inline SVG because Windows doesn't render flag emoji). It's stored per device under `pokeplan:locale` and isn't synced.
+
+When you add or change English text, update `pt-BR.ts` or `data/i18n/pt-BR.json` in the same pull request; `npm run data` should report `Translations pt-BR: complete.`
+
+**Adding a language:**
+1. Add `web/src/i18n/<locale>.ts` typed as `Messages`, and register it in `locales` in `web/src/i18n/index.tsx` (also extend `detectLocale`).
+2. Add `data/i18n/<locale>.json` and run `npm run data`.
+
+## Cloud sync (Firebase)
+
+Sign-in and sync are optional:
+- without the `VITE_FIREBASE_*` variables, the Settings section and header indicator are hidden and the app works exactly as before;
+- a small Vite plugin in `web/vite.config.ts` then swaps the Firebase adapter for a stub, so the Firebase SDK isn't even built into the site.
+
+You don't need Firebase to work on PokePlan.
+
+How it works:
+- Google sign-in with Firebase Auth.
+- One Firestore document per trainer at `trainers/{uid}`. Registered Pokémon and owned games are maps (`registered.25 = true`), so a batch of changes is one write that adds and removes single entries, and edits from two devices merge.
+- Writes are batched: 30 seconds after the last change, at most 2 minutes after the first unsaved one. They're also sent when the tab is hidden, on "Save now", and before leaving (with the browser's leave prompt).
+- Unsaved changes are kept in `localStorage` and sent on the next visit.
+- Reads happen at sign-in, at app start and when the tab regains focus (at most once a minute). The app uses Firestore Lite, so there are no realtime listeners.
+- The Firebase SDK is a separate chunk, loaded only for trainers who have signed in. The service worker caches it on first use instead of pre-caching it for everyone.
+
+The header account menu (`web/src/header/AccountMenu.tsx`) shows the sign-in button, or the trainer's name with a sign-out menu. Its pixel trainer is Red's FireRed/LeafGreen sprite, loaded at runtime from Pokémon Showdown's sprite server and not stored in the repository, with a plain placeholder if it can't load.
+
+The code is in `web/src/sync/`:
+- `patch.ts` and `engine.ts`: the change and merge logic and the batching engine, unit tested with a fake backend;
+- `firebase.ts`: the thin Firebase adapter;
+- `controller.ts`: lazy loading, sign-in state and the browser events.
+
+### Setting up a Firebase project
+
+1. Create a project at https://console.firebase.google.com (the free Spark plan is enough).
+2. **Authentication → Sign-in method:** enable **Google**. Under **Settings → Authorized domains**, add your site's domain (e.g. `pokeplan.albertowd.dev`); `localhost` is there by default.
+3. **Firestore Database:** create a database in **production mode**, in a region close to your users.
+4. Deploy the security rules and index settings from this repo:
+
+   ```bash
+   npx firebase-tools login
+   npx firebase-tools deploy --only firestore --project <your-project-id>
+   ```
+
+   `firestore.rules` lets each trainer read and write only their own document, with type and size checks. `firestore.indexes.json` turns off indexing for the per-Pokémon maps, which nothing queries.
+5. **Project settings → Your apps:** add a **Web app** and copy its config values.
+6. Set the four variables from `web/.env.example`:
+   - locally: in `web/.env.local` (git-ignored);
+   - on Vercel: under **Project → Settings → Environment Variables**, then redeploy.
+
 ## Deploying (Vercel)
 
 The site is deployed on Vercel from GitHub. The Vercel project's **Root Directory** is `web` (Vercel detects the Vite app there), and `web/vercel.json` sets the rest:

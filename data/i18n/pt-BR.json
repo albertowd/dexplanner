@@ -1,0 +1,147 @@
+{
+  "$comment": "Brazilian Portuguese for the game catalogue (data/games.json) and source notes (data/special.json, data/curated-availability.json). Notes are keyed by their English text; `npm run data` lists anything missing. Official game titles stay in English, as sold in Brazil.",
+  "games": {
+    "sv": {
+      "how": "Abra o Pokémon HOME no Switch, escolha Scarlet/Violet e mova o Pokémon para uma caixa do HOME. Ele é registrado ao ser depositado e pode voltar para o jogo depois."
+    },
+    "sv-tm": {
+      "name": "The Teal Mask (DLC de SV, parte 1)",
+      "how": "Igual a Scarlet/Violet: deposite no HOME a partir do jogo; ele pode voltar depois."
+    },
+    "sv-id": {
+      "name": "The Indigo Disk (DLC de SV, parte 2)",
+      "how": "Igual a Scarlet/Violet: deposite no HOME a partir do jogo; ele pode voltar depois."
+    },
+    "za": {
+      "how": "Deposite no HOME a partir de Legends: Z-A (HOME 4.0.0 ou mais recente). Ele pode voltar para Z-A depois.",
+      "note": "Z-A é um grupo de compatibilidade à parte: um Pokémon capturado em Z-A, ou que já tenha ido para Z-A, nunca mais pode ir para Scarlet/Violet ou jogos mais antigos. Ele continua contando para a sua Pokédex do HOME."
+    },
+    "za-md": {
+      "name": "Mega Dimension (DLC de Z-A)",
+      "how": "Igual a Legends: Z-A: deposite no HOME a partir do jogo.",
+      "note": "A trava de compatibilidade de Z-A vale aqui: ele nunca poderá ir para Scarlet/Violet ou jogos mais antigos."
+    },
+    "pla": {
+      "how": "Deposite no HOME a partir de Legends: Arceus. Ele pode voltar depois e chega numa Strange Ball em BDSP, SV e Z-A."
+    },
+    "bdsp": {
+      "how": "Deposite no HOME a partir de BDSP. Ele pode voltar depois."
+    },
+    "swsh": {
+      "how": "Deposite no HOME a partir de Sword/Shield. Ele pode voltar depois."
+    },
+    "swsh-ioa": {
+      "name": "The Isle of Armor (DLC de SwSh, parte 1)",
+      "how": "Igual a Sword/Shield: deposite no HOME a partir do jogo."
+    },
+    "swsh-ct": {
+      "name": "The Crown Tundra (DLC de SwSh, parte 2)",
+      "how": "Igual a Sword/Shield: deposite no HOME a partir do jogo."
+    },
+    "lgpe": {
+      "how": "Mova para o HOME a partir de Let's Go. Ele é registrado ao ser depositado.",
+      "note": "Ele só pode voltar para Let's Go, e apenas se nunca tiver ido para outro jogo. Considere como só de ida."
+    },
+    "frlg-switch": {
+      "how": "Envie para o HOME a partir de FRLG (HOME 4.1.0 ou mais recente, uma caixa inteira por vez). Nada pode ser enviado de volta para FRLG.",
+      "note": "Cada transferência também sincroniza a sua Pokédex de FRLG com o HOME, então as espécies registradas em FRLG contam para a Pokédex de Kanto de FRLG no HOME (recompensa: Celebi) sem precisar mover uma por uma. Não está confirmado se isso também preenche a Pokédex Nacional do HOME; deposite um para garantir."
+    },
+    "go": {
+      "how": "No GO, abra Configurações → Pokémon HOME e envie com o GO Transporter. Ele é registrado quando chega ao HOME.",
+      "note": "Só de ida. Pokémon Lendários e Míticos vindos do GO só podem sair do HOME para um jogo em cuja Pokédex eles já estejam registrados. A disponibilidade no GO muda conforme os eventos."
+    },
+    "home": {
+      "name": "Recompensas do Pokémon HOME",
+      "short": "Presente do HOME",
+      "how": "Resgatado no HOME para celular → Presente Misterioso. Ele vai direto para as suas caixas do HOME e é registrado."
+    },
+    "usum": {
+      "how": "Deposite no Pokémon Bank e depois mova do Bank → HOME (exige o HOME Premium). Só de ida.",
+      "note": "O Bank não pode mais ser baixado e será desativado em 25/02/2027."
+    },
+    "sm": {
+      "how": "Deposite no Pokémon Bank e depois mova do Bank → HOME (exige o HOME Premium). Só de ida.",
+      "note": "O Bank não pode mais ser baixado e será desativado em 25/02/2027."
+    },
+    "oras": {
+      "how": "Deposite no Pokémon Bank e depois mova do Bank → HOME (exige o HOME Premium). Só de ida.",
+      "note": "O Bank não pode mais ser baixado e será desativado em 25/02/2027."
+    },
+    "xy": {
+      "how": "Deposite no Pokémon Bank e depois mova do Bank → HOME (exige o HOME Premium). Só de ida.",
+      "note": "O Bank não pode mais ser baixado e será desativado em 25/02/2027."
+    },
+    "b2w2": {
+      "how": "Poké Transporter (3DS) → Pokémon Bank → HOME. Só de ida.",
+      "note": "Exige um 3DS com o Transporter e o Bank já baixados; o Bank será desativado em 25/02/2027."
+    },
+    "bw": {
+      "how": "Poké Transporter (3DS) → Pokémon Bank → HOME. Só de ida.",
+      "note": "Exige um 3DS com o Transporter e o Bank já baixados; o Bank será desativado em 25/02/2027."
+    },
+    "hgss": {
+      "how": "Poké Transfer para um jogo da 5ª geração, depois Poké Transporter → Bank → HOME. Só de ida.",
+      "note": "Exige dois consoles DS (ou um DS e um 3DS), além do Transporter e do Bank; o Bank será desativado em 25/02/2027."
+    },
+    "dppt": {
+      "how": "Poké Transfer para um jogo da 5ª geração, depois Poké Transporter → Bank → HOME. Só de ida.",
+      "note": "O Bank será desativado em 25/02/2027."
+    },
+    "gen3": {
+      "short": "3ª geração (GBA)",
+      "how": "Pal Park (DS) → Poké Transfer (5ª geração) → Poké Transporter → Bank → HOME. Só de ida.",
+      "note": "Exige um DS com entrada para cartucho de GBA. O Bank será desativado em 25/02/2027."
+    },
+    "vc-gen2": {
+      "name": "Pokémon Gold / Silver / Crystal (Virtual Console do 3DS)",
+      "how": "Poké Transporter → Pokémon Bank → HOME. Só de ida.",
+      "note": "Somente as versões do Virtual Console do 3DS. O Bank será desativado em 25/02/2027."
+    },
+    "vc-gen1": {
+      "name": "Pokémon Red / Blue / Yellow (Virtual Console do 3DS)",
+      "how": "Poké Transporter → Pokémon Bank → HOME. Só de ida.",
+      "note": "Somente as versões do Virtual Console do 3DS. O Bank será desativado em 25/02/2027."
+    }
+  },
+  "notes": {
+    "Grand Underground (post-game, after National Dex)": "Grande Subterrâneo (pós-jogo, depois da Pokédex Nacional)",
+    "Evolve or breed from Grand Underground species (post-game, after National Dex)": "Evolua ou obtenha por ovos a partir de espécies do Grande Subterrâneo (pós-jogo, depois da Pokédex Nacional)",
+    "Grand Underground (post-game, after National Dex), Brilliant Diamond only": "Grande Subterrâneo (pós-jogo, depois da Pokédex Nacional), somente Brilliant Diamond",
+    "Evolve or breed from Grand Underground species (post-game), Brilliant Diamond only": "Evolua ou obtenha por ovos a partir de espécies do Grande Subterrâneo (pós-jogo), somente Brilliant Diamond",
+    "Grand Underground (post-game, after National Dex), Shining Pearl only": "Grande Subterrâneo (pós-jogo, depois da Pokédex Nacional), somente Shining Pearl",
+    "Evolve or breed from Grand Underground species (post-game), Shining Pearl only": "Evolua ou obtenha por ovos a partir de espécies do Grande Subterrâneo (pós-jogo), somente Shining Pearl",
+    "Indigo Disk post-game: Snacksworth legendary treats from Blueberry Quests (Rayquaza, Kyurem and Necrozma only through group quests)": "Pós-jogo de The Indigo Disk: guloseimas lendárias do Snacksworth pelas Missões Blueberry (Rayquaza, Kyurem e Necrozma só pelas missões em grupo)",
+    "Ramanas Park (post-game)": "Parque Ramanas (pós-jogo)",
+    "Ramanas Park (post-game), Brilliant Diamond only": "Parque Ramanas (pós-jogo), somente Brilliant Diamond",
+    "Ramanas Park (post-game), Shining Pearl only": "Parque Ramanas (pós-jogo), somente Shining Pearl",
+    "7-star Tera Raid event only (Mightiest Mark Mewtwo, limited-time and rerun); not in any SV regional dex": "Somente no evento de Tera Raid de 7 estrelas (Mewtwo com a Marca do Mais Poderoso, por tempo limitado e com reprises); não está em nenhuma Pokédex regional de SV",
+    "Mystery Gift unlocked by connecting a Poké Ball Plus (accessory required); not in any SV regional dex": "Presente Misterioso liberado ao conectar uma Poké Ball Plus (exige o acessório); não está em nenhuma Pokédex regional de SV",
+    "Special Research \"A Mythical Discovery\" (permanent).": "Pesquisa Especial \"Uma Descoberta Mítica\" (permanente).",
+    "Indigo Disk post-game: Snacksworth solo quests in Scarlet (Violet players need group quests)": "Pós-jogo de The Indigo Disk: missões solo do Snacksworth em Scarlet (quem joga Violet precisa das missões em grupo)",
+    "Indigo Disk post-game: Snacksworth solo quests in Violet (Scarlet players need group quests)": "Pós-jogo de The Indigo Disk: missões solo do Snacksworth em Violet (quem joga Scarlet precisa das missões em grupo)",
+    "Special Research \"A Ripple in Time\" (follows Mew's research).": "Pesquisa Especial \"Uma Ondulação no Tempo\" (vem depois da pesquisa do Mew).",
+    "Celebi for completing HOME's FireRed/LeafGreen Kanto dex (Mew is not required).": "Celebi ao completar a Pokédex de Kanto de FireRed/LeafGreen no HOME (o Mew não é necessário).",
+    "Special Research \"A Thousand-Year Slumber\"; availability has varied.": "Pesquisa Especial \"Um Sono de Mil Anos\"; a disponibilidade já variou.",
+    "Five-star raids when in rotation.": "Reides de cinco estrelas, quando estiver em rotação.",
+    "Breed a Manaphy (e.g. the HOME reward) with Ditto.": "Deixe um Manaphy (por exemplo, a recompensa do HOME) com um Ditto para obter um ovo.",
+    "Shiny Manaphy for completing HOME's Sinnoh (BDSP) dex.": "Manaphy brilhante ao completar a Pokédex de Sinnoh (BDSP) no HOME.",
+    "Needs Brilliant Diamond / Shining Pearl save data on the same Switch.": "Exige um save de Brilliant Diamond / Shining Pearl no mesmo Switch.",
+    "Five-star raids, usually around Halloween.": "Reides de cinco estrelas, geralmente perto do Halloween.",
+    "Needs Sword / Shield save data on the same Switch.": "Exige um save de Sword / Shield no mesmo Switch.",
+    "Past Special Research only.": "Somente em Pesquisas Especiais passadas.",
+    "Shiny Keldeo for completing HOME's Galar, Isle of Armor and Crown Tundra dexes.": "Keldeo brilhante ao completar as Pokédex de Galar, Isle of Armor e Crown Tundra no HOME.",
+    "Shiny Meloetta for completing HOME's Paldea, Kitakami and Blueberry dexes.": "Meloetta brilhante ao completar as Pokédex de Paldea, Kitakami e Blueberry no HOME.",
+    "Raids when in rotation.": "Reides, quando estiver em rotação.",
+    "Shiny Volcanion for completing HOME's Lumiose, Hyperspace and Mega Evolution dexes.": "Volcanion brilhante ao completar as Pokédex de Lumiose, Hiperespaço e Megaevolução no HOME.",
+    "Original Color Magearna for completing the National Pokédex (Bulbasaur → Eternatus) in HOME.": "Magearna de Cor Original ao completar a Pokédex Nacional (Bulbasaur → Eternatus) no HOME.",
+    "Past ticketed research (GO Fest 2026).": "Pesquisa com ingresso já encerrada (GO Fest 2026).",
+    "Mystery Box (ongoing). Your first GO → HOME transfer also gives a Melmetal.": "Caixa Misteriosa (disponível). A sua primeira transferência do GO → HOME também dá um Melmetal.",
+    "Shiny Meltan for completing HOME's Let's Go Kanto dex.": "Meltan brilhante ao completar a Pokédex de Kanto de Let's Go no HOME.",
+    "Evolve Meltan with 400 candy. Your first GO → HOME transfer also gives a Melmetal.": "Evolua o Meltan com 400 doces. A sua primeira transferência do GO → HOME também dá um Melmetal.",
+    "Given the first time you move a Pokémon from GO to HOME.": "Recebido na primeira vez que você move um Pokémon do GO para o HOME.",
+    "Past Special Research; sometimes rerun.": "Pesquisa Especial já encerrada; às vezes volta.",
+    "Shiny Enamorus for completing HOME's Hisui dex.": "Enamorus brilhante ao completar a Pokédex de Hisui no HOME.",
+    "Listed in the Blueberry dex, but so far only obtainable from limited-time Tera Raid events.": "Está na Pokédex de Blueberry, mas até agora só foi obtido em eventos de Tera Raid por tempo limitado.",
+    "\"Mochi Mayhem\" epilogue; needs both SV DLC parts.": "Epílogo \"Mochi Mayhem\"; exige as duas partes da DLC de SV."
+  }
+}

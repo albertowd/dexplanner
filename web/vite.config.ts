@@ -1,12 +1,36 @@
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 // The project version lives in the root package.json.
 import rootPackage from '../package.json' with { type: 'json' };
 
+const FIREBASE_VARS = ['VITE_FIREBASE_API_KEY', 'VITE_FIREBASE_AUTH_DOMAIN', 'VITE_FIREBASE_PROJECT_ID', 'VITE_FIREBASE_APP_ID'];
+const NO_FIREBASE = '\0pokeplan-no-firebase';
+
+/** Cloud sync is optional: without the Firebase variables, the Firebase adapter (and SDK) isn't built at all. */
+function optionalCloudSync(): Plugin {
+  let builtIn = true;
+  return {
+    name: 'pokeplan-optional-cloud-sync',
+    enforce: 'pre',
+    configResolved(config) {
+      builtIn = FIREBASE_VARS.every((key) => config.env[key]);
+    },
+    resolveId(id, importer) {
+      if (!builtIn && id === './firebase.ts' && importer && /[\\/]sync[\\/]controller\.ts$/.test(importer)) return NO_FIREBASE;
+      return null;
+    },
+    load(id) {
+      if (id !== NO_FIREBASE) return null;
+      return 'export function createFirebase() { throw new Error("Cloud sync is not part of this build."); }';
+    },
+  };
+}
+
 export default defineConfig({
   define: { __APP_VERSION__: JSON.stringify(rootPackage.version) },
   plugins: [
+    optionalCloudSync(),
     react(),
     VitePWA({
       registerType: 'prompt',
@@ -29,8 +53,15 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,webmanifest}'],
+        // Firebase is only needed after signing in: cache it on first use instead of for everyone.
+        globIgnores: ['**/firebase-*.js'],
         navigateFallback: '/index.html',
         runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.startsWith('/assets/firebase-'),
+            handler: 'CacheFirst',
+            options: { cacheName: 'firebase-sdk', expiration: { maxEntries: 4 } },
+          },
           {
             // Pokédex data: show cached data offline, refresh in the background.
             urlPattern: ({ url }) => url.pathname.startsWith('/data/'),

@@ -2,9 +2,11 @@ import { useMemo } from 'react';
 import { buildPlan, dexNo, spriteUrl } from '../data.ts';
 import { useUserState } from '../store.ts';
 import type { PokedexData, Pokemon } from '../types.ts';
+import { useI18n } from '../i18n/index.tsx';
 
 export function PlanView({ data }: Readonly<{ data: PokedexData }>) {
   const [user, update] = useUserState();
+  const { t } = useI18n();
   const owned = useMemo(() => new Set(user.owned), [user.owned]);
   const gameById = new Map(data.games.map((g) => [g.id, g]));
 
@@ -15,26 +17,25 @@ export function PlanView({ data }: Readonly<{ data: PokedexData }>) {
   }, [data, user.registered, owned, user.showRetro]);
 
   if (plan.missing.length === 0) {
-    return <p className="center">Your HOME Pokédex is complete. Congratulations!</p>;
+    return <p className="center">{t.plan.complete}</p>;
   }
 
   return (
     <section className="plan">
-      <p className="lead">
-        {plan.missing.length} Pokémon missing. Games you own come first, then the game or DLC that unlocks the most
-        missing Pokémon at each step.
-      </p>
+      <p className="lead">{t.plan.lead(plan.missing.length)}</p>
       <label className="inline">
         <input
           type="checkbox"
           checked={user.showRetro}
           onChange={(e) => update(() => ({ showRetro: e.target.checked }))}
         />
-        <span>Include retro games (via Pokémon Bank, which shuts down 25 Feb 2027)</span>
+        <span>{t.plan.includeRetro}</span>
       </label>
       {!owned.has('go') && (
         <p className="muted small">
-          Pokémon GO is left out of the plan. Tick it in <a href="#/settings">Settings</a> if you play it.
+          {t.plan.goLeftOut[0]}
+          <a href="#/settings">{t.plan.goLeftOut[1]}</a>
+          {t.plan.goLeftOut[2]}
         </p>
       )}
 
@@ -47,8 +48,8 @@ export function PlanView({ data }: Readonly<{ data: PokedexData }>) {
                 <summary>
                   <span className="step-title">
                     <strong>{step.game.name}</strong>
-                    {step.owned ? <span className="tag ok">Owned</span> : <span className="tag">To get</span>}
-                    {parent && <span className="tag">Needs {parent.short}</span>}
+                    {step.owned ? <span className="tag ok">{t.plan.owned}</span> : <span className="tag">{t.plan.toGet}</span>}
+                    {parent && <span className="tag">{t.plan.needs(parent.short)}</span>}
                   </span>
                   <span className="gain">+{step.gained.length}</span>
                 </summary>
@@ -61,11 +62,8 @@ export function PlanView({ data }: Readonly<{ data: PokedexData }>) {
 
       {plan.unobtainable.length > 0 && (
         <details className="unobtainable">
-          <summary>Not obtainable with this plan ({plan.unobtainable.length})</summary>
-          <p className="muted small">
-            Past events, Pokémon GO-only species (if GO is off), or retro-only species. Trading in HOME is the
-            fallback.
-          </p>
+          <summary>{t.plan.unobtainable(plan.unobtainable.length)}</summary>
+          <p className="muted small">{t.plan.unobtainableText}</p>
           <MiniList list={plan.unobtainable} />
         </details>
       )}

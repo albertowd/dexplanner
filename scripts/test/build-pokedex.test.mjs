@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildPokedex, createAvailability, normalizeSpecies, nowhereCurrent } from '../lib/build-pokedex.mjs';
+import { buildPokedex, createAvailability, normalizeSpecies, nowhereCurrent, translationReport } from '../lib/build-pokedex.mjs';
 
 /** A PokeAPI GraphQL species row. */
 function sp(id, slug, { dexes = [], enc = [], from = null, mythical = false, name } = {}) {
@@ -194,5 +194,37 @@ describe('nowhereCurrent', () => {
   it('lists species with no source in a current game or app', () => {
     const pokedex = build({ special: { ...special, go: { ...special.go, notReleased: ['koraidon', 'kleavor', 'nameless'] } } });
     expect(nowhereCurrent(pokedex).map((p) => p.slug)).toEqual(['kleavor', 'nameless']);
+  });
+});
+
+describe('translations', () => {
+  const ptBR = {
+    $comment: 'notes for translators',
+    games: Object.fromEntries(games.map((g) => [g.id, { how: 'como' }])),
+    notes: { 'HOME reward': 'Recompensa do HOME', Research: 'Pesquisa', Corrected: 'Corrigido', Stale: 'Antigo' },
+  };
+
+  it('bundles translations without the translator comment', () => {
+    const pokedex = build({ translations: { 'pt-BR': ptBR } });
+    expect(Object.keys(pokedex.translations)).toEqual(['pt-BR']);
+    expect(pokedex.translations['pt-BR'].$comment).toBeUndefined();
+    expect(pokedex.translations['pt-BR'].notes.Research).toBe('Pesquisa');
+    expect(build().translations).toEqual({});
+  });
+
+  it('reports missing game texts, untranslated notes and unused translations', () => {
+    const partial = { ...ptBR, games: { ...ptBR.games, swsh: undefined } };
+    const pokedex = build({ translations: { 'pt-BR': partial } });
+    const report = translationReport(pokedex)['pt-BR'];
+    expect(report.games).toEqual(['swsh']);
+    expect(report.notes.sort()).toEqual(['Raid', 'Violet extra']);
+    expect(report.unused).toEqual(['Stale']);
+  });
+
+  it('flags games whose caveat has no translation', () => {
+    const withNote = games.map((g) => (g.id === 'sv' ? { ...g, home: { ...g.home, note: 'Careful' } } : g));
+    const report = translationReport(build({ games: withNote, translations: { 'pt-BR': ptBR } }))['pt-BR'];
+    expect(report.games).toEqual(['sv']);
+    expect(translationReport({ ...build(), translations: undefined })).toEqual({});
   });
 });

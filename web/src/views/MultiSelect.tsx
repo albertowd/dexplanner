@@ -1,5 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { toggleIn } from '../store.ts';
+import { useI18n } from '../i18n/index.tsx';
+import { useDismissable } from '../useDismissable.ts';
 
 export interface MultiSelectOption {
   value: string;
@@ -12,40 +14,21 @@ interface Props {
   label: string;
   /** Summary shown when nothing is selected, e.g. "Any game". */
   anyLabel: string;
-  /** Summary noun for several selections, e.g. "games" → "3 games". */
-  plural: string;
+  /** Summary for several selections, e.g. 3 → "3 games". */
+  manyLabel: (n: number) => string;
   options: MultiSelectOption[];
   selected: string[];
   onChange: (selected: string[]) => void;
 }
 
 /** A dropdown of checkboxes. Nothing ticked means no filtering. */
-export function MultiSelect({ label, anyLabel, plural, options, selected, onChange }: Readonly<Props>) {
+export function MultiSelect({ label, anyLabel, manyLabel, options, selected, onChange }: Readonly<Props>) {
+  const { t } = useI18n();
   const details = useRef<HTMLDetailsElement>(null);
 
-  // Close like a native select: on Escape, or when clicking or focusing outside.
-  useEffect(() => {
-    const closeOutside = (e: Event) => {
-      if (details.current?.open && !details.current.contains(e.target as Node)) details.current.open = false;
-    };
-    const closeOnEscape = (e: KeyboardEvent) => {
-      const el = details.current;
-      if (e.key === 'Escape' && el?.open && el.contains(document.activeElement)) {
-        el.open = false;
-        el.querySelector('summary')?.focus();
-      }
-    };
-    document.addEventListener('pointerdown', closeOutside);
-    document.addEventListener('focusin', closeOutside);
-    document.addEventListener('keydown', closeOnEscape);
-    return () => {
-      document.removeEventListener('pointerdown', closeOutside);
-      document.removeEventListener('focusin', closeOutside);
-      document.removeEventListener('keydown', closeOnEscape);
-    };
-  }, []);
+  useDismissable(details);
 
-  const summary = summarize(options, selected, anyLabel, plural);
+  const summary = summarize(options, selected, anyLabel, manyLabel);
 
   return (
     <details ref={details} className="multiselect">
@@ -65,8 +48,8 @@ export function MultiSelect({ label, anyLabel, plural, options, selected, onChan
           </label>
         ))}
         {selected.length > 0 && (
-          <button type="button" className="ghost small" aria-label={`Clear ${label}`} onClick={() => onChange([])}>
-            Clear
+          <button type="button" className="ghost small" aria-label={t.filters.clearFilter(label)} onClick={() => onChange([])}>
+            {t.filters.clear}
           </button>
         )}
       </fieldset>
@@ -74,8 +57,8 @@ export function MultiSelect({ label, anyLabel, plural, options, selected, onChan
   );
 }
 
-function summarize(options: MultiSelectOption[], selected: string[], anyLabel: string, plural: string) {
+function summarize(options: MultiSelectOption[], selected: string[], anyLabel: string, manyLabel: (n: number) => string) {
   if (selected.length === 0) return anyLabel;
   if (selected.length === 1) return options.find((o) => o.value === selected[0])?.label ?? anyLabel;
-  return `${selected.length} ${plural}`;
+  return manyLabel(selected.length);
 }

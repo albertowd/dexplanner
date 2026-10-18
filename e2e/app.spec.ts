@@ -83,6 +83,13 @@ test.describe('Plan and settings', () => {
     await expect(page.locator('.steps > li').first()).toContainText('Owned');
   });
 
+  test('hides cloud sync when Firebase is not configured', async ({ page }) => {
+    await openDex(page, '/#/settings');
+    await expect(page.getByRole('heading', { name: 'Games you own' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Sync across devices' })).toHaveCount(0);
+    await expect(page.locator('.sync-pill')).toHaveCount(0);
+  });
+
   test('marks everything as registered', async ({ page }) => {
     await openDex(page, '/#/settings');
     page.once('dialog', (dialog) => dialog.accept());
