@@ -1,6 +1,6 @@
 # DexPlanner – Let's catch them all
 
-**➡️ [pokeplan.albertowd.dev](https://pokeplan.albertowd.dev)**
+**➡️ [dexplanner.albertowd.dev](https://dexplanner.albertowd.dev)**
 
 DexPlanner tracks your **Pokémon HOME** National Pokédex and tells you, for every Pokémon you're missing, **which game, DLC, app or event has it**, **how to get it into HOME**, and **which games to play or buy next**.
 

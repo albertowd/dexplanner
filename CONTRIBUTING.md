@@ -158,7 +158,7 @@ On the first run, `scripts/sonar.mjs` replaces the default `admin/admin` passwor
 The animations at the top of the README are recorded from the live site with Playwright and converted to animated WebP with ffmpeg (bundled through the `ffmpeg-static` package). GitHub plays animated images inline; video files committed to a repository only show as links.
 
 ```bash
-npm run showcase                                   # records https://pokeplan.albertowd.dev
+npm run showcase                                   # records https://dexplanner.albertowd.dev
 npm run showcase -- --url=http://localhost:4173    # or any other deployment
 ```
 
@@ -206,7 +206,7 @@ The code is in `web/src/sync/`:
 ### Setting up a Firebase project
 
 1. Create a project at https://console.firebase.google.com (the free Spark plan is enough).
-2. **Authentication → Sign-in method:** enable **Google**. Under **Settings → Authorized domains**, add your site's domain (e.g. `pokeplan.albertowd.dev`); `localhost` is there by default.
+2. **Authentication → Sign-in method:** enable **Google**. Under **Settings → Authorized domains**, add your site's domain (e.g. `dexplanner.albertowd.dev`); `localhost` is there by default.
 3. **Firestore Database:** create a database in **production mode**, in a region close to your users.
 4. Deploy the security rules and index settings from this repo:
 
@@ -225,7 +225,7 @@ The code is in `web/src/sync/`:
 
 The build generates `robots.txt` and `sitemap.xml` (the `siteMetadata` plugin in `web/vite.config.ts`) and fills the site address into the canonical link and the Open Graph / Twitter tags in `web/index.html`.
 
-- **Site address:** `VITE_SITE_URL`, defaulting to `https://pokeplan.albertowd.dev`. Set it on Vercel when the domain changes; robots.txt, the sitemap and the preview tags follow.
+- **Site address:** `VITE_SITE_URL`, defaulting to `https://dexplanner.albertowd.dev`. Set it on Vercel when the domain changes; robots.txt, the sitemap and the preview tags follow.
 - **robots.txt:** allows search engines and asks known AI training and scraping crawlers not to crawl (`AI_CRAWLERS`). It's a convention that well-behaved crawlers follow, not an enforcement.
 - **Preview image:** `web/public/og-image.png` (1200×630), generated from the app icon by `node scripts/make-og-image.mjs`.
 

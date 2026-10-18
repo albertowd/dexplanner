@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Records a short feature tour of the live site on desktop and mobile and converts it to animated
 // WebP for the README (GitHub plays animated images inline; video files committed to a repo don't).
-// Usage: node scripts/showcase.mjs [--url=https://pokeplan.albertowd.dev]
+// Usage: node scripts/showcase.mjs [--url=https://dexplanner.albertowd.dev]
 // Needs `npx playwright install chromium`; ffmpeg comes from the ffmpeg-static package.
 import { chromium, devices } from '@playwright/test';
 import ffmpeg from 'ffmpeg-static';
@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = path.join(root, 'docs');
 const urlArg = process.argv.find((a) => a.startsWith('--url='));
-const site = urlArg ? urlArg.slice('--url='.length) : 'https://pokeplan.albertowd.dev';
+const site = urlArg ? urlArg.slice('--url='.length) : 'https://dexplanner.albertowd.dev';
 
 // Start from realistic progress so the counters and plan look like a real user's.
 const state = {
@@ -116,6 +116,35 @@ async function tour(page, startedAt) {
   await click(page, page.locator('.card .check').first());
   await pause(1000);
 
+  // Living dex: every form gets its own card.
+  await page.getByLabel('Status').selectOption('all');
+  await click(page, page.getByLabel(/^Obtainable in:/));
+  await click(page, page.getByRole('button', { name: /^Clear / }));
+  await page.keyboard.press('Escape');
+  await click(page, page.getByRole('button', { name: /Living dex/ }));
+  await pause(600);
+  await click(page, search);
+  await search.pressSequentially('vulpix', { delay: 120 });
+  await imagesSettled(page);
+  await pause(1500);
+
+  // Shiny: shiny sprites and separate progress.
+  await click(page, page.getByRole('button', { name: /Shiny/ }));
+  await imagesSettled(page);
+  await pause(1500);
+
+  // A Pokémon's details list all its forms.
+  await click(page, page.locator('.card-link').first());
+  await imagesSettled(page);
+  await pause(1500);
+  await page.locator('.forms-list').scrollIntoViewIfNeeded();
+  await pause(1500);
+  await page.keyboard.press('Escape');
+  await click(page, page.getByRole('button', { name: /Shiny/ }));
+  await click(page, page.getByRole('button', { name: /Living dex/ }));
+  await search.fill('');
+  await pause(600);
+
   // Plan: what to play or buy next.
   await click(page, page.getByRole('navigation').getByRole('link', { name: 'Plan' }));
   await pause(800);
@@ -123,13 +152,17 @@ async function tour(page, startedAt) {
   await imagesSettled(page);
   await pause(2000);
 
-  // Settings: owned games and mark-all.
+  // Settings: owned games.
   await click(page, page.getByRole('navigation').getByRole('link', { name: 'Settings' }));
   await pause(1200);
   await click(page, page.getByRole('checkbox', { name: /Pokémon Scarlet \/ Violet/ }));
   await pause(800);
-  await page.getByRole('heading', { name: 'Pokémon HOME sync' }).scrollIntoViewIfNeeded();
-  await pause(1800);
+
+  // Five languages from the flag menu.
+  await click(page, page.getByLabel(/^Language:/));
+  await pause(800);
+  await click(page, page.getByRole('button', { name: 'Português (Brasil)' }));
+  await pause(2000);
   return loadedAfter;
 }
 

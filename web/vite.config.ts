@@ -28,7 +28,7 @@ function optionalCloudSync(): Plugin {
 }
 
 /** Public address of the site; set VITE_SITE_URL (e.g. on Vercel) when the domain changes. */
-const DEFAULT_SITE_URL = 'https://pokeplan.albertowd.dev';
+const DEFAULT_SITE_URL = 'https://dexplanner.albertowd.dev';
 
 /** AI training and scraping crawlers asked not to crawl the site. Search engines stay allowed. */
 const AI_CRAWLERS = [
