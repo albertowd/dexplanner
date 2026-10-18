@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Track your Pokémon HOME Pokédex and find which game, DLC or event gives you each missing Pokémon." />
+    <meta name="theme-color" content="#d7263d" />
+    <link rel="icon" href="/icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <!-- Start the data download with the HTML instead of after the app's JavaScript runs. -->
+    <link rel="preload" href="/data/pokedex.json" as="fetch" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin />
+    <title>PokePlan – Let's catch them all</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

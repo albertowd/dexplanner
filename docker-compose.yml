@@ -1,0 +1,35 @@
+# Local code-quality tooling (not needed for development: `npm run dev` serves the PWA with Vite).
+#   sonarqube      code quality server, profile "sonar" (npm run sonar)
+#   sonar-scanner  one-off analysis run, profile "sonar-scan" (started by scripts/sonar.mjs)
+name: pokeplan
+
+services:
+  sonarqube:
+    image: sonarqube:26.9.0.129388-community
+    profiles: ["sonar"]
+    container_name: pokeplan-sonarqube
+    ports:
+      - "127.0.0.1:9000:9000"
+    environment:
+      # Docker Desktop's VM has a low vm.max_map_count; the embedded Elasticsearch is fine for a local server.
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+    volumes:
+      - sonarqube-data:/opt/sonarqube/data
+      - sonarqube-extensions:/opt/sonarqube/extensions
+      - sonarqube-logs:/opt/sonarqube/logs
+
+  sonar-scanner:
+    image: sonarsource/sonar-scanner-cli:12.2.0.4256_8.1.0
+    profiles: ["sonar-scan"]
+    environment:
+      SONAR_HOST_URL: http://sonarqube:9000
+      SONAR_TOKEN: ${SONAR_TOKEN:-}
+      # Keep report-task.txt on the host so scripts/sonar.mjs can follow the analysis.
+      SCANNER_WORKDIR_PATH: /usr/src/.scannerwork
+    volumes:
+      - .:/usr/src
+
+volumes:
+  sonarqube-data:
+  sonarqube-extensions:
+  sonarqube-logs:

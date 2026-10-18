@@ -1,0 +1,50 @@
+{
+  "$comment": "Hand-curated availability that PokeAPI does not model. Species are PokeAPI slugs; build-data.mjs fails on unknown slugs. Review when HOME or GO add content.",
+  "go": {
+    "checked": "2026-10-12",
+    "sources": ["https://www.onemorecatch.site/pokemon-go-missing-unreleased-unavailable/"],
+    "notReleased": [
+      "phione", "manaphy", "arceus",
+      "wishiwashi", "pyukumuku", "type-null", "silvally", "minior", "magearna",
+      "chewtle", "drednaw", "milcery", "alcremie", "pincurchin", "eiscue", "cufant", "copperajah",
+      "dracozolt", "arctozolt", "dracovish", "arctovish", "glastrier", "spectrier", "calyrex", "basculegion",
+      "capsakid", "scovillain", "rellor", "rabsca", "finizen", "palafin", "cyclizar", "veluza", "farigiraf",
+      "great-tusk", "scream-tail", "brute-bonnet", "flutter-mane", "slither-wing", "sandy-shocks",
+      "iron-treads", "iron-bundle", "iron-hands", "iron-jugulis", "iron-moth", "iron-thorns",
+      "roaring-moon", "iron-valiant", "walking-wake", "iron-leaves",
+      "gouging-fire", "raging-bolt", "iron-boulder", "iron-crown",
+      "wo-chien", "chien-pao", "ting-lu", "chi-yu", "koraidon", "miraidon",
+      "okidogi", "munkidori", "fezandipiti", "ogerpon", "archaludon", "terapagos", "pecharunt"
+    ],
+    "notes": {
+      "mew": "Special Research \"A Mythical Discovery\" (permanent).",
+      "celebi": "Special Research \"A Ripple in Time\" (follows Mew's research).",
+      "jirachi": "Special Research \"A Thousand-Year Slumber\"; availability has varied.",
+      "deoxys": "Five-star raids when in rotation.",
+      "darkrai": "Five-star raids, usually around Halloween.",
+      "meltan": "Mystery Box (ongoing). Your first GO → HOME transfer also gives a Melmetal.",
+      "melmetal": "Evolve Meltan with 400 candy. Your first GO → HOME transfer also gives a Melmetal.",
+      "genesect": "Raids when in rotation.",
+      "victini": "Past Special Research only.",
+      "zarude": "Past Special Research; sometimes rerun.",
+      "zeraora": "Past ticketed research (GO Fest 2026)."
+    },
+    "pastOnly": ["victini", "zarude", "zeraora"]
+  },
+  "entries": [
+    { "game": "home", "species": ["magearna"], "method": "gift", "note": "Original Color Magearna for completing the National Pokédex (Bulbasaur → Eternatus) in HOME." },
+    { "game": "home", "species": ["meloetta"], "method": "gift", "note": "Shiny Meloetta for completing HOME's Paldea, Kitakami and Blueberry dexes." },
+    { "game": "home", "species": ["keldeo"], "method": "gift", "note": "Shiny Keldeo for completing HOME's Galar, Isle of Armor and Crown Tundra dexes." },
+    { "game": "home", "species": ["manaphy"], "method": "gift", "note": "Shiny Manaphy for completing HOME's Sinnoh (BDSP) dex." },
+    { "game": "home", "species": ["enamorus"], "method": "gift", "note": "Shiny Enamorus for completing HOME's Hisui dex." },
+    { "game": "home", "species": ["meltan"], "method": "gift", "note": "Shiny Meltan for completing HOME's Let's Go Kanto dex." },
+    { "game": "home", "species": ["volcanion"], "method": "gift", "note": "Shiny Volcanion for completing HOME's Lumiose, Hyperspace and Mega Evolution dexes." },
+    { "game": "home", "species": ["celebi"], "method": "gift", "note": "Celebi for completing HOME's FireRed/LeafGreen Kanto dex (Mew is not required)." },
+    { "game": "home", "species": ["melmetal"], "method": "gift", "note": "Given the first time you move a Pokémon from GO to HOME." },
+    { "game": "bdsp", "species": ["phione"], "method": "evolve", "note": "Breed a Manaphy (e.g. the HOME reward) with Ditto." },
+    { "game": "pla", "species": ["darkrai"], "method": "gift", "note": "Needs Brilliant Diamond / Shining Pearl save data on the same Switch." },
+    { "game": "pla", "species": ["shaymin"], "method": "gift", "note": "Needs Sword / Shield save data on the same Switch." },
+    { "game": "sv-id", "species": ["pecharunt"], "method": "gift", "note": "\"Mochi Mayhem\" epilogue; needs both SV DLC parts." },
+    { "game": "sv-id", "species": ["walking-wake", "iron-leaves"], "method": "event", "note": "Listed in the Blueberry dex, but so far only obtainable from limited-time Tera Raid events." }
+  ]
+}

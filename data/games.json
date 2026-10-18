@@ -1,0 +1,170 @@
+{
+  "$comment": "Curated game catalogue. `source` tells scripts/build-data.mjs which PokeAPI dexes/encounter versions feed each entry; `curated` points to keys in curated-availability.json; `closedDex` means the dex already lists every species in the game (no evolution expansion). HOME rules checked against home.pokemon.com/en-us/move and Serebii (Oct 2026).",
+  "games": [
+    {
+      "id": "sv", "name": "Pokémon Scarlet / Violet", "short": "SV", "platform": "Switch", "year": 2022, "kind": "game", "current": true,
+      "versions": [{ "id": "scarlet", "name": "Scarlet" }, { "id": "violet", "name": "Violet" }],
+      "home": { "link": "two-way", "how": "Open Pokémon HOME on Switch, pick Scarlet/Violet and move it into a HOME box. It is registered on deposit and can be moved back later." },
+      "source": { "dexes": ["paldea"], "curated": "scarlet-violet" }
+    },
+    {
+      "id": "sv-tm", "name": "The Teal Mask (SV DLC part 1)", "short": "SV: Teal Mask", "platform": "Switch", "year": 2023, "kind": "dlc", "parent": "sv", "current": true,
+      "versions": [{ "id": "scarlet", "name": "Scarlet" }, { "id": "violet", "name": "Violet" }],
+      "home": { "link": "two-way", "how": "Same as Scarlet/Violet: deposit it in HOME from the game; it can come back later." },
+      "source": { "dexes": ["kitakami"], "curated": "the-teal-mask" }
+    },
+    {
+      "id": "sv-id", "name": "The Indigo Disk (SV DLC part 2)", "short": "SV: Indigo Disk", "platform": "Switch", "year": 2023, "kind": "dlc", "parent": "sv", "current": true,
+      "versions": [{ "id": "scarlet", "name": "Scarlet" }, { "id": "violet", "name": "Violet" }],
+      "home": { "link": "two-way", "how": "Same as Scarlet/Violet: deposit it in HOME from the game; it can come back later." },
+      "source": { "dexes": ["blueberry"], "curated": "the-indigo-disk" }
+    },
+    {
+      "id": "za", "name": "Pokémon Legends: Z-A", "short": "Z-A", "platform": "Switch / Switch 2", "year": 2025, "kind": "game", "current": true,
+      "home": {
+        "link": "two-way",
+        "how": "Deposit it in HOME from Legends: Z-A (HOME 4.0.0+). It can go back to Z-A later.",
+        "note": "Z-A is its own compatibility group: a Pokémon caught in Z-A, or ever moved into Z-A, can never go to Scarlet/Violet or older games. It still counts for your HOME Pokédex."
+      },
+      "source": { "dexes": ["lumiose-city"] }
+    },
+    {
+      "id": "za-md", "name": "Mega Dimension (Z-A DLC)", "short": "Z-A: Mega Dimension", "platform": "Switch / Switch 2", "year": 2025, "kind": "dlc", "parent": "za", "current": true,
+      "home": {
+        "link": "two-way",
+        "how": "Same as Legends: Z-A: deposit it in HOME from the game.",
+        "note": "Z-A compatibility lock applies: it can never move to Scarlet/Violet or older games."
+      },
+      "source": { "dexes": ["hyperspace"] }
+    },
+    {
+      "id": "pla", "name": "Pokémon Legends: Arceus", "short": "Legends: Arceus", "platform": "Switch", "year": 2022, "kind": "game", "current": true,
+      "home": { "link": "two-way", "how": "Deposit it in HOME from Legends: Arceus. It can come back later and arrives in a Strange Ball in BDSP, SV and Z-A." },
+      "source": { "dexes": ["hisui"] }
+    },
+    {
+      "id": "bdsp", "name": "Pokémon Brilliant Diamond / Shining Pearl", "short": "BDSP", "platform": "Switch", "year": 2021, "kind": "game", "current": true,
+      "versions": [{ "id": "brilliant-diamond", "name": "Brilliant Diamond" }, { "id": "shining-pearl", "name": "Shining Pearl" }],
+      "home": { "link": "two-way", "how": "Deposit it in HOME from BDSP. It can come back later." },
+      "source": { "dexes": ["original-sinnoh"], "curated": "brilliant-diamond-shining-pearl" }
+    },
+    {
+      "id": "swsh", "name": "Pokémon Sword / Shield", "short": "SwSh", "platform": "Switch", "year": 2019, "kind": "game", "current": true,
+      "versions": [{ "id": "sword", "name": "Sword" }, { "id": "shield", "name": "Shield" }],
+      "home": { "link": "two-way", "how": "Deposit it in HOME from Sword/Shield. It can come back later." },
+      "source": { "dexes": ["galar"], "encounters": { "sword": ["sword"], "shield": ["shield"] } }
+    },
+    {
+      "id": "swsh-ioa", "name": "The Isle of Armor (SwSh DLC part 1)", "short": "SwSh: Isle of Armor", "platform": "Switch", "year": 2020, "kind": "dlc", "parent": "swsh", "current": true,
+      "versions": [{ "id": "sword", "name": "Sword" }, { "id": "shield", "name": "Shield" }],
+      "home": { "link": "two-way", "how": "Same as Sword/Shield: deposit it in HOME from the game." },
+      "source": { "dexes": ["isle-of-armor"], "encounters": { "sword": ["the-isle-of-armor-sword"], "shield": ["the-isle-of-armor-shield"] } }
+    },
+    {
+      "id": "swsh-ct", "name": "The Crown Tundra (SwSh DLC part 2)", "short": "SwSh: Crown Tundra", "platform": "Switch", "year": 2020, "kind": "dlc", "parent": "swsh", "current": true,
+      "versions": [{ "id": "sword", "name": "Sword" }, { "id": "shield", "name": "Shield" }],
+      "home": { "link": "two-way", "how": "Same as Sword/Shield: deposit it in HOME from the game." },
+      "source": { "dexes": ["crown-tundra"], "encounters": { "sword": ["the-crown-tundra-sword"], "shield": ["the-crown-tundra-shield"] } }
+    },
+    {
+      "id": "lgpe", "name": "Pokémon Let's Go, Pikachu! / Eevee!", "short": "Let's Go", "platform": "Switch", "year": 2018, "kind": "game", "current": true,
+      "versions": [{ "id": "lets-go-pikachu", "name": "Let's Go Pikachu" }, { "id": "lets-go-eevee", "name": "Let's Go Eevee" }],
+      "home": {
+        "link": "one-way",
+        "how": "Move it to HOME from Let's Go. It is registered on deposit.",
+        "note": "It can only ever return to Let's Go, and only if it was never moved into another game. Treat it as one-way."
+      },
+      "source": { "dexes": ["letsgo-kanto"], "closedDex": true, "encounters": { "lets-go-pikachu": ["lets-go-pikachu"], "lets-go-eevee": ["lets-go-eevee"] } }
+    },
+    {
+      "id": "frlg-switch", "name": "Pokémon FireRed / LeafGreen (Switch)", "short": "FRLG (Switch)", "platform": "Switch", "year": 2026, "kind": "game", "current": true,
+      "versions": [{ "id": "firered", "name": "FireRed" }, { "id": "leafgreen", "name": "LeafGreen" }],
+      "home": {
+        "link": "one-way",
+        "how": "Send it to HOME from FRLG (HOME 4.1.0+, one whole box at a time). Nothing can be sent back into FRLG.",
+        "note": "Each transfer also syncs your FRLG Pokédex to HOME, so species you registered in FRLG count toward HOME's FRLG Kanto dex (Celebi reward) without moving each one. It is not confirmed that this also fills HOME's National Pokédex; deposit one to be sure."
+      },
+      "source": { "dexes": ["kanto"], "encounters": { "firered": ["firered"], "leafgreen": ["leafgreen"] } }
+    },
+    {
+      "id": "go", "name": "Pokémon GO", "short": "GO", "platform": "iOS / Android", "year": 2016, "kind": "app", "current": true,
+      "home": {
+        "link": "one-way",
+        "how": "In GO, open Settings → Pokémon HOME and send it with GO Transporter. It is registered when it arrives in HOME.",
+        "note": "One-way. Legendary and Mythical Pokémon from GO can only be moved from HOME into a game whose Pokédex already has them registered. GO availability rotates with events."
+      },
+      "source": { "go": true }
+    },
+    {
+      "id": "home", "name": "Pokémon HOME rewards", "short": "HOME gift", "platform": "iOS / Android", "year": 2020, "kind": "app", "current": true,
+      "home": { "link": "two-way", "how": "Claimed in HOME mobile → Mystery Gift. It arrives straight in your HOME boxes and is registered." },
+      "source": {}
+    },
+    {
+      "id": "usum", "name": "Pokémon Ultra Sun / Ultra Moon", "short": "USUM", "platform": "3DS", "year": 2017, "kind": "game", "current": false,
+      "versions": [{ "id": "ultra-sun", "name": "Ultra Sun" }, { "id": "ultra-moon", "name": "Ultra Moon" }],
+      "home": { "link": "bank", "how": "Deposit in Pokémon Bank, then move Bank → HOME (needs HOME Premium). One-way.", "note": "Bank can't be newly downloaded and shuts down on 25 Feb 2027." },
+      "source": { "dexes": ["updated-alola"], "encounters": { "ultra-sun": ["ultra-sun"], "ultra-moon": ["ultra-moon"] } }
+    },
+    {
+      "id": "sm", "name": "Pokémon Sun / Moon", "short": "SM", "platform": "3DS", "year": 2016, "kind": "game", "current": false,
+      "versions": [{ "id": "sun", "name": "Sun" }, { "id": "moon", "name": "Moon" }],
+      "home": { "link": "bank", "how": "Deposit in Pokémon Bank, then move Bank → HOME (needs HOME Premium). One-way.", "note": "Bank can't be newly downloaded and shuts down on 25 Feb 2027." },
+      "source": { "dexes": ["original-alola"], "encounters": { "sun": ["sun"], "moon": ["moon"] } }
+    },
+    {
+      "id": "oras", "name": "Pokémon Omega Ruby / Alpha Sapphire", "short": "ORAS", "platform": "3DS", "year": 2014, "kind": "game", "current": false,
+      "versions": [{ "id": "omega-ruby", "name": "Omega Ruby" }, { "id": "alpha-sapphire", "name": "Alpha Sapphire" }],
+      "home": { "link": "bank", "how": "Deposit in Pokémon Bank, then move Bank → HOME (needs HOME Premium). One-way.", "note": "Bank can't be newly downloaded and shuts down on 25 Feb 2027." },
+      "source": { "dexes": ["updated-hoenn"], "encounters": { "omega-ruby": ["omega-ruby"], "alpha-sapphire": ["alpha-sapphire"] } }
+    },
+    {
+      "id": "xy", "name": "Pokémon X / Y", "short": "XY", "platform": "3DS", "year": 2013, "kind": "game", "current": false,
+      "versions": [{ "id": "x", "name": "X" }, { "id": "y", "name": "Y" }],
+      "home": { "link": "bank", "how": "Deposit in Pokémon Bank, then move Bank → HOME (needs HOME Premium). One-way.", "note": "Bank can't be newly downloaded and shuts down on 25 Feb 2027." },
+      "source": { "dexes": ["kalos-central", "kalos-coastal", "kalos-mountain"], "encounters": { "x": ["x"], "y": ["y"] } }
+    },
+    {
+      "id": "b2w2", "name": "Pokémon Black 2 / White 2", "short": "B2W2", "platform": "DS", "year": 2012, "kind": "game", "current": false,
+      "versions": [{ "id": "black-2", "name": "Black 2" }, { "id": "white-2", "name": "White 2" }],
+      "home": { "link": "transporter", "how": "Poké Transporter (3DS) → Pokémon Bank → HOME. One-way.", "note": "Needs a 3DS with Transporter and Bank already downloaded; Bank shuts down on 25 Feb 2027." },
+      "source": { "dexes": ["updated-unova"], "encounters": { "black-2": ["black-2"], "white-2": ["white-2"] } }
+    },
+    {
+      "id": "bw", "name": "Pokémon Black / White", "short": "BW", "platform": "DS", "year": 2010, "kind": "game", "current": false,
+      "versions": [{ "id": "black", "name": "Black" }, { "id": "white", "name": "White" }],
+      "home": { "link": "transporter", "how": "Poké Transporter (3DS) → Pokémon Bank → HOME. One-way.", "note": "Needs a 3DS with Transporter and Bank already downloaded; Bank shuts down on 25 Feb 2027." },
+      "source": { "dexes": ["original-unova"], "encounters": { "black": ["black"], "white": ["white"] } }
+    },
+    {
+      "id": "hgss", "name": "Pokémon HeartGold / SoulSilver", "short": "HGSS", "platform": "DS", "year": 2009, "kind": "game", "current": false,
+      "versions": [{ "id": "heartgold", "name": "HeartGold" }, { "id": "soulsilver", "name": "SoulSilver" }],
+      "home": { "link": "transporter", "how": "Poké Transfer to a Gen 5 game, then Poké Transporter → Bank → HOME. One-way.", "note": "Needs two DS systems (or a DS + 3DS) plus Transporter and Bank; Bank shuts down on 25 Feb 2027." },
+      "source": { "dexes": ["updated-johto"], "encounters": { "heartgold": ["heartgold"], "soulsilver": ["soulsilver"] } }
+    },
+    {
+      "id": "dppt", "name": "Pokémon Diamond / Pearl / Platinum", "short": "DPPt", "platform": "DS", "year": 2006, "kind": "game", "current": false,
+      "versions": [{ "id": "diamond", "name": "Diamond" }, { "id": "pearl", "name": "Pearl" }, { "id": "platinum", "name": "Platinum" }],
+      "home": { "link": "transporter", "how": "Poké Transfer to a Gen 5 game, then Poké Transporter → Bank → HOME. One-way.", "note": "Bank shuts down on 25 Feb 2027." },
+      "source": { "dexes": ["original-sinnoh", "extended-sinnoh"], "encounters": { "diamond": ["diamond"], "pearl": ["pearl"], "platinum": ["platinum"] } }
+    },
+    {
+      "id": "gen3", "name": "Pokémon Ruby / Sapphire / Emerald / FireRed / LeafGreen (GBA)", "short": "Gen 3 (GBA)", "platform": "GBA", "year": 2002, "kind": "game", "current": false,
+      "versions": [{ "id": "ruby", "name": "Ruby" }, { "id": "sapphire", "name": "Sapphire" }, { "id": "emerald", "name": "Emerald" }, { "id": "firered", "name": "FireRed" }, { "id": "leafgreen", "name": "LeafGreen" }],
+      "home": { "link": "transporter", "how": "Pal Park (DS) → Poké Transfer (Gen 5) → Poké Transporter → Bank → HOME. One-way.", "note": "Needs a DS with a GBA slot. Bank shuts down on 25 Feb 2027." },
+      "source": { "dexes": ["hoenn", "kanto"], "encounters": { "ruby": ["ruby"], "sapphire": ["sapphire"], "emerald": ["emerald"], "firered": ["firered"], "leafgreen": ["leafgreen"] } }
+    },
+    {
+      "id": "vc-gen2", "name": "Pokémon Gold / Silver / Crystal (3DS Virtual Console)", "short": "GSC (VC)", "platform": "3DS", "year": 2017, "kind": "game", "current": false,
+      "versions": [{ "id": "gold", "name": "Gold" }, { "id": "silver", "name": "Silver" }, { "id": "crystal", "name": "Crystal" }],
+      "home": { "link": "transporter", "how": "Poké Transporter → Pokémon Bank → HOME. One-way.", "note": "3DS Virtual Console versions only. Bank shuts down on 25 Feb 2027." },
+      "source": { "dexes": ["original-johto"], "encounters": { "gold": ["gold"], "silver": ["silver"], "crystal": ["crystal"] } }
+    },
+    {
+      "id": "vc-gen1", "name": "Pokémon Red / Blue / Yellow (3DS Virtual Console)", "short": "RBY (VC)", "platform": "3DS", "year": 2016, "kind": "game", "current": false,
+      "versions": [{ "id": "red", "name": "Red" }, { "id": "blue", "name": "Blue" }, { "id": "yellow", "name": "Yellow" }],
+      "home": { "link": "transporter", "how": "Poké Transporter → Pokémon Bank → HOME. One-way.", "note": "3DS Virtual Console versions only. Bank shuts down on 25 Feb 2027." },
+      "source": { "dexes": ["kanto"], "encounters": { "red": ["red"], "blue": ["blue"], "yellow": ["yellow"] } }
+    }
+  ]
+}
