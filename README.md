@@ -34,8 +34,8 @@ scripts/
 web/
   src/                  Vite + React PWA
   test/                 tests for web/src
+  vercel.json           Vercel build, SPA fallback and cache headers
 e2e/                  Playwright end-to-end tests
-vercel.json           Vercel build, SPA fallback and cache headers
 docker-compose.yml    local SonarQube server and scanner
 ```
 
@@ -122,13 +122,15 @@ npm run sonar:down        # stop the server (analysis history is kept in Docker 
 
 ## Deploying (Vercel)
 
-Import the GitHub repository in Vercel. `vercel.json` already sets the build:
+Import the GitHub repository in Vercel and set the project's **Root Directory** to `web` (Vercel detects the Vite app there). `web/vercel.json` sets the rest:
 
-- install with `npm ci`, build with `npm run build`, publish `dist`;
+- build with `npm run build` and publish `web/dist`;
 - unknown paths fall back to `index.html`;
 - `assets/` (fingerprinted by Vite) is cached for a year;
 - the app shell, service worker, manifest and data are revalidated on every request, so a new deploy reaches installed PWAs;
 - basic security headers (`nosniff`, `X-Frame-Options: DENY`, strict referrer policy).
+
+Keep "Include files outside the root directory in the Build Step" enabled (the default): the build reads the version from the root `package.json`.
 
 Every push to the default branch deploys to production, and pull requests get preview deployments.
 

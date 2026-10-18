@@ -53,7 +53,5 @@ export default defineConfig({
       devOptions: { enabled: false },
     }),
   ],
-  // Build into the repo root so Vercel finds it in its default output directory (`dist`).
-  build: { outDir: '../dist', emptyOutDir: true },
   server: { port: 5173 },
 });
