@@ -5,7 +5,7 @@ test.describe('Pokédex list', () => {
     await openDex(page);
     await expect(page.getByText('1025 Pokémon')).toBeVisible();
     await expect(page.locator('.brand img')).toHaveAttribute('src', '/icons/icon.svg');
-    await expect(page.getByRole('contentinfo')).toHaveText(/^PokePlan v\d+\.\d+\.\d+$/);
+    await expect(page.getByRole('contentinfo')).toHaveText(/^DexPlanner v\d+\.\d+\.\d+$/);
   });
 
   test('searches by name and number', async ({ page }) => {

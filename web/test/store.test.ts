@@ -31,8 +31,8 @@ describe('parseBackup', () => {
 
   it('rejects other JSON', async () => {
     const { parseBackup } = await loadStore();
-    expect(() => parseBackup('{"foo":1}')).toThrow('not a PokePlan backup');
-    expect(() => parseBackup('null')).toThrow('not a PokePlan backup');
+    expect(() => parseBackup('{"foo":1}')).toThrow('not a DexPlanner backup');
+    expect(() => parseBackup('null')).toThrow('not a DexPlanner backup');
   });
 });
 
@@ -43,18 +43,20 @@ describe('useUserState', () => {
     expect(result.current[0].registered).toEqual([]);
     act(() => result.current[1](() => ({ registered: [25] })));
     expect(result.current[0].registered).toEqual([25]);
-    expect(JSON.parse(localStorage.getItem('pokeplan:v1')!).registered).toEqual([25]);
+    expect(JSON.parse(localStorage.getItem('dexplanner:v1')!).registered).toEqual([25]);
   });
 
-  it('migrates progress saved under the old project name', async () => {
-    localStorage.setItem('online-pokedex:v1', JSON.stringify({ v: 1, registered: [7], owned: ['sv'], showRetro: false }));
+  it('reads progress migrated from the old project names', async () => {
+    localStorage.setItem('pokeplan:v1', JSON.stringify({ v: 1, registered: [7], owned: ['sv'], showRetro: false }));
+    const { migrateStorage } = await import('../src/migrate.ts');
+    migrateStorage();
     const { useUserState } = await loadStore();
     const { result } = renderHook(() => useUserState());
     expect(result.current[0]).toMatchObject({ registered: [7], owned: ['sv'] });
   });
 
   it('ignores corrupt storage', async () => {
-    localStorage.setItem('pokeplan:v1', '{not json');
+    localStorage.setItem('dexplanner:v1', '{not json');
     const { useUserState } = await loadStore();
     const { result } = renderHook(() => useUserState());
     expect(result.current[0].registered).toEqual([]);
@@ -74,9 +76,9 @@ describe('useUserState', () => {
   it('picks up changes made in another tab', async () => {
     const { useUserState } = await loadStore();
     const { result } = renderHook(() => useUserState());
-    localStorage.setItem('pokeplan:v1', JSON.stringify({ v: 1, registered: [9], owned: [], showRetro: false }));
+    localStorage.setItem('dexplanner:v1', JSON.stringify({ v: 1, registered: [9], owned: [], showRetro: false }));
     act(() => {
-      globalThis.dispatchEvent(new StorageEvent('storage', { key: 'pokeplan:v1' }));
+      globalThis.dispatchEvent(new StorageEvent('storage', { key: 'dexplanner:v1' }));
       globalThis.dispatchEvent(new StorageEvent('storage', { key: 'unrelated' }));
     });
     expect(result.current[0].registered).toEqual([9]);

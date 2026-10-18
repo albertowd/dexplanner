@@ -30,7 +30,7 @@ export function detectLocale(languages: readonly string[] = navigator.languages 
 }
 
 // The language preference is per device, so it lives outside the synced progress.
-const KEY = 'pokeplan:locale';
+const KEY = 'dexplanner:locale';
 const listeners = new Set<() => void>();
 
 function readPreference(): LocalePreference {

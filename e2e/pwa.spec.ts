@@ -6,7 +6,7 @@ test.describe('PWA', () => {
     const href = await page.locator('link[rel="manifest"]').getAttribute('href');
     expect(href).toBeTruthy();
     const manifest = await (await request.get(href!)).json();
-    expect(manifest).toMatchObject({ name: "PokePlan – Let's catch them all", short_name: 'PokePlan', display: 'standalone', start_url: '/' });
+    expect(manifest).toMatchObject({ name: "DexPlanner – Let's catch them all", short_name: 'DexPlanner', display: 'standalone', start_url: '/' });
     const sizes = manifest.icons.map((i: { sizes: string }) => i.sizes);
     expect(sizes).toEqual(expect.arrayContaining(['192x192', '512x512']));
     expect(manifest.icons.some((i: { purpose?: string }) => i.purpose === 'maskable')).toBe(true);

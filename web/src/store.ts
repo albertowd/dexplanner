@@ -8,14 +8,12 @@ export interface UserState {
   showRetro: boolean;
 }
 
-const KEY = 'pokeplan:v1';
-/** Key used before the project was renamed; read once so existing progress carries over. */
-const LEGACY_KEY = 'online-pokedex:v1';
+const KEY = 'dexplanner:v1';
 const empty: UserState = { v: 1, registered: [], owned: [], showRetro: false };
 
 function read(): UserState {
   try {
-    const raw = localStorage.getItem(KEY) ?? localStorage.getItem(LEGACY_KEY);
+    const raw = localStorage.getItem(KEY);
     if (raw) return { ...empty, ...JSON.parse(raw) };
   } catch {
     // private mode / blocked storage: run with in-memory state
@@ -80,7 +78,7 @@ export function toggleIn<T>(list: T[], item: T): T[] {
 
 export class BackupFormatError extends Error {
   constructor() {
-    super('This file is not a PokePlan backup.');
+    super('This file is not a DexPlanner backup.');
   }
 }
 

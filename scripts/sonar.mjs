@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const host = process.env.SONAR_URL ?? 'http://localhost:9000';
-const projectKey = 'pokeplan';
+const projectKey = 'dexplanner';
 const stateFile = path.join(root, '.cache', 'sonar.json');
 const reportFile = path.join(root, '.cache', 'sonar-report.json');
 const args = new Set(process.argv.slice(2));
@@ -32,13 +32,25 @@ function saveState(state) {
   writeFileSync(stateFile, JSON.stringify(state, null, 2));
 }
 
+/** SonarQube briefly drops connections while it processes an analysis; retry network errors. */
+async function fetchWithRetry(url, init, attempts = 5) {
+  for (let i = 1; ; i++) {
+    try {
+      return await fetch(url, init);
+    } catch (error) {
+      if (i >= attempts) throw error;
+      await sleep(3000);
+    }
+  }
+}
+
 async function api(pathAndQuery, { auth, method = 'GET', form } = {}) {
   const headers = {};
   if (auth) {
     const credentials = Buffer.from(`${auth.user}:${auth.password}`).toString('base64');
     headers.authorization = `Basic ${credentials}`;
   }
-  const res = await fetch(`${host}${pathAndQuery}`, {
+  const res = await fetchWithRetry(`${host}${pathAndQuery}`, {
     method,
     headers,
     body: form ? new URLSearchParams(form) : undefined,
@@ -64,7 +76,7 @@ async function waitForServer() {
     process.stdout.write('.');
     await sleep(5000);
   }
-  throw new Error('SonarQube did not start within 10 minutes. Check "docker logs pokeplan-sonarqube".');
+  throw new Error('SonarQube did not start within 10 minutes. Check "docker logs dexplanner-sonarqube".');
 }
 
 async function isValid(auth) {
@@ -96,7 +108,7 @@ async function adminAuth(state) {
 async function ensureProject(auth) {
   const { components } = await api(`/api/projects/search?projects=${projectKey}`, { auth });
   if (components.length === 0) {
-    await api('/api/projects/create', { auth, method: 'POST', form: { project: projectKey, name: 'PokePlan', mainBranch: 'main' } });
+    await api('/api/projects/create', { auth, method: 'POST', form: { project: projectKey, name: 'DexPlanner', mainBranch: 'main' } });
     console.log(`Created SonarQube project "${projectKey}".`);
   }
 }
@@ -106,7 +118,7 @@ async function analysisToken(auth, state) {
     const valid = await api('/api/authentication/validate', { auth: { user: state.token, password: '' } });
     if (valid.valid) return state.token;
   }
-  const name = 'pokeplan-local';
+  const name = 'dexplanner-local';
   await api('/api/user_tokens/revoke', { auth, method: 'POST', form: { name } }).catch(() => {});
   const { token } = await api('/api/user_tokens/generate', {
     auth,

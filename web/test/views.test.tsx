@@ -215,10 +215,10 @@ describe('SettingsView', () => {
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Mark all as registered' }));
     expect(screen.getByRole('status')).toHaveTextContent(`Marked all ${data.pokemon.length} Pokémon as registered.`);
-    expect(JSON.parse(localStorage.getItem('pokeplan:v1')!).registered).toHaveLength(data.pokemon.length);
+    expect(JSON.parse(localStorage.getItem('dexplanner:v1')!).registered).toHaveLength(data.pokemon.length);
     await user.click(screen.getByRole('button', { name: 'Unmark all' }));
     expect(screen.getByRole('status')).toHaveTextContent('All Pokémon unmarked.');
-    expect(JSON.parse(localStorage.getItem('pokeplan:v1')!).registered).toEqual([]);
+    expect(JSON.parse(localStorage.getItem('dexplanner:v1')!).registered).toEqual([]);
     confirm.mockRestore();
   });
 
@@ -250,7 +250,7 @@ describe('SettingsView', () => {
     await user.upload(input, new File(['{"registered":[1,25]}'], 'backup.json', { type: 'application/json' }));
     expect(await screen.findByText('Imported 2 registered Pokémon.')).toBeInTheDocument();
     await user.upload(input, new File(['{"x":1}'], 'other.json', { type: 'application/json' }));
-    expect(await screen.findByText('This file is not a PokePlan backup.')).toBeInTheDocument();
+    expect(await screen.findByText('This file is not a DexPlanner backup.')).toBeInTheDocument();
   });
 
   it('resets progress after confirmation', async () => {

@@ -127,13 +127,13 @@ export const ptBR: Messages = {
     exportBackup: 'Exportar backup',
     importBackup: 'Importar backup',
     imported: (n) => `${n} Pokémon registrados importados.`,
-    notBackup: 'Este arquivo não é um backup do PokePlan.',
+    notBackup: 'Este arquivo não é um backup do DexPlanner.',
     reset: 'Apagar tudo',
     resetConfirm: 'Apagar todos os Pokémon registrados e jogos marcados?',
     resetDone: 'Progresso apagado.',
     about: 'Sobre os dados',
     builtFrom: (date) => `Dados gerados em ${date} a partir de:`,
-    license: ['O PokePlan é software livre sob a licença ', 'GNU AGPL v3.0', '. ', 'Código-fonte e contribuições', '.'],
+    license: ['O DexPlanner é software livre sob a licença ', 'GNU AGPL v3.0', '. ', 'Código-fonte e contribuições', '.'],
     disclaimer:
       'Projeto de fã não oficial, sem vínculo com a Nintendo, Creatures, GAME FREAK ou The Pokémon Company. Pokémon e os nomes dos personagens Pokémon são marcas registradas da Nintendo; as imagens dos Pokémon são © Nintendo, Creatures e GAME FREAK.',
   },
@@ -150,10 +150,10 @@ export const ptBR: Messages = {
     hint: 'As alterações são salvas cerca de 30 segundos após a última edição, ou na hora com “Salvar agora” no topo da página.',
     signOut: 'Sair',
     deleteAccount: 'Excluir dados na nuvem e conta',
-    deleteConfirm: 'Excluir seus dados na nuvem e sua conta do PokePlan? O progresso neste dispositivo será mantido.',
+    deleteConfirm: 'Excluir seus dados na nuvem e sua conta do DexPlanner? O progresso neste dispositivo será mantido.',
     pitch:
       'Entre com sua conta para manter o progresso e os jogos que você tem sincronizados em todos os seus dispositivos. Na primeira vez, o progresso deste dispositivo é combinado com a sua conta; nada se perde.',
-    privacy: 'O PokePlan guarda apenas o id, o nome e o e-mail da sua conta Google (para o login) e o seu progresso.',
+    privacy: 'O DexPlanner guarda apenas o id, o nome e o e-mail da sua conta Google (para o login) e o seu progresso.',
     signIn: 'Entrar com Google',
     messages: {
       cancelled: 'O login foi cancelado.',

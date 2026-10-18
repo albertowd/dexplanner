@@ -127,13 +127,13 @@ export const es: Messages = {
     exportBackup: 'Exportar copia de seguridad',
     importBackup: 'Importar copia de seguridad',
     imported: (n) => `Se importaron ${n} Pokémon registrados.`,
-    notBackup: 'Este archivo no es una copia de seguridad de PokePlan.',
+    notBackup: 'Este archivo no es una copia de seguridad de DexPlanner.',
     reset: 'Borrar todo',
     resetConfirm: '¿Borrar todos los Pokémon registrados y los juegos marcados?',
     resetDone: 'Progreso borrado.',
     about: 'Sobre los datos',
     builtFrom: (date) => `Datos generados el ${date} a partir de:`,
-    license: ['PokePlan es software libre bajo la licencia ', 'GNU AGPL v3.0', '. ', 'Código fuente y contribuciones', '.'],
+    license: ['DexPlanner es software libre bajo la licencia ', 'GNU AGPL v3.0', '. ', 'Código fuente y contribuciones', '.'],
     disclaimer:
       'Proyecto de fans no oficial, sin relación con Nintendo, Creatures, GAME FREAK ni The Pokémon Company. Pokémon y los nombres de los personajes Pokémon son marcas registradas de Nintendo; las imágenes de los Pokémon son © Nintendo, Creatures y GAME FREAK.',
   },
@@ -150,10 +150,10 @@ export const es: Messages = {
     hint: 'Los cambios se guardan unos 30 segundos después de tu última edición, o al momento con “Guardar ahora” en la parte superior.',
     signOut: 'Cerrar sesión',
     deleteAccount: 'Eliminar datos en la nube y cuenta',
-    deleteConfirm: '¿Eliminar tus datos en la nube y tu cuenta de PokePlan? El progreso en este dispositivo se conserva.',
+    deleteConfirm: '¿Eliminar tus datos en la nube y tu cuenta de DexPlanner? El progreso en este dispositivo se conserva.',
     pitch:
       'Inicia sesión para mantener tu progreso y tus juegos sincronizados en todos tus dispositivos. La primera vez, el progreso de este dispositivo se combina con tu cuenta; no se pierde nada.',
-    privacy: 'PokePlan solo guarda el id, el nombre y el correo de tu cuenta de Google (para iniciar sesión) y tu progreso.',
+    privacy: 'DexPlanner solo guarda el id, el nombre y el correo de tu cuenta de Google (para iniciar sesión) y tu progreso.',
     signIn: 'Iniciar sesión con Google',
     messages: {
       cancelled: 'Se canceló el inicio de sesión.',

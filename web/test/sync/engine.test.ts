@@ -252,8 +252,8 @@ describe('sync engine', () => {
     toggle(store, 3);
     engine.forget();
     expect(engine.hasUnsaved()).toBe(false);
-    expect(localStorage.getItem('pokeplan:sync-pending')).toBeNull();
-    expect(localStorage.getItem('pokeplan:sync-linked')).toBeNull();
+    expect(localStorage.getItem('dexplanner:sync-pending')).toBeNull();
+    expect(localStorage.getItem('dexplanner:sync-linked')).toBeNull();
     expect(engine.snapshot().status).toBe('idle');
   });
 });

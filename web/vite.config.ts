@@ -5,13 +5,13 @@ import { VitePWA } from 'vite-plugin-pwa';
 import rootPackage from '../package.json' with { type: 'json' };
 
 const FIREBASE_VARS = ['VITE_FIREBASE_API_KEY', 'VITE_FIREBASE_AUTH_DOMAIN', 'VITE_FIREBASE_PROJECT_ID', 'VITE_FIREBASE_APP_ID'];
-const NO_FIREBASE = '\0pokeplan-no-firebase';
+const NO_FIREBASE = '\0dexplanner-no-firebase';
 
 /** Cloud sync is optional: without the Firebase variables, the Firebase adapter (and SDK) isn't built at all. */
 function optionalCloudSync(): Plugin {
   let builtIn = true;
   return {
-    name: 'pokeplan-optional-cloud-sync',
+    name: 'dexplanner-optional-cloud-sync',
     enforce: 'pre',
     configResolved(config) {
       builtIn = FIREBASE_VARS.every((key) => config.env[key]);
@@ -36,8 +36,8 @@ export default defineConfig({
       registerType: 'prompt',
       includeAssets: ['icons/icon.svg', 'icons/apple-touch-icon.png'],
       manifest: {
-        name: "PokePlan – Let's catch them all",
-        short_name: 'PokePlan',
+        name: "DexPlanner – Let's catch them all",
+        short_name: 'DexPlanner',
         description:
           'Track your Pokémon HOME Pokédex and find which game, DLC or event gives you each missing Pokémon.',
         theme_color: '#d7263d',

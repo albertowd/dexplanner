@@ -29,7 +29,7 @@ interface ControllerOptions {
 }
 
 /** Set after a sign-in so the next visit restores the session (and only then loads Firebase). */
-const ENABLED_KEY = 'pokeplan:sync-enabled';
+const ENABLED_KEY = 'dexplanner:sync-enabled';
 
 const errorMessage = (error: unknown): SyncMessage => {
   const code = (error as { code?: string }).code;

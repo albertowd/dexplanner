@@ -125,13 +125,13 @@ export const ja: Messages = {
     exportBackup: 'バックアップを書き出す',
     importBackup: 'バックアップを読み込む',
     imported: (n) => `登録済みのポケモン${n}匹を読み込みました。`,
-    notBackup: 'このファイルはPokePlanのバックアップではありません。',
+    notBackup: 'このファイルはDexPlannerのバックアップではありません。',
     reset: 'リセット',
     resetConfirm: '登録済みのポケモンと持っているソフトをすべて消去しますか？',
     resetDone: '進行状況を消去しました。',
     about: 'データについて',
     builtFrom: (date) => `データ作成日: ${date}。出典:`,
-    license: ['PokePlanはフリーソフトウェアです（ライセンス: ', 'GNU AGPL v3.0', '）。', 'ソースコードと貢献', 'はこちら。'],
+    license: ['DexPlannerはフリーソフトウェアです（ライセンス: ', 'GNU AGPL v3.0', '）。', 'ソースコードと貢献', 'はこちら。'],
     disclaimer:
       '非公式のファンプロジェクトであり、任天堂、クリーチャーズ、ゲームフリーク、株式会社ポケモンとは関係ありません。ポケモンおよびポケモンのキャラクター名は任天堂の商標です。ポケモンの画像は © Nintendo, Creatures, GAME FREAK です。',
   },
@@ -148,10 +148,10 @@ export const ja: Messages = {
     hint: '変更は最後の編集から約30秒後に保存されます。ページ上部の「今すぐ保存」ですぐに保存することもできます。',
     signOut: 'ログアウト',
     deleteAccount: 'クラウドのデータとアカウントを削除',
-    deleteConfirm: 'クラウドのデータとPokePlanのアカウントを削除しますか？ この端末の進行状況は残ります。',
+    deleteConfirm: 'クラウドのデータとDexPlannerのアカウントを削除しますか？ この端末の進行状況は残ります。',
     pitch:
       'ログインすると、進行状況と持っているソフトをすべての端末で同期できます。初回は、この端末の進行状況がアカウントに統合されるので、何も失われません。',
-    privacy: 'PokePlanが保存するのは、ログイン用のGoogleアカウントのID・名前・メールアドレスと、進行状況だけです。',
+    privacy: 'DexPlannerが保存するのは、ログイン用のGoogleアカウントのID・名前・メールアドレスと、進行状況だけです。',
     signIn: 'Googleでログイン',
     messages: {
       cancelled: 'ログインがキャンセルされました。',

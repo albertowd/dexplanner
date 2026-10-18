@@ -90,13 +90,13 @@ describe('sync controller and UI', () => {
     expect(screen.getByText(/^Signed in as Ash \(ash@example\.com\)\./)).toBeInTheDocument();
     expect(client.docs.get('ash')?.registered).toEqual({ 1: true, 2: true });
     expect(screen.getByText('Saved')).toBeInTheDocument();
-    expect(localStorage.getItem('pokeplan:sync-enabled')).toBe('1');
+    expect(localStorage.getItem('dexplanner:sync-enabled')).toBe('1');
   });
 
   it('counts down to the next save and saves on request', async () => {
     const user = userEvent.setup();
     const client = fakeClient({ signedIn: true });
-    localStorage.setItem('pokeplan:sync-enabled', '1');
+    localStorage.setItem('dexplanner:sync-enabled', '1');
     const controller = createSyncController({ config, load: async () => client as unknown as FirebaseClient });
     controller.init();
     render(<SyncIndicator controller={controller} />);
@@ -111,7 +111,7 @@ describe('sync controller and UI', () => {
 
   it('asks before leaving with unsaved changes and saves when hidden', async () => {
     const client = fakeClient({ signedIn: true });
-    localStorage.setItem('pokeplan:sync-enabled', '1');
+    localStorage.setItem('dexplanner:sync-enabled', '1');
     const controller = createSyncController({ config, load: async () => client as unknown as FirebaseClient, pullIntervalMs: 0 });
     controller.init();
     render(<SyncIndicator controller={controller} />);
@@ -145,7 +145,7 @@ describe('sync controller and UI', () => {
   it('signs out and keeps progress on the device', async () => {
     const user = userEvent.setup();
     const client = fakeClient({ signedIn: true });
-    localStorage.setItem('pokeplan:sync-enabled', '1');
+    localStorage.setItem('dexplanner:sync-enabled', '1');
     const controller = createSyncController({ config, load: async () => client as unknown as FirebaseClient });
     controller.init();
     render(<SyncSection controller={controller} />);
@@ -155,14 +155,14 @@ describe('sync controller and UI', () => {
     await flush();
     expect(client.signOut).toHaveBeenCalled();
     expect(screen.getByRole('status')).toHaveTextContent('Signed out. Your progress stays on this device.');
-    expect(localStorage.getItem('pokeplan:sync-enabled')).toBeNull();
+    expect(localStorage.getItem('dexplanner:sync-enabled')).toBeNull();
     expect(getState().registered).toEqual([1, 2]);
   });
 
   it('deletes the cloud data and account after confirmation', async () => {
     const user = userEvent.setup();
     const client = fakeClient({ signedIn: true });
-    localStorage.setItem('pokeplan:sync-enabled', '1');
+    localStorage.setItem('dexplanner:sync-enabled', '1');
     const controller = createSyncController({ config, load: async () => client as unknown as FirebaseClient });
     controller.init();
     render(<SyncSection controller={controller} />);
@@ -206,7 +206,7 @@ describe('sync controller and UI', () => {
     const load = vi.fn(async () => fakeClient() as unknown as FirebaseClient);
     createSyncController({ config, load }).init();
     expect(load).not.toHaveBeenCalled();
-    localStorage.setItem('pokeplan:sync-enabled', '1');
+    localStorage.setItem('dexplanner:sync-enabled', '1');
     createSyncController({ config, load }).init();
     expect(load).toHaveBeenCalledTimes(1);
   });

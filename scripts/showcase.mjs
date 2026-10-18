@@ -147,7 +147,7 @@ mkdirSync(outDir, { recursive: true });
 const browser = await chromium.launch();
 try {
   for (const [name, profile] of Object.entries(profiles)) {
-    const videoDir = mkdtempSync(path.join(tmpdir(), 'pokeplan-showcase-'));
+    const videoDir = mkdtempSync(path.join(tmpdir(), 'dexplanner-showcase-'));
     const size = profile.options.viewport;
     const startedAt = Date.now();
     const context = await browser.newContext({
@@ -155,7 +155,7 @@ try {
       colorScheme: 'dark',
       recordVideo: { dir: videoDir, size },
     });
-    await context.addInitScript((s) => localStorage.setItem('pokeplan:v1', JSON.stringify(s)), state);
+    await context.addInitScript((s) => localStorage.setItem('dexplanner:v1', JSON.stringify(s)), state);
     await context.addInitScript(cursorScript);
     const page = await context.newPage();
     const loadedAfter = await tour(page, startedAt);

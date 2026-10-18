@@ -16,7 +16,7 @@ export function SettingsView({ data }: Readonly<{ data: PokedexData }>) {
     const blob = new Blob([JSON.stringify(user, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `pokeplan-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `dexplanner-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(a.href);
   };
@@ -157,7 +157,7 @@ export function SettingsView({ data }: Readonly<{ data: PokedexData }>) {
           {t.settings.license[1]}
         </a>
         {t.settings.license[2]}
-        <a href="https://github.com/albertowd/pokeplan" target="_blank" rel="noreferrer">
+        <a href="https://github.com/albertowd/dexplanner" target="_blank" rel="noreferrer">
           {t.settings.license[3]}
         </a>
         {t.settings.license[4]}

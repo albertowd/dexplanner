@@ -1,6 +1,6 @@
 rules_version = '2';
 
-// PokePlan cloud sync: one document per signed-in trainer at trainers/{uid}.
+// DexPlanner cloud sync: one document per signed-in trainer at trainers/{uid}.
 service cloud.firestore {
   match /databases/{database}/documents {
     match /trainers/{uid} {

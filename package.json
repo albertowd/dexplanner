@@ -11,11 +11,11 @@
     "node": ">=22.19"
   },
   "license": "AGPL-3.0-or-later",
-  "name": "pokeplan",
+  "name": "dexplanner",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/albertowd/pokeplan.git"
+    "url": "https://github.com/albertowd/dexplanner.git"
   },
   "scripts": {
     "build": "npm run build -w web",

@@ -1,12 +1,12 @@
-# PokePlan – Let's catch them all
+# DexPlanner – Let's catch them all
 
 **➡️ [pokeplan.albertowd.dev](https://pokeplan.albertowd.dev)**
 
-PokePlan tracks your **Pokémon HOME** National Pokédex and tells you, for every Pokémon you're missing, **which game, DLC, app or event has it**, **how to get it into HOME**, and **which games to play or buy next**.
+DexPlanner tracks your **Pokémon HOME** National Pokédex and tells you, for every Pokémon you're missing, **which game, DLC, app or event has it**, **how to get it into HOME**, and **which games to play or buy next**.
 
 | Desktop | Mobile |
 |:---:|:---:|
-| <img src="docs/showcase-desktop.webp" alt="PokePlan on desktop: searching, filtering by games and DLC, opening a Pokémon's details, the plan and settings" width="640"> | <img src="docs/showcase-mobile.webp" alt="PokePlan on a phone: the same tour on a small screen" width="240"> |
+| <img src="docs/showcase-desktop.webp" alt="DexPlanner on desktop: searching, filtering by games and DLC, opening a Pokémon's details, the plan and settings" width="640"> | <img src="docs/showcase-mobile.webp" alt="DexPlanner on a phone: the same tour on a small screen" width="240"> |
 
 ## Features
 
@@ -26,7 +26,7 @@ Open any Pokémon to see every source that has it today:
 
 ### The best way into HOME
 
-For every source, PokePlan explains how the Pokémon reaches HOME and what to watch out for, and it highlights the best option, preferring games you own:
+For every source, DexPlanner explains how the Pokémon reaches HOME and what to watch out for, and it highlights the best option, preferring games you own:
 
 - **two-way** games, where you can move the Pokémon back later;
 - **one-way** games and apps (Let's Go, FireRed/LeafGreen, GO), where it can never go back;
@@ -54,17 +54,17 @@ Tap the trainer in the header to sign in with Google and keep your progress and 
 
 Changes are saved about 30 seconds after your last edit, so ticking through the list costs one save instead of dozens. The header shows when the next save happens, with a **Save now** button. If you try to close the page with changes waiting, your browser asks you to confirm. If it closes anyway, the changes are kept on the device and saved on your next visit.
 
-PokePlan stores only your Google account id, name and email (for sign-in) and your progress. **Settings → Delete cloud data and account** removes both; your progress stays on the device.
+DexPlanner stores only your Google account id, name and email (for sign-in) and your progress. **Settings → Delete cloud data and account** removes both; your progress stays on the device.
 
 ### Five languages
 
-PokePlan speaks **English, Português (Brasil), Español, Italiano and 日本語**. It follows your browser's language, and you can switch it with the flag in the header.
+DexPlanner speaks **English, Português (Brasil), Español, Italiano and 日本語**. It follows your browser's language, and you can switch it with the flag in the header.
 
 The whole app is translated, including HOME transfer instructions and notes on each source. Game and version names use each country's official titles, e.g. *Pokémon Escarlata*, *Pokémon Scarlatto*, *ポケットモンスター スカーレット*. In Japanese, Pokémon have their Japanese names, and search still finds them by their English names.
 
 ### Install it, use it offline
 
-PokePlan is a Progressive Web App. Install it from your browser to your phone or desktop, and it keeps working **offline** once loaded. It adapts to phone screens and follows your system's light or dark theme.
+DexPlanner is a Progressive Web App. Install it from your browser to your phone or desktop, and it keeps working **offline** once loaded. It adapts to phone screens and follows your system's light or dark theme.
 
 ## How Pokémon HOME works (as modelled here)
 
@@ -76,7 +76,7 @@ PokePlan is a Progressive Web App. Install it from your browser to your phone or
 
 ### Why there's no automatic HOME sync
 
-Pokémon HOME has no public API, export or share feature for your Pokédex or boxes. The only unofficial route is reading game saves from modded hardware, which breaks the terms of service. That's why PokePlan uses manual tracking, with the shortcuts above to make it quick.
+Pokémon HOME has no public API, export or share feature for your Pokédex or boxes. The only unofficial route is reading game saves from modded hardware, which breaks the terms of service. That's why DexPlanner uses manual tracking, with the shortcuts above to make it quick.
 
 ## About the data
 
@@ -96,10 +96,10 @@ Bug reports, data corrections and pull requests are welcome. [CONTRIBUTING.md](C
 
 ## License
 
-PokePlan is free software: you can redistribute it and/or modify it under the terms of the [GNU Affero General Public License v3.0](LICENSE) or (at your option) any later version.
+DexPlanner is free software: you can redistribute it and/or modify it under the terms of the [GNU Affero General Public License v3.0](LICENSE) or (at your option) any later version.
 
 If you run a modified version where others can use it over a network, the AGPL requires you to offer them its complete source code under the same license.
 
 ## Credits and disclaimer
 
-PokePlan is an unofficial, non-commercial fan project. It is not affiliated with, endorsed or sponsored by Nintendo, Creatures, GAME FREAK or The Pokémon Company. Pokémon and Pokémon character names are trademarks of Nintendo. Pokémon images are © Nintendo, Creatures and GAME FREAK; they are not part of this repository and not covered by its license. The app loads them at runtime: Pokémon sprites from the [PokeAPI sprites](https://github.com/PokeAPI/sprites) repository, and the FireRed/LeafGreen trainer sprite in the header from [Pokémon Showdown](https://play.pokemonshowdown.com).
+DexPlanner is an unofficial, non-commercial fan project. It is not affiliated with, endorsed or sponsored by Nintendo, Creatures, GAME FREAK or The Pokémon Company. Pokémon and Pokémon character names are trademarks of Nintendo. Pokémon images are © Nintendo, Creatures and GAME FREAK; they are not part of this repository and not covered by its license. The app loads them at runtime: Pokémon sprites from the [PokeAPI sprites](https://github.com/PokeAPI/sprites) repository, and the FireRed/LeafGreen trainer sprite in the header from [Pokémon Showdown](https://play.pokemonshowdown.com).

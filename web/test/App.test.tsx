@@ -29,7 +29,7 @@ describe('App', () => {
 
   it('shows the app version', () => {
     render(<App />);
-    expect(screen.getByRole('contentinfo')).toHaveTextContent('PokePlan v0.0.0-test');
+    expect(screen.getByRole('contentinfo')).toHaveTextContent('DexPlanner v0.0.0-test');
   });
 
   it('routes between views and opens a Pokémon from the URL', async () => {

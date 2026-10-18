@@ -44,7 +44,7 @@ export function App() {
       <header className="topbar">
         <a className="brand" href="#/">
           <img src="/icons/icon.svg" alt="" width={24} height={24} />
-          <span>PokePlan</span>
+          <span>DexPlanner</span>
         </a>
         <nav>
           <a href="#/" aria-current={route.view === 'dex' ? 'page' : undefined}>{t.nav.dex}</a>
@@ -70,7 +70,7 @@ export function App() {
         {data && route.view === 'settings' && <SettingsView data={data} />}
       </main>
 
-      <footer className="footer muted small">PokePlan v{__APP_VERSION__}</footer>
+      <footer className="footer muted small">DexPlanner v{__APP_VERSION__}</footer>
 
       {data && selected && <PokemonDetail pokemon={selected} games={games} onClose={() => (location.hash = '#/')} />}
       <UpdatePrompt />

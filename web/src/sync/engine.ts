@@ -60,8 +60,8 @@ export interface SyncOptions {
   onChange?: (snapshot: SyncSnapshot) => void;
 }
 
-const PENDING_KEY = 'pokeplan:sync-pending';
-const LINKED_KEY = 'pokeplan:sync-linked';
+const PENDING_KEY = 'dexplanner:sync-pending';
+const LINKED_KEY = 'dexplanner:sync-linked';
 
 function readJson<T>(storage: Storage | undefined, key: string): T | null {
   try {

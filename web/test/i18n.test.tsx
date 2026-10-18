@@ -105,14 +105,14 @@ describe('language preference', () => {
 
     act(() => setLocalePreference('en'));
     expect(screen.getByText('en|en|Settings')).toBeInTheDocument();
-    expect(localStorage.getItem('pokeplan:locale')).toBe('en');
+    expect(localStorage.getItem('dexplanner:locale')).toBe('en');
 
     act(() => setLocalePreference('auto'));
-    expect(localStorage.getItem('pokeplan:locale')).toBeNull();
+    expect(localStorage.getItem('dexplanner:locale')).toBeNull();
   });
 
   it('ignores an unknown stored value', async () => {
-    localStorage.setItem('pokeplan:locale', 'xx');
+    localStorage.setItem('dexplanner:locale', 'xx');
     vi.resetModules();
     const fresh = await import('../src/i18n/index.tsx');
     function FreshProbe() {
@@ -134,7 +134,7 @@ describe('language preference', () => {
     await user.click(screen.getByLabelText('Idioma: Português (Brasil)'));
     expect(screen.getByRole('button', { name: 'Português (Brasil)' })).toHaveAttribute('aria-pressed', 'true');
     await user.click(screen.getByRole('button', { name: 'Automático (idioma do navegador)' }));
-    expect(localStorage.getItem('pokeplan:locale')).toBeNull();
+    expect(localStorage.getItem('dexplanner:locale')).toBeNull();
   });
 });
 

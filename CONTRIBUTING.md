@@ -1,10 +1,10 @@
-# Contributing to PokePlan
+# Contributing to DexPlanner
 
-Thanks for helping make PokePlan better! Bug reports, data corrections and pull requests are all welcome.
+Thanks for helping make DexPlanner better! Bug reports, data corrections and pull requests are all welcome.
 
 ## Licensing of contributions
 
-PokePlan is licensed under the [GNU AGPL v3.0 or later](LICENSE). By opening a pull request you agree that your contribution is licensed under the same terms, and you confirm that you have the right to submit it.
+DexPlanner is licensed under the [GNU AGPL v3.0 or later](LICENSE). By opening a pull request you agree that your contribution is licensed under the same terms, and you confirm that you have the right to submit it.
 
 ## Setup
 
@@ -16,7 +16,7 @@ npx playwright install chromium   # browser for the end-to-end tests, Lighthouse
 npm run dev                       # http://localhost:5173
 ```
 
-PokePlan is a static Vite + React PWA. Progress (registered Pokémon, owned games) is stored in the browser's `localStorage` under `pokeplan:v1`.
+DexPlanner is a static Vite + React PWA. Progress (registered Pokémon, owned games) is stored in the browser's `localStorage` under `dexplanner:v1`.
 
 ## Project layout
 
@@ -137,9 +137,9 @@ If your change lowers a score, explain why in the pull request. A known, accepte
 - it exits with an error if the quality gate fails or anything is left open;
 - the first run takes a few minutes while the server starts; later runs are faster.
 
-On the first run, `scripts/sonar.mjs` replaces the default `admin/admin` password with a random one and creates the `pokeplan` project and an analysis token. All three are kept in the git-ignored `.cache/sonar.json`.
+On the first run, `scripts/sonar.mjs` replaces the default `admin/admin` password with a random one and creates the `dexplanner` project and an analysis token. All three are kept in the git-ignored `.cache/sonar.json`.
 
-- **Dashboard:** http://localhost:9000/dashboard?id=pokeplan. Log in as `admin` with the password from `.cache/sonar.json`.
+- **Dashboard:** http://localhost:9000/dashboard?id=dexplanner. Log in as `admin` with the password from `.cache/sonar.json`.
 - **Full report:** `.cache/sonar-report.json`.
 - **Configuration:** `sonar-project.properties` (sources, tests, coverage exclusions).
 - **Stop the server:** `npm run sonar:down`. Analysis history is kept in Docker volumes.
@@ -158,12 +158,12 @@ Re-record them after visible UI changes, and keep each file under about 3 MB.
 
 ## Translations
 
-PokePlan is available in English, Brazilian Portuguese (pt-BR), Spanish (es), Italian (it) and Japanese (ja).
+DexPlanner is available in English, Brazilian Portuguese (pt-BR), Spanish (es), Italian (it) and Japanese (ja).
 
 - **Interface text:** `web/src/i18n/en.ts` (the reference) and one file per language (`pt-BR.ts`, `es.ts`, `it.ts`, `ja.ts`). TypeScript checks that every language has every key; text that depends on a number is a small function.
 - **Data text:** `data/i18n/<locale>.json`. Per game id it holds the name, short name, HOME instructions, caveat and (optionally) version names, using official localized titles. Source notes are keyed by their English text. `npm run data` bundles these files into `pokedex.json` and lists any game or note still untranslated, partial version lists, and translations that no longer match anything.
 - **Pokémon names:** for languages whose names differ from English (Japanese), the data build fetches them from PokeAPI (`POKEMON_NAME_LANGUAGES` in `scripts/build-data.mjs`). Search and "Paste a list" accept both the localized and the English name.
-- **Language choice:** the first supported language in the browser's preference order (any Portuguese → pt-BR) and changeable with the flag menu in the header (`web/src/header/LanguageMenu.tsx`; flags are inline SVG because Windows doesn't render flag emoji). It's stored per device under `pokeplan:locale` and isn't synced.
+- **Language choice:** the first supported language in the browser's preference order (any Portuguese → pt-BR) and changeable with the flag menu in the header (`web/src/header/LanguageMenu.tsx`; flags are inline SVG because Windows doesn't render flag emoji). It's stored per device under `dexplanner:locale` and isn't synced.
 
 When you add or change English text, update every language in the same pull request; `npm run data` should report every language as complete.
 
@@ -178,7 +178,7 @@ Sign-in and sync are optional:
 - without the `VITE_FIREBASE_*` variables, the Settings section and header indicator are hidden and the app works exactly as before;
 - a small Vite plugin in `web/vite.config.ts` then swaps the Firebase adapter for a stub, so the Firebase SDK isn't even built into the site.
 
-You don't need Firebase to work on PokePlan.
+You don't need Firebase to work on DexPlanner.
 
 How it works:
 - Google sign-in with Firebase Auth.

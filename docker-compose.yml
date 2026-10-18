@@ -1,13 +1,13 @@
 # Local code-quality tooling (not needed for development: `npm run dev` serves the PWA with Vite).
 #   sonarqube      code quality server, profile "sonar" (npm run sonar)
 #   sonar-scanner  one-off analysis run, profile "sonar-scan" (started by scripts/sonar.mjs)
-name: pokeplan
+name: dexplanner
 
 services:
   sonarqube:
     image: sonarqube:26.9.0.129388-community
     profiles: ["sonar"]
-    container_name: pokeplan-sonarqube
+    container_name: dexplanner-sonarqube
     ports:
       - "127.0.0.1:9000:9000"
     environment:

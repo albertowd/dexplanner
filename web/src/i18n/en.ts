@@ -125,13 +125,13 @@ export const en = {
     exportBackup: 'Export backup',
     importBackup: 'Import backup',
     imported: (n: number) => `Imported ${n} registered Pokémon.`,
-    notBackup: 'This file is not a PokePlan backup.',
+    notBackup: 'This file is not a DexPlanner backup.',
     reset: 'Reset',
     resetConfirm: 'Clear all registered Pokémon and owned games?',
     resetDone: 'Progress cleared.',
     about: 'About the data',
     builtFrom: (date: string) => `Data built ${date} from:`,
-    license: ['PokePlan is free software under the ', 'GNU AGPL v3.0', '. ', 'Source code and contributions', '.'] as const,
+    license: ['DexPlanner is free software under the ', 'GNU AGPL v3.0', '. ', 'Source code and contributions', '.'] as const,
     disclaimer:
       'Unofficial fan project, not affiliated with Nintendo, Creatures, GAME FREAK or The Pokémon Company. Pokémon and Pokémon character names are trademarks of Nintendo; Pokémon images are © Nintendo, Creatures and GAME FREAK.',
   },
@@ -148,10 +148,10 @@ export const en = {
     hint: 'Changes are saved about 30 seconds after your last edit, or right away with “Save now” in the header.',
     signOut: 'Sign out',
     deleteAccount: 'Delete cloud data and account',
-    deleteConfirm: 'Delete your cloud data and PokePlan account? Progress on this device is kept.',
+    deleteConfirm: 'Delete your cloud data and DexPlanner account? Progress on this device is kept.',
     pitch:
       'Sign in to keep your progress and owned games in sync on all your devices. Your progress on this device is merged with your account the first time; nothing is lost.',
-    privacy: 'PokePlan stores only your Google account id, name and email (for sign-in) and your progress.',
+    privacy: 'DexPlanner stores only your Google account id, name and email (for sign-in) and your progress.',
     signIn: 'Sign in with Google',
     messages: {
       cancelled: 'Sign-in was cancelled.',

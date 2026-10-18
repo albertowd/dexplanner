@@ -127,13 +127,13 @@ export const it: Messages = {
     exportBackup: 'Esporta backup',
     importBackup: 'Importa backup',
     imported: (n) => `${n} Pokémon registrati importati.`,
-    notBackup: 'Questo file non è un backup di PokePlan.',
+    notBackup: 'Questo file non è un backup di DexPlanner.',
     reset: 'Azzera tutto',
     resetConfirm: 'Cancellare tutti i Pokémon registrati e i giochi che hai?',
     resetDone: 'Progressi cancellati.',
     about: 'Informazioni sui dati',
     builtFrom: (date) => `Dati generati il ${date} a partire da:`,
-    license: ['PokePlan è software libero con licenza ', 'GNU AGPL v3.0', '. ', 'Codice sorgente e contributi', '.'],
+    license: ['DexPlanner è software libero con licenza ', 'GNU AGPL v3.0', '. ', 'Codice sorgente e contributi', '.'],
     disclaimer:
       'Progetto amatoriale non ufficiale, non affiliato a Nintendo, Creatures, GAME FREAK o The Pokémon Company. Pokémon e i nomi dei personaggi Pokémon sono marchi di Nintendo; le immagini dei Pokémon sono © Nintendo, Creatures e GAME FREAK.',
   },
@@ -150,10 +150,10 @@ export const it: Messages = {
     hint: 'Le modifiche vengono salvate circa 30 secondi dopo l’ultima, oppure subito con “Salva ora” in alto.',
     signOut: 'Esci',
     deleteAccount: 'Elimina dati nel cloud e account',
-    deleteConfirm: 'Eliminare i tuoi dati nel cloud e il tuo account PokePlan? I progressi su questo dispositivo restano.',
+    deleteConfirm: 'Eliminare i tuoi dati nel cloud e il tuo account DexPlanner? I progressi su questo dispositivo restano.',
     pitch:
       'Accedi per tenere sincronizzati i tuoi progressi e i giochi che hai su tutti i tuoi dispositivi. La prima volta, i progressi di questo dispositivo vengono uniti al tuo account; non si perde nulla.',
-    privacy: 'PokePlan conserva solo l’id, il nome e l’email del tuo account Google (per l’accesso) e i tuoi progressi.',
+    privacy: 'DexPlanner conserva solo l’id, il nome e l’email del tuo account Google (per l’accesso) e i tuoi progressi.',
     signIn: 'Accedi con Google',
     messages: {
       cancelled: 'L’accesso è stato annullato.',
