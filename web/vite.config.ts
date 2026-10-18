@@ -27,10 +27,78 @@ function optionalCloudSync(): Plugin {
   };
 }
 
+/** Public address of the site; set VITE_SITE_URL (e.g. on Vercel) when the domain changes. */
+const DEFAULT_SITE_URL = 'https://pokeplan.albertowd.dev';
+
+/** AI training and scraping crawlers asked not to crawl the site. Search engines stay allowed. */
+const AI_CRAWLERS = [
+  'GPTBot',
+  'ChatGPT-User',
+  'OAI-SearchBot',
+  'ClaudeBot',
+  'Claude-Web',
+  'anthropic-ai',
+  'Google-Extended',
+  'Applebot-Extended',
+  'CCBot',
+  'Bytespider',
+  'PerplexityBot',
+  'Perplexity-User',
+  'Meta-ExternalAgent',
+  'Meta-ExternalFetcher',
+  'FacebookBot',
+  'Amazonbot',
+  'cohere-ai',
+  'cohere-training-data-crawler',
+  'Diffbot',
+  'ImagesiftBot',
+  'Omgilibot',
+  'Timpibot',
+  'YouBot',
+  'AI2Bot',
+  'Ai2Bot-Dolma',
+  'Kangaroo Bot',
+];
+
+/** robots.txt, sitemap.xml and the absolute URLs in the page's preview tags, all from one site address. */
+function siteMetadata(): Plugin {
+  let site = DEFAULT_SITE_URL;
+  return {
+    name: 'dexplanner-site-metadata',
+    configResolved(config) {
+      site = (config.env.VITE_SITE_URL || DEFAULT_SITE_URL).replace(/\/$/, '');
+    },
+    transformIndexHtml: (html) => html.replaceAll('%SITE_URL%', site),
+    generateBundle() {
+      const robots = [
+        '# Search engines are welcome. AI training and scraping crawlers are asked not to crawl this site.',
+        'User-agent: *',
+        'Allow: /',
+        '',
+        ...AI_CRAWLERS.map((bot) => `User-agent: ${bot}`),
+        'Disallow: /',
+        '',
+        `Sitemap: ${site}/sitemap.xml`,
+        '',
+      ].join('\n');
+      const sitemap = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        `  <url><loc>${site}/</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod></url>`,
+        '</urlset>',
+        '',
+      ].join('\n');
+      this.emitFile({ type: 'asset', fileName: 'robots.txt', source: robots });
+      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: sitemap });
+    },
+  };
+}
+
 export default defineConfig({
   define: { __APP_VERSION__: JSON.stringify(rootPackage.version) },
   plugins: [
     optionalCloudSync(),
+    siteMetadata(),
     react(),
     VitePWA({
       registerType: 'prompt',
@@ -54,7 +122,8 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,webmanifest}'],
         // Firebase is only needed after signing in: cache it on first use instead of for everyone.
-        globIgnores: ['**/firebase-*.js'],
+        // Not needed by visitors: Firebase loads only after sign-in, the preview image only for link previews.
+        globIgnores: ['**/firebase-*.js', '**/og-image.png'],
         navigateFallback: '/index.html',
         runtimeCaching: [
           {

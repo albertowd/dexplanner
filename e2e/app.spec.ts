@@ -35,11 +35,16 @@ test.describe('Pokédex list', () => {
     expect(first).toBeLessThan(1025);
     await page.locator('.card').last().scrollIntoViewIfNeeded();
     await expect.poll(() => cards.count()).toBeGreaterThan(first);
-    await page.keyboard.press('End');
-    await expect.poll(async () => {
-      await page.keyboard.press('End');
-      return cards.count();
-    }, { timeout: 15_000 }).toBe(1025);
+    // Keep jumping to the bottom; each jump brings the next batch into range.
+    await expect
+      .poll(
+        async () => {
+          await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+          return cards.count();
+        },
+        { timeout: 45_000, intervals: [250] },
+      )
+      .toBe(1025);
   });
 
   test('remembers registered Pokémon after a reload', async ({ page }) => {

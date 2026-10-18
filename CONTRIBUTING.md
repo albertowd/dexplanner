@@ -221,6 +221,14 @@ The code is in `web/src/sync/`:
    - locally: in `web/.env.local` (git-ignored);
    - on Vercel: under **Project → Settings → Environment Variables**, then redeploy.
 
+## Search engines and link previews
+
+The build generates `robots.txt` and `sitemap.xml` (the `siteMetadata` plugin in `web/vite.config.ts`) and fills the site address into the canonical link and the Open Graph / Twitter tags in `web/index.html`.
+
+- **Site address:** `VITE_SITE_URL`, defaulting to `https://pokeplan.albertowd.dev`. Set it on Vercel when the domain changes; robots.txt, the sitemap and the preview tags follow.
+- **robots.txt:** allows search engines and asks known AI training and scraping crawlers not to crawl (`AI_CRAWLERS`). It's a convention that well-behaved crawlers follow, not an enforcement.
+- **Preview image:** `web/public/og-image.png` (1200×630), generated from the app icon by `node scripts/make-og-image.mjs`.
+
 ## Deploying (Vercel)
 
 The site is deployed on Vercel from GitHub. The Vercel project's **Root Directory** is `web` (Vercel detects the Vite app there), and `web/vercel.json` sets the rest:

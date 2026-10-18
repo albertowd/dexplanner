@@ -26,12 +26,15 @@ test.describe('PWA', () => {
     });
     await page.reload();
     await expect(page.locator('.card img').first()).toBeVisible();
-    const cached = await page.evaluate(async () => {
-      const cache = await caches.open('pokemon-sprites');
-      const responses = await Promise.all((await cache.keys()).map((request) => cache.match(request)));
-      return responses.map((r) => ({ type: r!.type, status: r!.status }));
-    });
-    expect(cached.length).toBeGreaterThan(0);
+    const readCache = () =>
+      page.evaluate(async () => {
+        const cache = await caches.open('pokemon-sprites');
+        const responses = await Promise.all((await cache.keys()).map((request) => cache.match(request)));
+        return responses.map((r) => ({ type: r!.type, status: r!.status }));
+      });
+    // The service worker stores responses shortly after the images appear.
+    await expect.poll(async () => (await readCache()).length).toBeGreaterThan(0);
+    const cached = await readCache();
     expect(cached.every((r) => r.type === 'cors' && r.status === 200)).toBe(true);
   });
 
