@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useI18n } from '../i18n/index.tsx';
-import { parseBackup, replaceState, toggleIn, useUserState } from '../store.ts';
+import { emptyState, parseBackup, replaceState, toggleIn, useUserState } from '../store.ts';
 import type { PokedexData } from '../types.ts';
 import { SyncSection } from './SyncSection.tsx';
 
@@ -134,7 +134,7 @@ export function SettingsView({ data }: Readonly<{ data: PokedexData }>) {
           className="danger"
           onClick={() => {
             if (confirm(t.settings.resetConfirm)) {
-              replaceState({ v: 1, registered: [], owned: [], showRetro: false });
+              replaceState(emptyState);
               setMessage(t.settings.resetDone);
             }
           }}

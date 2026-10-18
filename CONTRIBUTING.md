@@ -64,6 +64,14 @@ Where the information comes from:
 
 Review `data/special.json` and `data/games.json` when HOME, GO or a game gets an update.
 
+## Forms and shiny data
+
+- **Forms:** fetched from PokeAPI with their names and sprites (cached in `.cache/forms.json`; `npm run data:refresh` updates it). `scripts/lib/forms.mjs` decides which forms count as living dex entries:
+  - regional forms, other permanent forms, female variants (species with visible gender differences), and Mega / Gigantamax / Primal forms;
+  - left out: forms that can't be in HOME (Totem, Let's Go partners, Cosplay Pikachu, Eternamax), duplicates, and other mid-battle states (Zen Mode, School Form…).
+- **Shiny availability:** `data/shiny.json`, curated from Serebii and Bulbapedia. Species or forms whose shiny is `locked` (never obtainable) or `event` (past events only) are listed with a short reason; everything else is available. Forms use PokeAPI form names, species use PokeAPI slugs. Its notes are translated like the other notes in `data/i18n/<locale>.json`.
+- **Progress:** shiny, form and shiny-form registrations are separate sets in the stored progress, the cloud document and backups.
+
 ## Data corrections
 
 Most mistakes are in the curated files, not the code:
@@ -207,7 +215,7 @@ The code is in `web/src/sync/`:
    npx firebase-tools deploy --only firestore --project <your-project-id>
    ```
 
-   `firestore.rules` lets each trainer read and write only their own document, with type and size checks. `firestore.indexes.json` turns off indexing for the per-Pokémon maps, which nothing queries.
+   `firestore.rules` lets each trainer read and write only their own document, with type and size checks. **Whenever the stored progress gains a field, update and publish the rules before deploying the app**, or saves will be rejected. `firestore.indexes.json` turns off indexing for the per-Pokémon maps, which nothing queries.
 5. **Project settings → Your apps:** add a **Web app** and copy its config values.
 6. Set the four variables from `web/.env.example`:
    - locally: in `web/.env.local` (git-ignored);

@@ -18,11 +18,14 @@ service cloud.firestore {
     }
 
     function isValidProgress(data) {
-      return data.keys().hasOnly(['v', 'registered', 'owned', 'showRetro', 'updatedAt'])
+      return data.keys().hasOnly(['v', 'registered', 'owned', 'showRetro', 'shiny', 'forms', 'shinyForms', 'updatedAt'])
         && data.v == 1
         && data.registered is map && data.registered.size() <= 1100
         && data.owned is map && data.owned.size() <= 100
         && data.showRetro is bool
+        && data.get('shiny', {}) is map && data.get('shiny', {}).size() <= 1100
+        && data.get('forms', {}) is map && data.get('forms', {}).size() <= 1000
+        && data.get('shinyForms', {}) is map && data.get('shinyForms', {}).size() <= 1000
         && data.updatedAt == request.time;
     }
   }

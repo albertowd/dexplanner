@@ -6,7 +6,7 @@ import { detectLocale, I18nProvider, localizeData, setLocalePreference, useI18n 
 import { en } from '../src/i18n/en.ts';
 import { ptBR } from '../src/i18n/pt-BR.ts';
 import { ja } from '../src/i18n/ja.ts';
-import { replaceState } from '../src/store.ts';
+import { replaceState, emptyState } from '../src/store.ts';
 import { SettingsView } from '../src/views/SettingsView.tsx';
 import { LanguageMenu } from '../src/header/LanguageMenu.tsx';
 import type { DataTranslation, PokedexData } from '../src/types.ts';
@@ -30,7 +30,7 @@ function Probe() {
 beforeEach(() => {
   localStorage.clear();
   act(() => setLocalePreference('auto'));
-  act(() => replaceState({ v: 1, registered: [], owned: [], showRetro: false }, 'tab'));
+  act(() => replaceState({ ...emptyState, registered: [], owned: [], showRetro: false }, 'tab'));
 });
 afterEach(() => vi.unstubAllGlobals());
 
@@ -89,6 +89,13 @@ describe('localizeData', () => {
     ]);
     expect(out.pokemon.find((p) => p.id === 25)).toMatchObject({ name: 'ピカチュウ', englishName: 'Pikachu' });
     expect(out.pokemon.find((p) => p.id === 1)).toEqual(data.pokemon[0]);
+  });
+
+  it('translates shiny notes and form names', () => {
+    const shinyData = { ...data, pokemon: [{ ...data.pokemon[0], shiny: 'locked' as const, shinyNote: 'Never', forms: [{ key: 'f', name: 'Form', kind: 'form' as const, shinyNote: 'Never' }] }] };
+    const out = localizeData(shinyData, { notes: { Never: 'Nunca' }, forms: { f: 'Forma' } }).pokemon[0];
+    expect(out.shinyNote).toBe('Nunca');
+    expect(out.forms![0]).toMatchObject({ name: 'Forma', shinyNote: 'Nunca' });
   });
 
   it('returns the data unchanged without a translation', () => {

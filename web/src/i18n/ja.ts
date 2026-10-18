@@ -86,6 +86,26 @@ export const ja: Messages = {
     unobtainableText:
       '過去の配信、Pokémon GO限定のポケモン（GOをオフにしている場合）、過去のソフト限定のポケモンです。HOMEでの交換で補えます。',
   },
+  mode: {
+    label: '記録モード',
+    shiny: '色違い',
+    living: 'ボックス図鑑',
+    shinyHint: '色違いのポケモンを記録',
+    livingHint: 'すべてのすがたを記録（リージョン・性別・メガ・キョダイマックスなど）',
+  },
+  shiny: {
+    available: '色違いを入手可能',
+    event: '色違いは過去のイベントのみ',
+    locked: '色違いは入手不可（色違い禁止）',
+    tagEvent: '過去のイベント',
+    tagLocked: '色違い禁止',
+  },
+  forms: {
+    title: 'すがた',
+    female: 'メス',
+    entries: (n) => `${n}件`,
+    kind: { regional: 'リージョン', form: 'すがた', gender: '性別', battle: 'メガ / キョダイマックス' },
+  },
   language: {
     label: '言語',
     current: (name) => `言語: ${name}`,

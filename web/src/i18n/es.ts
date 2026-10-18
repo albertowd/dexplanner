@@ -88,6 +88,26 @@ export const es: Messages = {
     unobtainableText:
       'Eventos pasados, especies exclusivas de Pokémon GO (si GO está desmarcado) o solo de juegos antiguos. Los intercambios en HOME son la alternativa.',
   },
+  mode: {
+    label: 'Modo de seguimiento',
+    shiny: 'Variocolor',
+    living: 'Living dex',
+    shinyHint: 'Seguir Pokémon variocolor',
+    livingHint: 'Seguir todas las formas (regionales, género, mega, Gigamax…)',
+  },
+  shiny: {
+    available: 'Variocolor disponible',
+    event: 'Variocolor solo en eventos pasados',
+    locked: 'Variocolor bloqueado: nunca se ha podido obtener',
+    tagEvent: 'Eventos pasados',
+    tagLocked: 'Variocolor bloqueado',
+  },
+  forms: {
+    title: 'Formas',
+    female: 'Hembra',
+    entries: (n) => `${n} ${plural(n, 'entrada', 'entradas')}`,
+    kind: { regional: 'Regional', form: 'Forma', gender: 'Género', battle: 'Mega / Gigamax' },
+  },
   language: {
     label: 'Idioma',
     current: (name) => `Idioma: ${name}`,

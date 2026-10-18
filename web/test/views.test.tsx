@@ -5,11 +5,11 @@ import { DexView } from '../src/views/DexView.tsx';
 import { PlanView } from '../src/views/PlanView.tsx';
 import { PokemonDetail } from '../src/views/PokemonDetail.tsx';
 import { SettingsView } from '../src/views/SettingsView.tsx';
-import { replaceState } from '../src/store.ts';
+import { replaceState, emptyState } from '../src/store.ts';
 import { byName, data, gameMap } from './fixtures.ts';
 
 const reset = (partial: Partial<{ registered: number[]; owned: string[]; showRetro: boolean }> = {}) =>
-  act(() => replaceState({ v: 1, registered: [], owned: [], showRetro: false, ...partial }));
+  act(() => replaceState({ ...emptyState, registered: [], owned: [], showRetro: false, ...partial }));
 
 beforeEach(() => reset());
 

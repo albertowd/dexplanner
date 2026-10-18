@@ -6,19 +6,25 @@ export interface UserState {
   registered: number[];
   owned: string[];
   showRetro: boolean;
+  /** Species registered as shiny. */
+  shiny: number[];
+  /** Living dex forms registered (form keys; a species' default form is the species itself). */
+  forms: string[];
+  /** Living dex forms registered as shiny. */
+  shinyForms: string[];
 }
 
 const KEY = 'dexplanner:v1';
-const empty: UserState = { v: 1, registered: [], owned: [], showRetro: false };
+export const emptyState: UserState = { v: 1, registered: [], owned: [], showRetro: false, shiny: [], forms: [], shinyForms: [] };
 
 function read(): UserState {
   try {
     const raw = localStorage.getItem(KEY);
-    if (raw) return { ...empty, ...JSON.parse(raw) };
+    if (raw) return { ...emptyState, ...JSON.parse(raw) };
   } catch {
     // private mode / blocked storage: run with in-memory state
   }
-  return empty;
+  return emptyState;
 }
 
 /**
@@ -91,11 +97,16 @@ export function parseBackup(text: string): UserState {
     throw new BackupFormatError();
   }
   if (!data || !Array.isArray(data.registered)) throw new BackupFormatError();
+  const strings = (value: unknown) => (Array.isArray(value) ? value.filter((s): s is string => typeof s === 'string') : []);
+  const numbers = (value: unknown) => (Array.isArray(value) ? value.filter((n): n is number => Number.isInteger(n)) : []);
   return {
     v: 1,
-    registered: data.registered.filter((n: unknown) => Number.isInteger(n)),
-    owned: Array.isArray(data.owned) ? data.owned.filter((s: unknown) => typeof s === 'string') : [],
+    registered: numbers(data.registered),
+    owned: strings(data.owned),
     showRetro: Boolean(data.showRetro),
+    shiny: numbers(data.shiny),
+    forms: strings(data.forms),
+    shinyForms: strings(data.shinyForms),
   };
 }
 

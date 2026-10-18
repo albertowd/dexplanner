@@ -96,13 +96,16 @@ export function localizeData(data: PokedexData, translation: DataTranslation | u
   };
   const pokemon = (p: Pokemon): Pokemon => {
     const name = translation.pokemon?.[p.id];
-    if (!name && !p.avail.some((a) => a.note)) return p;
+    const formName = (key: string, fallback?: string) => translation.forms?.[key] ?? fallback;
     return {
       ...p,
       name: name ?? p.name,
       // Search matches the localized and the English name.
       englishName: name ? p.name : p.englishName,
       avail: p.avail.map((a) => (a.note ? { ...a, note: note(a.note) } : a)),
+      shinyNote: p.shinyNote && note(p.shinyNote),
+      defaultForm: p.defaultForm && { ...p.defaultForm, name: formName(p.defaultForm.key, p.defaultForm.name)! },
+      forms: p.forms?.map((f) => ({ ...f, name: formName(f.key, f.name), shinyNote: f.shinyNote && note(f.shinyNote) })),
     };
   };
   return { ...data, games: data.games.map(game), pokemon: data.pokemon.map(pokemon) };

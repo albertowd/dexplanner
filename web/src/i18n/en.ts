@@ -86,6 +86,26 @@ export const en = {
     unobtainableText:
       'Past events, Pokémon GO-only species (if GO is off), or retro-only species. Trading in HOME is the fallback.',
   },
+  mode: {
+    label: 'Tracking mode',
+    shiny: 'Shiny',
+    living: 'Living dex',
+    shinyHint: 'Track shiny Pokémon',
+    livingHint: 'Track every form (regional, gender, Mega, Gigantamax…)',
+  },
+  shiny: {
+    available: 'Shiny available',
+    event: 'Shiny only from past events',
+    locked: 'Shiny-locked: no shiny has been obtainable',
+    tagEvent: 'Past events',
+    tagLocked: 'Shiny-locked',
+  },
+  forms: {
+    title: 'Forms',
+    female: 'Female',
+    entries: (n: number) => `${n} ${plural(n, 'entry', 'entries')}`,
+    kind: { regional: 'Regional', form: 'Form', gender: 'Gender', battle: 'Mega / Gigantamax' },
+  },
   language: {
     label: 'Language',
     current: (name: string) => `Language: ${name}`,

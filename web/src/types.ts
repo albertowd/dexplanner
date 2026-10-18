@@ -44,6 +44,21 @@ export interface Availability {
   note?: string;
 }
 
+export type ShinyStatus = 'event' | 'locked';
+
+/** A living dex form besides the species' default one. */
+export interface PokemonForm {
+  key: string;
+  /** English form name ("Alolan Form"); absent for female entries, which the UI labels. */
+  name?: string;
+  kind: 'regional' | 'form' | 'gender' | 'battle';
+  /** Path in the PokeAPI sprites repo, e.g. "10103" or "female/25"; falls back to the species sprite. */
+  sprite?: string;
+  /** Only set when it differs from "available". */
+  shiny?: ShinyStatus | 'available';
+  shinyNote?: string;
+}
+
 export interface Pokemon {
   id: number;
   slug: string;
@@ -52,6 +67,12 @@ export interface Pokemon {
   legendary?: boolean;
   mythical?: boolean;
   avail: Availability[];
+  /** Name of the default form when it has one (e.g. "Meadow Pattern"). */
+  defaultForm?: { key: string; name: string };
+  forms?: PokemonForm[];
+  /** Absent when a shiny can be obtained today. */
+  shiny?: ShinyStatus;
+  shinyNote?: string;
   /** Set by the app when `name` is localized (e.g. Japanese), so search still matches the English name. */
   englishName?: string;
 }
@@ -66,6 +87,8 @@ export interface DataTranslation {
   notes?: Record<string, string>;
   /** Species id → localized Pokémon name (only for languages whose names differ, e.g. Japanese). */
   pokemon?: Record<string, string>;
+  /** Form key → localized form name. */
+  forms?: Record<string, string>;
 }
 
 export interface PokedexData {

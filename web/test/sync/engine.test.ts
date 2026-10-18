@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createSyncEngine, DocumentMissingError, type SyncBackend } from '../../src/sync/engine.ts';
-import type { RemoteDoc, SyncPatch } from '../../src/sync/patch.ts';
+import { SET_FIELDS, type RemoteDoc, type SyncPatch } from '../../src/sync/patch.ts';
 import type { ChangeListener, ChangeOrigin, UserState } from '../../src/store.ts';
 
-const state = (registered: number[], owned: string[] = [], showRetro = false): UserState => ({ v: 1, registered, owned, showRetro });
+const state = (registered: number[], owned: string[] = [], showRetro = false): UserState => ({ v: 1, registered, owned, showRetro, shiny: [], forms: [], shinyForms: [] });
 
 /** In-memory stand-in for the app store. */
 function fakeStore(initial: UserState) {
@@ -43,8 +43,9 @@ function fakeBackend(initial: RemoteDoc | null) {
       calls.push('patch');
       if (backend.fail) throw backend.fail;
       if (!doc) throw new DocumentMissingError();
-      for (const [k, add] of Object.entries(p.registered)) if (add) doc.registered[k] = true; else delete doc.registered[k];
-      for (const [k, add] of Object.entries(p.owned)) if (add) doc.owned[k] = true; else delete doc.owned[k];
+      for (const field of SET_FIELDS) {
+        for (const [k, add] of Object.entries(p[field])) if (add) doc[field][k] = true; else delete doc[field][k];
+      }
       if (p.showRetro !== undefined) doc.showRetro = p.showRetro;
     },
     async remove() {
@@ -57,6 +58,9 @@ function fakeBackend(initial: RemoteDoc | null) {
 
 const remote = (registered: number[], owned: string[] = [], showRetro = false): RemoteDoc => ({
   v: 1,
+  shiny: {},
+  forms: {},
+  shinyForms: {},
   registered: Object.fromEntries(registered.map((n) => [String(n), true as const])),
   owned: Object.fromEntries(owned.map((o) => [o, true as const])),
   showRetro,

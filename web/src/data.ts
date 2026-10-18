@@ -15,8 +15,8 @@ export function usePokedex() {
 
 export const spriteUrl = (id: number) =>
   `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-export const artworkUrl = (id: number) =>
-  `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${id}.png`;
+export const artworkUrl = (id: number, shiny = false) =>
+  `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${shiny ? 'shiny/' : ''}${id}.png`;
 
 export const dexNo = (id: number) => `#${String(id).padStart(4, '0')}`;
 

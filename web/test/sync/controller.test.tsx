@@ -5,7 +5,7 @@ import { createSyncController as create, useSync, type SyncController } from '..
 import { readFirebaseConfig } from '../../src/sync/config.ts';
 import type { FirebaseClient, SyncUser } from '../../src/sync/firebase.ts';
 import type { RemoteDoc } from '../../src/sync/patch.ts';
-import { replaceState, getState } from '../../src/store.ts';
+import { replaceState, getState, emptyState } from '../../src/store.ts';
 import { SyncIndicator } from '../../src/SyncIndicator.tsx';
 import { SyncSection } from '../../src/views/SyncSection.tsx';
 
@@ -55,7 +55,7 @@ const flush = () => act(async () => {
 
 beforeEach(() => {
   localStorage.clear();
-  act(() => replaceState({ v: 1, registered: [1, 2], owned: [], showRetro: false }, 'tab'));
+  act(() => replaceState({ ...emptyState, registered: [1, 2], owned: [], showRetro: false }, 'tab'));
 });
 afterEach(() => {
   made.splice(0).forEach((c) => c.dispose());

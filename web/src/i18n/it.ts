@@ -88,6 +88,26 @@ export const it: Messages = {
     unobtainableText:
       'Eventi passati, specie esclusive di Pokémon GO (se GO è disattivato) o solo dei giochi retrò. L’alternativa sono gli scambi in HOME.',
   },
+  mode: {
+    label: 'Modalità di tracciamento',
+    shiny: 'Cromatici',
+    living: 'Living dex',
+    shinyHint: 'Segui i Pokémon cromatici',
+    livingHint: 'Segui tutte le forme (regionali, sesso, Mega, Gigamax…)',
+  },
+  shiny: {
+    available: 'Cromatico disponibile',
+    event: 'Cromatico solo da eventi passati',
+    locked: 'Cromatico bloccato: non è mai stato ottenibile',
+    tagEvent: 'Eventi passati',
+    tagLocked: 'Cromatico bloccato',
+  },
+  forms: {
+    title: 'Forme',
+    female: 'Femmina',
+    entries: (n) => `${n} ${plural(n, 'voce', 'voci')}`,
+    kind: { regional: 'Regionale', form: 'Forma', gender: 'Sesso', battle: 'Mega / Gigamax' },
+  },
   language: {
     label: 'Lingua',
     current: (name) => `Lingua: ${name}`,

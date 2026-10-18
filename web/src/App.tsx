@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { usePokedex } from './data.ts';
 import { localizeData, useI18n } from './i18n/index.tsx';
 import { useUserState } from './store.ts';
+import { dexEntries, isEntryRegistered, useDexMode } from './dex.ts';
 import type { Game } from './types.ts';
 import { DexView } from './views/DexView.tsx';
 import { PlanView } from './views/PlanView.tsx';
@@ -25,6 +26,7 @@ export function App() {
   const { data: rawData, error } = usePokedex();
   const { t, locale } = useI18n();
   const [user] = useUserState();
+  const mode = useDexMode();
   const [route, setRoute] = useState(parseHash);
 
   useEffect(() => {
@@ -37,7 +39,15 @@ export function App() {
   const data = useMemo(() => rawData && localizeData(rawData, rawData.translations?.[locale]), [rawData, locale]);
   const games = useMemo(() => new Map<string, Game>((data?.games ?? []).map((g) => [g.id, g])), [data]);
   const selected = data && route.pokemon ? data.pokemon.find((p) => p.id === route.pokemon) : undefined;
-  const registeredCount = data ? data.pokemon.filter((p) => user.registered.includes(p.id)).length : 0;
+  // Progress for what the list tracks: species or every form, normal or shiny.
+  const entries = useMemo(() => (data ? dexEntries(data.pokemon, mode.living) : []), [data, mode.living]);
+  const registeredCount = useMemo(
+    () => entries.filter((e) => isEntryRegistered(e, user, mode.shiny)).length,
+    [entries, user, mode.shiny],
+  );
+
+  const shinyMark = mode.shiny ? '✨ ' : '';
+  const progressText = data ? `${shinyMark}${registeredCount}/${entries.length}` : '–';
 
   return (
     <div className="app">
@@ -57,8 +67,8 @@ export function App() {
           <AccountMenu />
         </div>
         <div className="progress" title={t.app.progress}>
-          <span>{data ? `${registeredCount}/${data.pokemon.length}` : '–'}</span>
-          <progress max={data?.pokemon.length ?? 1} value={registeredCount} aria-label={t.app.progress} />
+          <span>{progressText}</span>
+          <progress max={entries.length || 1} value={registeredCount} aria-label={t.app.progress} />
         </div>
       </header>
 

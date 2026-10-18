@@ -88,6 +88,26 @@ export const ptBR: Messages = {
     unobtainableText:
       'Eventos passados, espécies só do Pokémon GO (se o GO estiver desmarcado) ou só de jogos antigos. Trocas no HOME são a alternativa.',
   },
+  mode: {
+    label: 'Modo de acompanhamento',
+    shiny: 'Brilhante',
+    living: 'Living dex',
+    shinyHint: 'Acompanhar Pokémon brilhantes',
+    livingHint: 'Acompanhar todas as formas (regionais, gênero, Mega, Gigantamax…)',
+  },
+  shiny: {
+    available: 'Brilhante disponível',
+    event: 'Brilhante só em eventos passados',
+    locked: 'Brilhante bloqueado: nunca foi possível obter',
+    tagEvent: 'Eventos passados',
+    tagLocked: 'Brilhante bloqueado',
+  },
+  forms: {
+    title: 'Formas',
+    female: 'Fêmea',
+    entries: (n) => `${n} ${plural(n, 'registro', 'registros')}`,
+    kind: { regional: 'Regional', form: 'Forma', gender: 'Gênero', battle: 'Mega / Gigantamax' },
+  },
   language: {
     label: 'Idioma',
     current: (name) => `Idioma: ${name}`,

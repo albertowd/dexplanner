@@ -1,3 +1,4 @@
+import { emptyState } from '../src/store.ts';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { act, renderHook } from '@testing-library/react';
 
@@ -21,12 +22,12 @@ describe('parseBackup', () => {
   it('accepts a backup and drops invalid values', async () => {
     const { parseBackup } = await loadStore();
     const parsed = parseBackup(JSON.stringify({ registered: [1, 'x', 2.5, 3], owned: ['sv', 4], showRetro: 1 }));
-    expect(parsed).toEqual({ v: 1, registered: [1, 3], owned: ['sv'], showRetro: true });
+    expect(parsed).toEqual({ ...emptyState, registered: [1, 3], owned: ['sv'], showRetro: true });
   });
 
   it('defaults missing optional fields', async () => {
     const { parseBackup } = await loadStore();
-    expect(parseBackup('{"registered":[]}')).toEqual({ v: 1, registered: [], owned: [], showRetro: false });
+    expect(parseBackup('{"registered":[]}')).toEqual({ ...emptyState, registered: [], owned: [], showRetro: false });
   });
 
   it('rejects other JSON', async () => {
@@ -47,7 +48,7 @@ describe('useUserState', () => {
   });
 
   it('reads progress migrated from the old project names', async () => {
-    localStorage.setItem('pokeplan:v1', JSON.stringify({ v: 1, registered: [7], owned: ['sv'], showRetro: false }));
+    localStorage.setItem('pokeplan:v1', JSON.stringify({ ...emptyState, registered: [7], owned: ['sv'], showRetro: false }));
     const { migrateStorage } = await import('../src/migrate.ts');
     migrateStorage();
     const { useUserState } = await loadStore();
@@ -76,7 +77,7 @@ describe('useUserState', () => {
   it('picks up changes made in another tab', async () => {
     const { useUserState } = await loadStore();
     const { result } = renderHook(() => useUserState());
-    localStorage.setItem('dexplanner:v1', JSON.stringify({ v: 1, registered: [9], owned: [], showRetro: false }));
+    localStorage.setItem('dexplanner:v1', JSON.stringify({ ...emptyState, registered: [9], owned: [], showRetro: false }));
     act(() => {
       globalThis.dispatchEvent(new StorageEvent('storage', { key: 'dexplanner:v1' }));
       globalThis.dispatchEvent(new StorageEvent('storage', { key: 'unrelated' }));
@@ -87,7 +88,7 @@ describe('useUserState', () => {
   it('replaceState swaps the whole state', async () => {
     const { useUserState, replaceState } = await loadStore();
     const { result } = renderHook(() => useUserState());
-    act(() => replaceState({ v: 1, registered: [1, 2], owned: [], showRetro: true }));
-    expect(result.current[0]).toEqual({ v: 1, registered: [1, 2], owned: [], showRetro: true });
+    act(() => replaceState({ ...emptyState, registered: [1, 2], owned: [], showRetro: true }));
+    expect(result.current[0]).toEqual({ ...emptyState, registered: [1, 2], owned: [], showRetro: true });
   });
 });

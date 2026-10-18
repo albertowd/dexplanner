@@ -3,7 +3,7 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { App } from '../src/App.tsx';
 import { UpdatePrompt } from '../src/UpdatePrompt.tsx';
-import { replaceState } from '../src/store.ts';
+import { replaceState, emptyState } from '../src/store.ts';
 import { pwaState } from './stubs/pwa-register.ts';
 import { data } from './fixtures.ts';
 
@@ -16,7 +16,7 @@ function navigate(hash: string) {
 
 describe('App', () => {
   beforeEach(() => {
-    act(() => replaceState({ v: 1, registered: [25], owned: [], showRetro: false }));
+    act(() => replaceState({ ...emptyState, registered: [25], owned: [], showRetro: false }));
     vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify(data))));
   });
   afterEach(() => vi.unstubAllGlobals());

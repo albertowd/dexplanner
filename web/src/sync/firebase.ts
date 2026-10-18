@@ -23,7 +23,7 @@ import {
 } from 'firebase/firestore/lite';
 import type { FirebaseConfig } from './config.ts';
 import { DocumentMissingError, type SyncBackend } from './engine.ts';
-import type { RemoteDoc, SyncPatch } from './patch.ts';
+import { SET_FIELDS, type RemoteDoc, type SyncPatch } from './patch.ts';
 
 export interface SyncUser {
   uid: string;
@@ -52,8 +52,9 @@ export function createFirebase(config: FirebaseConfig) {
       },
       async patch(patch: SyncPatch) {
         const fields: Record<string, unknown> = { updatedAt: serverTimestamp() };
-        for (const [key, add] of Object.entries(patch.registered)) fields[`registered.${key}`] = add ? true : deleteField();
-        for (const [key, add] of Object.entries(patch.owned)) fields[`owned.${key}`] = add ? true : deleteField();
+        for (const field of SET_FIELDS) {
+          for (const [key, add] of Object.entries(patch[field])) fields[`${field}.${key}`] = add ? true : deleteField();
+        }
         if (patch.showRetro !== undefined) fields.showRetro = patch.showRetro;
         try {
           await updateDoc(ref, fields);

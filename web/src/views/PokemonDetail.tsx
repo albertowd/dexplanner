@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { artworkUrl, bestRoute, dexNo, isObtainable, versionNames } from '../data.ts';
 import { useI18n } from '../i18n/index.tsx';
-import { toggleIn, useUserState } from '../store.ts';
+import { useUserState } from '../store.ts';
+import { dexEntries, entryShiny, entrySprite, isEntryRegistered, toggleEntry, useDexMode } from '../dex.ts';
+import { entryLabel } from './DexView.tsx';
 import type { Availability, Game, Pokemon } from '../types.ts';
 
 interface Props {
@@ -14,8 +16,11 @@ export function PokemonDetail({ pokemon: p, games, onClose }: Readonly<Props>) {
   const [user, update] = useUserState();
   const { t } = useI18n();
   const dialog = useRef<HTMLDialogElement>(null);
+  const mode = useDexMode();
   const owned = new Set(user.owned);
-  const has = user.registered.includes(p.id);
+  const [speciesEntry, ...formEntries] = dexEntries([p], true);
+  const has = isEntryRegistered(speciesEntry, user, mode.shiny);
+  const shiny = entryShiny(speciesEntry);
 
   useEffect(() => {
     const d = dialog.current;
@@ -40,7 +45,7 @@ export function PokemonDetail({ pokemon: p, games, onClose }: Readonly<Props>) {
           ✕
         </button>
         <div className="detail-head">
-          <img src={artworkUrl(p.id)} alt="" crossOrigin="anonymous" width={160} height={160} />
+          <img src={artworkUrl(p.id, mode.shiny)} alt="" crossOrigin="anonymous" width={160} height={160} />
           <div>
             <span className="no">{dexNo(p.id)}</span>
             <h2 id="detail-title">{p.name}</h2>
@@ -49,11 +54,16 @@ export function PokemonDetail({ pokemon: p, games, onClose }: Readonly<Props>) {
               {p.legendary && ` · ${t.detail.legendary}`}
               {p.mythical && ` · ${t.detail.mythical}`}
             </p>
+            <p className={shiny ? `shiny-status shiny-${shiny.status}` : 'shiny-status'}>
+              ✨ {shiny ? t.shiny[shiny.status] : t.shiny.available}
+              {shiny?.note && <span className="muted small"> · {shiny.note}</span>}
+            </p>
             <button
               className={has ? 'secondary' : ''}
               aria-pressed={has}
-              onClick={() => update((s) => ({ registered: toggleIn(s.registered, p.id) }))}
+              onClick={() => update((s) => toggleEntry(s, speciesEntry, mode.shiny))}
             >
+              {mode.shiny && '✨ '}
               {has ? t.detail.isRegistered : t.detail.markRegistered}
             </button>
           </div>
@@ -85,6 +95,43 @@ export function PokemonDetail({ pokemon: p, games, onClose }: Readonly<Props>) {
             <p className="muted">{t.detail.none}</p>
           )}
         </section>
+
+        {formEntries.length > 0 && (
+          <section>
+            <h3>
+              {t.forms.title} ({formEntries.length})
+            </h3>
+            <ul className="forms-list">
+              {formEntries.map((e) => {
+                const formHas = isEntryRegistered(e, user, mode.shiny);
+                const label = entryLabel(e, t);
+                const formShiny = entryShiny(e);
+                return (
+                  <li key={e.key}>
+                    <img src={entrySprite(e, mode.shiny)} alt="" crossOrigin="anonymous" loading="lazy" width={56} height={56} />
+                    <span className="form-label">
+                      {label.slice(p.name.length + 3)}
+                      <span className="tag">{t.forms.kind[e.form!.kind]}</span>
+                      {mode.shiny && formShiny && (
+                        <span className={`shiny-tag shiny-${formShiny.status}`} title={formShiny.note}>
+                          {formShiny.status === 'locked' ? t.shiny.tagLocked : t.shiny.tagEvent}
+                        </span>
+                      )}
+                    </span>
+                    <button
+                      className="check"
+                      aria-pressed={formHas}
+                      aria-label={formHas ? t.dex.unmark(label) : t.dex.mark(label)}
+                      onClick={() => update((s) => toggleEntry(s, e, mode.shiny))}
+                    >
+                      {formHas ? '✓' : '+'}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        )}
 
         {retro.length > 0 && (
           <details>

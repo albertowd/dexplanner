@@ -10,6 +10,21 @@
       "collectionGroup": "trainers",
       "fieldPath": "owned",
       "indexes": []
+    },
+    {
+      "collectionGroup": "trainers",
+      "fieldPath": "shiny",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "trainers",
+      "fieldPath": "forms",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "trainers",
+      "fieldPath": "shinyForms",
+      "indexes": []
     }
   ]
 }

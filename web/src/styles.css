@@ -111,6 +111,23 @@ main { padding-top: 1rem; min-height: 100dvh; }
 .center { text-align: center; padding: 3rem 0; }
 .error { color: var(--accent); }
 
+/* Tracking mode toggles (shiny, living dex) */
+.mode-toggles { border: 0; padding: 0; min-inline-size: 0; display: flex; gap: 0.5rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
+.mode-toggle { background: var(--surface); color: var(--text); border: 1px solid var(--border); font-size: 0.9rem; }
+.mode-toggle[aria-pressed='true'] { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+.card .form-name { font-size: 0.78rem; color: var(--muted); text-align: center; line-height: 1.2; }
+.shiny-tag { font-size: 0.72rem; padding: 0.1rem 0.5rem; border-radius: 999px; margin-top: 0.25rem; white-space: nowrap; }
+.shiny-locked { background: var(--warn-bg); color: var(--warn); }
+.shiny-event { background: var(--excl-bg); color: var(--excl); }
+.shiny-status { margin: 0.1rem 0 0.6rem; font-size: 0.9rem; }
+.shiny-status.shiny-locked, .shiny-status.shiny-event { background: none; }
+.shiny-status.shiny-locked { color: var(--warn); }
+.shiny-status.shiny-event { color: var(--excl); }
+.forms-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.35rem; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.forms-list li { position: relative; display: flex; align-items: center; gap: 0.4rem; padding: 0.25rem 2.6rem 0.25rem 0.25rem; border: 1px solid var(--border); border-radius: 10px; }
+.forms-list .form-label { display: flex; flex-wrap: wrap; gap: 0.3rem; align-items: center; font-size: 0.88rem; }
+.forms-list .check { top: 50%; transform: translateY(-50%); }
+
 .filters { display: grid; grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
 .filters > * { width: 100%; }
 .visually-hidden {

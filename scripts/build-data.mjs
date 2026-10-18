@@ -8,6 +8,8 @@ import { buildPokedex, nowhereCurrent, translationReport } from './lib/build-pok
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const cacheFile = path.join(root, '.cache', 'species.json');
+const formsCacheFile = path.join(root, '.cache', 'forms.json');
+const shinyPath = path.join(root, 'data', 'shiny.json');
 const outFile = path.join(root, 'web', 'public', 'data', 'pokedex.json');
 const curatedPath = path.join(root, 'data', 'curated-availability.json');
 const i18nDir = path.join(root, 'data', 'i18n');
@@ -15,6 +17,8 @@ const GRAPHQL = 'https://graphql.pokeapi.co/v1beta2';
 // PokeAPI language ids: English, plus languages whose Pokémon names differ from English.
 const ENGLISH = 9;
 const POKEMON_NAME_LANGUAGES = { ja: 1 }; // ja-Hrkt (kana)
+// Form names ("Alolan Form") are translated by PokeAPI in these languages; pt-BR falls back to English.
+const FORM_NAME_LANGUAGES = { ja: 1, es: 7, it: 8 };
 
 const readJson = (file) => JSON.parse(readFileSync(file, 'utf8'));
 
@@ -42,7 +46,40 @@ async function loadSpecies(refresh) {
   return json;
 }
 
-const species = await loadSpecies(process.argv.includes('--refresh'));
+async function graphql(query) {
+  const res = await fetch(GRAPHQL, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ query }) });
+  if (!res.ok) throw new Error(`PokeAPI responded ${res.status}`);
+  const json = await res.json();
+  if (json.errors) throw new Error(JSON.stringify(json.errors));
+  return json;
+}
+
+/** Every form of every species, with names and the two sprite paths the app uses. */
+async function loadForms(refresh) {
+  if (!refresh && existsSync(formsCacheFile)) return readJson(formsCacheFile);
+  console.log('Fetching forms from PokeAPI GraphQL…');
+  const languages = [ENGLISH, ...Object.values(FORM_NAME_LANGUAGES)].join(', ');
+  const json = await graphql(`{
+    pokemonspecies(order_by: {id: asc}) {
+      id has_gender_differences
+      pokemons(order_by: {id: asc}) {
+        id is_default
+        pokemonforms(order_by: {form_order: asc}) {
+          name form_name is_default is_battle_only is_mega
+          pokemonformnames(where: {language_id: {_in: [${languages}]}}) { name language_id }
+          pokemonformsprites { front: sprites(path: "front_default") }
+        }
+      }
+    }
+  }`);
+  mkdirSync(path.dirname(formsCacheFile), { recursive: true });
+  writeFileSync(formsCacheFile, JSON.stringify(json));
+  return json;
+}
+
+const refresh = process.argv.includes('--refresh');
+const species = await loadSpecies(refresh);
+const forms = await loadForms(refresh);
 const hasCurated = existsSync(curatedPath);
 const pokedex = buildPokedex({
   raw: species.data.pokemonspecies,
@@ -50,6 +87,9 @@ const pokedex = buildPokedex({
   special: readJson(path.join(root, 'data', 'special.json')),
   curated: hasCurated ? readJson(curatedPath) : undefined,
   pokemonNameLanguages: POKEMON_NAME_LANGUAGES,
+  forms: forms.data.pokemonspecies,
+  formNameLanguages: FORM_NAME_LANGUAGES,
+  shiny: existsSync(shinyPath) ? readJson(shinyPath) : {},
   translations: Object.fromEntries(
     (existsSync(i18nDir) ? readdirSync(i18nDir) : [])
       .filter((f) => f.endsWith('.json'))

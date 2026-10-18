@@ -33,6 +33,15 @@ For every source, DexPlanner explains how the Pokémon reaches HOME and what to 
 - the **Legends: Z-A lock**: anything caught in or moved into Z-A can never go to older games;
 - **Pokémon Bank**, for 3DS and older games, until it shuts down on 25 February 2027.
 
+### Shiny and living dex
+
+Two toggles above the list change what you track:
+
+- **✨ Shiny:** shiny sprites and a separate shiny progress. Every Pokémon shows whether its shiny can be obtained today, is **only from past events**, or is **shiny-locked**, with the reason.
+- **Living dex:** every form gets its own entry, so you can collect them all: regional forms, other forms (Unown letters, Vivillon patterns, Alcremie, Rotom…), female variants, and Mega / Gigantamax forms.
+
+Combine both for a shiny living dex. The header counter and the filters follow the selected mode, and a Pokémon's details list all its forms with their own checkboxes.
+
 ### Filters that combine
 
 Search by name or number, and tick **several games and DLC at once** (each DLC sits under its game), several generations, and registered or missing. For example: "what's still missing that Scarlet/Violet and both DLC can give me?"

@@ -1,5 +1,6 @@
 // Pure transformation from PokeAPI species + curated data/ files to the app's pokedex.json shape.
 // No I/O here so it can be unit tested; scripts/build-data.mjs does the reading and writing.
+import { shinyStatus, speciesForms } from './forms.mjs';
 
 const ENGLISH = 9;
 
@@ -171,13 +172,37 @@ function addGo(special, species, index, avail) {
 }
 
 /** Curated translations (without translator comments) plus localized Pokémon names from PokeAPI. */
-function bundleTranslations(translations, species, pokemonNameLanguages) {
+function bundleTranslations(translations, species, pokemonNameLanguages, formsById, formNameLanguages) {
   const out = Object.fromEntries(Object.entries(translations).map(([locale, { $comment: _comment, ...t }]) => [locale, t]));
   for (const [locale, languageId] of Object.entries(pokemonNameLanguages)) {
     const names = Object.fromEntries(species.filter((s) => s.names[languageId]).map((s) => [s.id, s.names[languageId]]));
     if (Object.keys(names).length) out[locale] = { ...out[locale], pokemon: names };
   }
+  for (const [locale, languageId] of Object.entries(formNameLanguages)) {
+    const names = {};
+    for (const { defaultForm, forms } of formsById.values()) {
+      for (const form of [defaultForm, ...forms]) if (form?.names[languageId]) names[form.key] = form.names[languageId];
+    }
+    if (Object.keys(names).length) out[locale] = { ...out[locale], forms: names };
+  }
   return out;
+}
+
+/** Living dex forms and shiny status for one species, in the pokedex.json shape. */
+function formFields(s, formsById, shiny) {
+  const { defaultForm, forms = [] } = formsById.get(s.id) ?? {};
+  const status = shinyStatus(shiny, s.slug);
+  return {
+    defaultForm: defaultForm && { key: defaultForm.key, name: defaultForm.name },
+    forms: forms.length
+      ? forms.map((f) => {
+          const formShiny = shiny.forms?.[f.key];
+          return clean({ key: f.key, name: f.name, kind: f.kind, sprite: f.sprite, shiny: formShiny?.status, shinyNote: formShiny?.note });
+        })
+      : undefined,
+    shiny: status?.status,
+    shinyNote: status?.note,
+  };
 }
 
 const clean = (o) => Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined && v !== false));
@@ -198,9 +223,14 @@ export function buildPokedex({
   curated = { exclusives: {}, extra: {} },
   translations = {},
   pokemonNameLanguages = {},
+  forms = [],
+  formNameLanguages = {},
+  shiny = {},
   now = new Date(),
 }) {
   const species = normalizeSpecies(raw);
+  const slugById = new Map(species.map((s) => [s.id, s.slug]));
+  const formsById = new Map(forms.filter((row) => slugById.has(row.id)).map((row) => [row.id, speciesForms(row, slugById.get(row.id))]));
   const index = createIndex(species);
   const avail = createAvailability(species);
   const ctx = { species, index, curated, avail };
@@ -229,7 +259,7 @@ export function buildPokedex({
       ...(curated.sources ?? []),
     ],
     games: games.map(({ source: _source, ...g }) => g),
-    translations: bundleTranslations(translations, species, pokemonNameLanguages),
+    translations: bundleTranslations(translations, species, pokemonNameLanguages, formsById, formNameLanguages),
     pokemon: species.map((s) =>
       clean({
         id: s.id,
@@ -242,6 +272,7 @@ export function buildPokedex({
           .get(s.id)
           .map(clean)
           .sort((a, b) => gameOrder.get(a.game) - gameOrder.get(b.game)),
+        ...formFields(s, formsById, shiny),
       }),
     ),
   };
@@ -264,7 +295,12 @@ function gameTranslated(game, t) {
 }
 
 export function translationReport(pokedex) {
-  const notes = new Set(pokedex.pokemon.flatMap((p) => p.avail.flatMap((a) => (a.note ? a.note.split(' · ') : []))));
+  const notes = new Set(
+    pokedex.pokemon.flatMap((p) => [
+      ...p.avail.flatMap((a) => (a.note ? a.note.split(' · ') : [])),
+      ...[p.shinyNote, ...(p.forms ?? []).map((f) => f.shinyNote)].filter(Boolean),
+    ]),
+  );
   return Object.fromEntries(
     Object.entries(pokedex.translations ?? {}).map(([locale, t]) => [
       locale,

@@ -18,11 +18,30 @@ export const games: Game[] = [
 
 export const pokemon: Pokemon[] = [
   { id: 1, slug: 'bulbasaur', name: 'Bulbasaur', gen: 1, avail: [{ game: 'lgpe', method: 'catch' }, { game: 'go' }] },
-  { id: 25, slug: 'pikachu', name: 'Pikachu', gen: 1, avail: [{ game: 'sv' }, { game: 'za' }, { game: 'go' }] },
+  {
+    id: 25,
+    slug: 'pikachu',
+    name: 'Pikachu',
+    gen: 1,
+    avail: [{ game: 'sv' }, { game: 'za' }, { game: 'go' }],
+    forms: [
+      { key: 'pikachu-alola-cap', name: 'Alola Cap', kind: 'form', sprite: '10099', shiny: 'locked', shinyNote: 'Caps are never shiny' },
+      { key: 'pikachu-female', kind: 'gender', sprite: 'female/25' },
+    ],
+  },
   { id: 151, slug: 'mew', name: 'Mew', gen: 1, mythical: true, avail: [{ game: 'usum', method: 'event' }, { game: 'go', note: 'Research' }] },
   { id: 248, slug: 'tyranitar', name: 'Tyranitar', gen: 2, avail: [{ game: 'sv', versions: ['scarlet'] }, { game: 'usum', method: 'evolve' }] },
-  { id: 801, slug: 'magearna', name: 'Magearna', gen: 7, mythical: true, avail: [{ game: 'home', method: 'gift', note: 'National dex reward' }] },
-  { id: 1007, slug: 'koraidon', name: 'Koraidon', gen: 9, legendary: true, avail: [{ game: 'sv', versions: ['scarlet'] }] },
+  {
+    id: 801,
+    slug: 'magearna',
+    name: 'Magearna',
+    gen: 7,
+    mythical: true,
+    shiny: 'event',
+    avail: [{ game: 'home', method: 'gift', note: 'National dex reward' }],
+    forms: [{ key: 'magearna-original', name: 'Original Color', kind: 'form', sprite: '10147', shiny: 'available' }],
+  },
+  { id: 1007, slug: 'koraidon', name: 'Koraidon', gen: 9, legendary: true, shiny: 'locked', shinyNote: 'Shiny-locked in SV', avail: [{ game: 'sv', versions: ['scarlet'] }] },
   { id: 1009, slug: 'walking-wake', name: 'Walking Wake', gen: 9, avail: [{ game: 'sv-id', method: 'event' }] },
   { id: 1010, slug: 'iron-leaves', name: 'Iron Leaves', gen: 9, avail: [] },
 ];
