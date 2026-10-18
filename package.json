@@ -3,6 +3,7 @@
     "@playwright/test": "^1.64.1",
     "@vitest/coverage-v8": "^5.0.5",
     "chrome-launcher": "^1.2.2",
+    "ffmpeg-static": "^5.3.0",
     "lighthouse": "^13.5.0",
     "vitest": "^5.0.5"
   },
@@ -23,6 +24,7 @@
     "dev": "npm run dev -w web",
     "lighthouse": "node scripts/lighthouse.mjs",
     "preview": "npm run preview -w web",
+    "showcase": "node scripts/showcase.mjs",
     "sonar": "node scripts/sonar.mjs",
     "sonar:down": "docker compose --profile sonar down",
     "test": "vitest run",

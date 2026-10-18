@@ -1,142 +1,84 @@
 # PokePlan – Let's catch them all
 
-A Pokédex PWA that tracks your **Pokémon HOME** National Pokédex and tells you, for each missing Pokémon:
+**➡️ [pokeplan.albertowd.dev](https://pokeplan.albertowd.dev)**
 
-- **which game, DLC, app or HOME reward has it** (specific titles and version exclusives, not generations);
-- **how it gets into HOME** from there: two-way, one-way, via Pokémon Bank, Z-A's compatibility lock, the FRLG Pokédex sync;
-- **which games to buy or play next**: a plan that starts with the games you own and then adds the game or DLC that unlocks the most missing Pokémon.
+PokePlan tracks your **Pokémon HOME** National Pokédex and tells you, for every Pokémon you're missing, **which game, DLC, app or event has it**, **how to get it into HOME**, and **which games to play or buy next**.
 
-It is a static Vite + React site, deployed on Vercel from GitHub.
+| Desktop | Mobile |
+|:---:|:---:|
+| <img src="docs/showcase-desktop.webp" alt="PokePlan on desktop: searching, filtering by games and DLC, opening a Pokémon's details, the plan and settings" width="640"> | <img src="docs/showcase-mobile.webp" alt="PokePlan on a phone: the same tour on a small screen" width="240"> |
 
-## Quick start
+## Features
 
-```bash
-npm install
-npm run dev          # http://localhost:5173
-```
+### Your HOME Pokédex at a glance
 
-Progress (registered Pokémon, owned games) is stored in the browser's `localStorage`. Use **Settings → Export backup** to move it between devices.
+All 1,025 species, with a progress bar for how many you've registered. Tap **+** on a card to mark a Pokémon as registered in HOME, and filter the list to show only what's **missing**.
 
-## Layout
+### Where to find each Pokémon
 
-```
-data/                 curated inputs (edit these)
-  games.json            game catalogue + HOME transfer rules
-  special.json          Pokémon GO not-released list, HOME rewards, special gifts
-  curated-availability.json  version exclusives / extra areas PokeAPI lacks (SV, BDSP)
-scripts/
-  build-data.mjs        PokeAPI + data/ → web/public/data/pokedex.json
-  lib/                  the data build logic (pure, unit tested)
-  test/                 tests for scripts/lib
-  sonar.mjs             runs a local SonarQube analysis
-  lighthouse.mjs        runs Lighthouse on mobile and desktop
-  make-icons.mjs        regenerates the PWA PNG icons
-web/
-  src/                  Vite + React PWA
-  test/                 tests for web/src
-  vercel.json           Vercel build, SPA fallback and cache headers
-e2e/                  Playwright end-to-end tests
-docker-compose.yml    local SonarQube server and scanner
-```
+Open any Pokémon to see every source that has it today:
 
-## Pokédex data
+- **specific games and DLC**, not just generations, from Scarlet/Violet and its DLC to Legends: Z-A, Mega Dimension, Legends: Arceus, BDSP, Sword/Shield and its DLC, Let's Go and FireRed/LeafGreen on Switch;
+- **version exclusives**, e.g. "Scarlet only" or "Shield only";
+- **how** you get it, when known: catch, evolve, gift, raid, or "past event only";
+- **Pokémon GO** and **HOME rewards** (e.g. Magearna for completing the National Pokédex);
+- **retro games** (3DS, DS, GBA), shown on request.
 
-`web/public/data/pokedex.json` is generated and committed. To rebuild it:
+### The best way into HOME
 
-```bash
-npm run data           # uses the cached PokeAPI snapshot in .cache/
-npm run data:refresh   # re-downloads species data from PokeAPI's GraphQL API
-```
+For every source, PokePlan explains how the Pokémon reaches HOME and what to watch out for, and it highlights the best option, preferring games you own:
 
-Where the information comes from:
+- **two-way** games, where you can move the Pokémon back later;
+- **one-way** games and apps (Let's Go, FireRed/LeafGreen, GO), where it can never go back;
+- the **Legends: Z-A lock**: anything caught in or moved into Z-A can never go to older games;
+- **Pokémon Bank**, for 3DS and older games, until it shuts down on 25 February 2027.
 
-| Information | Source |
-|---|---|
-| Species, regional Pokédexes per game (incl. Z-A, Mega Dimension) | PokeAPI |
-| Version exclusives up to Sword/Shield and DLC, Let's Go, retro games | PokeAPI encounter data |
-| Version exclusives for Scarlet/Violet (+DLC) and BDSP; BDSP Grand Underground and Ramanas Park; Snacksworth legendaries | `data/curated-availability.json` (from Serebii and guides) |
-| HOME transfer rules per game | `data/games.json` (home.pokemon.com/en-us/move, Serebii) |
-| Pokémon GO not-released species | `data/special.json` (pogoapi.net has not been updated since Jan 2026, so it is not used) |
-| HOME Pokédex rewards and save-data gifts | `data/special.json` |
+### Filters that combine
 
-Known simplifications:
+Search by name or number, and tick **several games and DLC at once** (each DLC sits under its game), several generations, and registered or missing. For example: "what's still missing that Scarlet/Violet and both DLC can give me?"
 
-- Availability is per **species**. Regional forms, Megas and Gigantamax are not tracked separately.
-- In games with no encounter data (SV, Legends: Arceus, Z-A) a species in the regional dex is shown as "in game" with no method.
-- Pokémon GO availability rotates with events. Pokémon listed as available in GO may not be catchable today.
-- Review `data/special.json` and `data/games.json` when HOME, GO or a game gets an update.
+### A plan for what to play next
 
-## Pokémon HOME rules modelled
+The **Plan** lists your missing Pokémon by source: first the games you own, then, one at a time, the game or DLC that unlocks the most of what's left. A DLC is only suggested once its base game is in the plan. Anything only available from past events is listed separately.
 
-- HOME registers a Pokémon in its National Pokédex **when it is deposited in a HOME box**. Trades received in HOME also count.
+### Built for real collections
+
+- **Mark everything** and untick what's missing, if you only have a few left to catch.
+- **Paste a list** of numbers or names to mark them all at once.
+- **Back up and restore** your progress as a file, to move it to another device.
+- Your progress stays **in your browser**: no account, no server.
+
+### Install it, use it offline
+
+PokePlan is a Progressive Web App. Install it from your browser to your phone or desktop, and it keeps working **offline** once loaded. It adapts to phone screens and follows your system's light or dark theme.
+
+## How Pokémon HOME works (as modelled here)
+
+- HOME registers a Pokémon in its National Pokédex **when it is deposited in a HOME box**. Pokémon received in HOME trades count too.
 - **FireRed/LeafGreen (Switch)** is the only game whose own Pokédex syncs to HOME. Each transfer syncs it, so species registered in FRLG count toward HOME's FRLG dex without moving each one. It is not confirmed that this also fills the National Pokédex.
-- **Two-way:** Sword/Shield, BDSP, Legends: Arceus, Scarlet/Violet, Legends: Z-A.
-  - Pokémon caught in, or ever moved into, **Z-A** can never go to older games.
-- **One-way:** Let's Go, FRLG (Switch), Pokémon GO, Pokémon Bank.
-  - Bank can't be newly downloaded and **shuts down on 25 Feb 2027**.
-- **Pokémon Champions** only borrows Pokémon from HOME, and Pokémon obtained there can't be deposited, so it is not listed as a source.
+- **Two-way:** Sword/Shield, BDSP, Legends: Arceus, Scarlet/Violet, Legends: Z-A (with the Z-A lock above).
+- **One-way:** Let's Go, FireRed/LeafGreen (Switch), Pokémon GO, Pokémon Bank.
+- **Pokémon Champions** only borrows Pokémon from HOME, and Pokémon obtained there can't be deposited, so it isn't listed as a source.
 
-### Why there is no automatic HOME sync
+### Why there's no automatic HOME sync
 
-Pokémon HOME has no public API, export or share feature for a user's Pokédex or boxes. The only unofficial route is reading game saves from modded hardware, which breaks the terms of service. So the app offers manual tracking instead: per-Pokémon toggles, bulk "mark shown", pasting a list of numbers or names, and JSON backup/restore.
+Pokémon HOME has no public API, export or share feature for your Pokédex or boxes. The only unofficial route is reading game saves from modded hardware, which breaks the terms of service. That's why PokePlan uses manual tracking, with the shortcuts above to make it quick.
 
-## Tests
+## About the data
 
-Unit tests live in each package's `test/` folder, not next to the sources, and run with [Vitest](https://vitest.dev):
+Species and per-game Pokédexes come from [PokeAPI](https://pokeapi.co). Version exclusives, special areas, HOME rules, Pokémon GO availability and HOME rewards are curated from Serebii, the official HOME site and guides.
 
-```bash
-npm test               # run once
-npm run test:watch     # re-run on change
-npm run test:coverage  # also writes coverage/lcov.info
-```
+Known limits:
 
-End-to-end tests in `e2e/` run with [Playwright](https://playwright.dev) against the production build (so the service worker is real), on a desktop and a mobile (Pixel 7) profile. They cover the list, filters, details, plan, settings, layout overflow, the web app manifest, the service worker, sprite caching and offline use.
+- Availability is per **species**. Regional forms, Megas and Gigantamax forms aren't tracked separately.
+- For Scarlet/Violet, Legends: Arceus and Z-A, the data says a species is in the game but not always how you get it.
+- Pokémon GO availability rotates with events, so a Pokémon listed for GO may not be catchable today.
 
-```bash
-npx playwright install chromium   # once
-npm run test:e2e                  # HTML report in reports/playwright/html
-```
-
-## Lighthouse
-
-```bash
-npm run lighthouse              # mobile + desktop audits, fails below 90 in any category
-npm run lighthouse -- --min=0.95
-```
-
-Reports are written to `reports/lighthouse/{mobile,desktop}.html`. Lighthouse 12+ has no PWA category; installability and offline behaviour are checked by the Playwright tests instead.
-
-## Code quality (SonarQube)
-
-A local SonarQube Community Build runs in Docker. Docker must be running.
-
-```bash
-npm run sonar             # start SonarQube, run tests with coverage, scan, print issues
-npm run sonar -- --strict # same, but exit 1 if the quality gate fails or any issue is open
-npm run sonar:down        # stop the server (analysis history is kept in Docker volumes)
-```
-
-- **First run:** `scripts/sonar.mjs` replaces the default `admin/admin` password with a random one, creates the `pokeplan` project and an analysis token. All of these are kept in the git-ignored `.cache/sonar.json`.
-- **Results:** the dashboard is at http://localhost:9000/dashboard?id=pokeplan (log in as `admin` with the password from `.cache/sonar.json`). The full report is also written to `.cache/sonar-report.json`.
-- **Configuration:** `sonar-project.properties` defines sources, tests and coverage exclusions.
-
-## Deploying (Vercel)
-
-Import the GitHub repository in Vercel and set the project's **Root Directory** to `web` (Vercel detects the Vite app there). `web/vercel.json` sets the rest:
-
-- build with `npm run build` and publish `web/dist`;
-- unknown paths fall back to `index.html`;
-- `assets/` (fingerprinted by Vite) is cached for a year;
-- the app shell, service worker, manifest and data are revalidated on every request, so a new deploy reaches installed PWAs;
-- basic security headers (`nosniff`, `X-Frame-Options: DENY`, strict referrer policy).
-
-Keep "Include files outside the root directory in the Build Step" enabled (the default): the build reads the version from the root `package.json`.
-
-Every push to the default branch deploys to production, and pull requests get preview deployments.
+Spotted a mistake? Corrections with a source are very welcome.
 
 ## Contributing
 
-Pull requests are welcome, especially data corrections. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Bug reports, data corrections and pull requests are welcome. [CONTRIBUTING.md](CONTRIBUTING.md) covers running the project locally, how the data is built, the tests and quality checks, and deployment.
 
 ## License
 
@@ -147,5 +89,3 @@ If you run a modified version where others can use it over a network, the AGPL r
 ## Credits and disclaimer
 
 PokePlan is an unofficial, non-commercial fan project. It is not affiliated with, endorsed or sponsored by Nintendo, Creatures, GAME FREAK or The Pokémon Company. Pokémon and Pokémon character names are trademarks of Nintendo. Pokémon images are © Nintendo, Creatures and GAME FREAK; they are not part of this repository and not covered by its license. The app loads them at runtime from the [PokeAPI sprites](https://github.com/PokeAPI/sprites) repository.
-
-Species and Pokédex data from [PokeAPI](https://pokeapi.co).
